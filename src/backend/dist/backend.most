@@ -1,0 +1,257 @@
+// Version: 1.0.0
+type Badge__310358189 =
+  {description : Text; earned : Bool; icon : Text; id : Text; name : Text};
+type Comment__473346131 =
+  {
+    author : Principal;
+    content : Text;
+    id : Nat;
+    postId : Nat;
+    timestamp : Int
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type ExternalBlob__671167343 = Blob;
+type InitializationState__17409520 =
+  {isTraditionalProductsInitialized : Bool};
+type Int__270357528 = Int__616954475;
+type Int__616954475 = Int;
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type PointsTransaction__457876861 =
+  {
+    amount : Nat;
+    reason : Text;
+    timestamp : Time__900049286;
+    transactionId : Nat;
+    userId : Principal
+  };
+type PostId__254971760 = Nat;
+type Post__955439577 =
+  {
+    author : Principal;
+    categorie : Text;
+    content : Text;
+    experience : Text;
+    fairDealVotes : [Principal];
+    id : PostId__254971760;
+    imageBlob : ?ExternalBlob__671167343;
+    scamVotes : [Principal];
+    timestamp : Time__900049286;
+    titre : Text;
+    ville : Text
+  };
+type PremiumProduct__134096221 =
+  {
+    description : Text;
+    id : Nat;
+    imageBlob : ?ExternalBlob__671167343;
+    priceTag : Text;
+    title : Text
+  };
+type ProductId__779996770 = Nat;
+type ProductPriceRange__478819254 =
+  {
+    casablanca : RegionPrice__176645429;
+    fes : RegionPrice__176645429;
+    marrakech : RegionPrice__176645429
+  };
+type Product__853085059 =
+  {
+    category : Text;
+    description : Text;
+    id : ProductId__779996770;
+    imageBlob : ?ExternalBlob__671167343;
+    name : Text;
+    price : Nat;
+    seller : Principal
+  };
+type QuizQuestion__253667764 =
+  {
+    correctAnswerIndex : Nat;
+    explanation : Text;
+    options : [Text];
+    questionText : Text;
+    scenarioImageUrl : Text
+  };
+type Reclamation__144315029 =
+  {
+    author : Principal;
+    city : Text;
+    description : Text;
+    helpfulCount : Nat;
+    id : Nat;
+    location : Text;
+    timestamp : Int;
+    whatTheySell : Text
+  };
+type RegionPrice__176645429 = {max : Nat; min : Nat};
+type ScamStory__173508583 =
+  {
+    lessonsLearned : [Text];
+    reportedBy : Principal;
+    scamType : Text;
+    story : Text;
+    timestamp : Time__900049286;
+    title : Text;
+    warningSigns : [Text]
+  };
+type StripeConfiguration__87721349 =
+  {allowedCountries : [Text]; secretKey : Text};
+type Time__796480547 = Int__270357528;
+type Time__900049286 = Time__796480547;
+type Tip__571002024 =
+  {
+    author : Principal;
+    content : Text;
+    helpfulCount : Nat;
+    id : Nat;
+    timestamp : Time__900049286
+  };
+type TraditionalProduct__184862846 =
+  {
+    category : Text;
+    description : Text;
+    name : Text;
+    negotiationTips : Text;
+    priceRanges : ProductPriceRange__478819254;
+    seasonalVariationPercent : Nat
+  };
+type TransportMode__897026062 =
+  {
+    #bus;
+    #guide;
+    #luxuryTransport;
+    #publicTransport;
+    #rentalCar;
+    #sharedTaxi;
+    #train
+  };
+type TransportRouteId__601564791 = Nat;
+type TransportRoute__625288811 =
+  {
+    advice : Text;
+    destination : Text;
+    duration : Nat;
+    id : TransportRouteId__601564791;
+    origin : Text;
+    price : Nat;
+    transportMode : TransportMode__897026062
+  };
+type UserProfile__491224006 =
+  {
+    country : Text;
+    earnedBadges : [Text];
+    email : ?Text;
+    firstPostCreated : Bool;
+    name : Text;
+    points : Nat;
+    quizScore : Nat;
+    scamsReported : Nat;
+    status : UserStatus__600168017;
+    tipsGiven : Nat;
+    username : Text
+  };
+type UserRole__1073662873 = {#admin; #guest; #user};
+type UserStatus__600168017 = {#free; #premium};
+actor {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__605269027<Principal, UserRole__1073662873>
+    };
+  stable badges :
+    {
+      var root : Node__46230540<Text, Badge__310358189>;
+      var size : Nat__490723111
+    };
+  stable comments :
+    {
+      var root : Node__46230540<Nat, Comment__473346131>;
+      var size : Nat__490723111
+    };
+  stable var initializationState : ?InitializationState__17409520;
+  stable var nextCommentId : Nat;
+  stable var nextPostId : Nat;
+  stable var nextPremiumContentId : Nat;
+  stable var nextProductId : Nat;
+  stable var nextReclamationId : Nat;
+  stable var nextTipId : Nat;
+  stable var nextTransactionId : Nat;
+  stable var nextTransportRouteId : Nat;
+  stable posts :
+    {
+      var root : Node__46230540<PostId__254971760, Post__955439577>;
+      var size : Nat__490723111
+    };
+  stable premiumProducts :
+    {
+      var root : Node__46230540<Nat, PremiumProduct__134096221>;
+      var size : Nat__490723111
+    };
+  stable products :
+    {
+      var root : Node__46230540<ProductId__779996770, Product__853085059>;
+      var size : Nat__490723111
+    };
+  stable quizQuestions :
+    {
+      var root : Node__46230540<Nat, QuizQuestion__253667764>;
+      var size : Nat__490723111
+    };
+  stable reclamations :
+    {
+      var root : Node__46230540<Nat, Reclamation__144315029>;
+      var size : Nat__490723111
+    };
+  stable scamStories :
+    {
+      var root : Node__46230540<Nat, ScamStory__173508583>;
+      var size : Nat__490723111
+    };
+  stable var stripeConfiguration : ?StripeConfiguration__87721349;
+  stable tips :
+    {
+      var root : Node__46230540<Nat, Tip__571002024>;
+      var size : Nat__490723111
+    };
+  stable traditionalProducts :
+    {
+      var root : Node__46230540<Nat, TraditionalProduct__184862846>;
+      var size : Nat__490723111
+    };
+  stable transactionHistory :
+    {
+      var root :
+        Node__46230540<Principal,
+                        List__415060402<PointsTransaction__457876861>>;
+      var size : Nat__490723111
+    };
+  stable transportRoutes :
+    {
+      var root :
+        Node__46230540<TransportRouteId__601564791, TransportRoute__625288811>;
+      var size : Nat__490723111
+    };
+  stable users :
+    {
+      var root : Node__46230540<Principal, UserProfile__491224006>;
+      var size : Nat__490723111
+    }
+};

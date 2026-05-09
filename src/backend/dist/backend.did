@@ -1,0 +1,231 @@
+type http_request_result = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type http_header = 
+ record {
+   name: text;
+   value: text;
+ };
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type UserStatus = 
+ variant {
+   free;
+   premium;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = 
+ record {
+   country: text;
+   earnedBadges: vec text;
+   email: opt text;
+   firstPostCreated: bool;
+   name: text;
+   points: nat;
+   quizScore: nat;
+   scamsReported: nat;
+   status: UserStatus;
+   tipsGiven: nat;
+   username: text;
+ };
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec http_header;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: http_request_result;
+ };
+type TraditionalProduct = 
+ record {
+   category: text;
+   description: text;
+   name: text;
+   negotiationTips: text;
+   priceRanges: ProductPriceRange;
+   seasonalVariationPercent: nat;
+ };
+type Tip = 
+ record {
+   author: principal;
+   content: text;
+   helpfulCount: nat;
+   id: nat;
+   timestamp: Time;
+ };
+type Time = int;
+type StripeSessionStatus = 
+ variant {
+   completed: record {
+                response: text;
+                userPrincipal: opt text;
+              };
+   failed: record {error: text;};
+ };
+type StripeConfiguration = 
+ record {
+   allowedCountries: vec text;
+   secretKey: text;
+ };
+type ShoppingItem = 
+ record {
+   currency: text;
+   priceInCents: nat;
+   productDescription: text;
+   productName: text;
+   quantity: nat;
+ };
+type RegionPrice = 
+ record {
+   max: nat;
+   min: nat;
+ };
+type Reclamation = 
+ record {
+   author: principal;
+   city: text;
+   description: text;
+   helpfulCount: nat;
+   id: nat;
+   location: text;
+   timestamp: int;
+   whatTheySell: text;
+ };
+type ProductPriceRange = 
+ record {
+   casablanca: RegionPrice;
+   fes: RegionPrice;
+   marrakech: RegionPrice;
+ };
+type ProductId = nat;
+type Product = 
+ record {
+   category: text;
+   description: text;
+   id: ProductId;
+   imageBlob: opt ExternalBlob;
+   name: text;
+   price: nat;
+   seller: principal;
+ };
+type PremiumProduct = 
+ record {
+   description: text;
+   id: nat;
+   imageBlob: opt ExternalBlob;
+   priceTag: text;
+   title: text;
+ };
+type PostId = nat;
+type Post = 
+ record {
+   author: principal;
+   categorie: text;
+   content: text;
+   experience: text;
+   fairDealVotes: vec principal;
+   id: PostId;
+   imageBlob: opt ExternalBlob;
+   scamVotes: vec principal;
+   timestamp: Time;
+   titre: text;
+   ville: text;
+ };
+type ExternalBlob = blob;
+type Comment = 
+ record {
+   author: principal;
+   content: text;
+   id: nat;
+   postId: nat;
+   timestamp: int;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initializeAccessControl: () -> ();
+  addComment: (postId: nat, content: text) -> (nat);
+  addPremiumProduct: (product: PremiumProduct) -> ();
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  createCheckoutSession: (items: vec ShoppingItem, successUrl: text,
+   cancelUrl: text) -> (text);
+  createPost: (content: text, ville: text, titre: text, experience: text,
+   categorie: text, imageBlob: opt ExternalBlob) -> (PostId);
+  createProduct: (name: text, description: text, price: nat, category: 
+   text, imageBlob: opt ExternalBlob) -> (ProductId);
+  createReclamation: (description: text, whatTheySell: text, city: text,
+   location: text) -> (Reclamation);
+  createTip: (content: text) -> (nat);
+  deletePost: (postId: PostId) -> (variant {
+                                     err: text;
+                                     ok;
+                                   });
+  filterTraditionalProducts: (category: opt text, minPrice: opt nat,
+   maxPrice: opt nat, region: opt text) -> (vec TraditionalProduct) query;
+  getAllPosts: () -> (vec Post) query;
+  getAllPremiumProducts: () -> (vec PremiumProduct) query;
+  getAllProducts: () -> (vec Product) query;
+  getAllReclamations: () -> (vec Reclamation) query;
+  getAllTips: () -> (vec Tip) query;
+  getAllTraditionalProducts: () -> (vec TraditionalProduct) query;
+  getCallerUserProfile: () -> (opt UserProfile) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getComments: (postId: nat) -> (vec Comment) query;
+  getCountry: (user: principal) -> (text) query;
+  getPost: (postId: PostId) -> (opt Post) query;
+  getPremiumProduct: (id: nat) -> (opt PremiumProduct) query;
+  getStripeSessionStatus: (sessionId: text) -> (StripeSessionStatus);
+  getTraditionalProductById: (id: nat) -> (opt TraditionalProduct) query;
+  getTraditionalProductsByCategory: (category: text) ->
+   (vec TraditionalProduct) query;
+  getTraditionalProductsByRegion: (region: text) ->
+   (vec TraditionalProduct) query;
+  getUserProfile: (user: principal) -> (opt UserProfile) query;
+  getUsername: (user: principal) -> (text) query;
+  initializeTraditionalProducts: () -> ();
+  isCallerAdmin: () -> (bool) query;
+  isStripeConfigured: () -> (bool) query;
+  saveCallerUserProfile: (profile: UserProfile) -> ();
+  setStripeConfiguration: (config: StripeConfiguration) -> ();
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+  updateCountry: (newCountry: text) -> ();
+  updateEmail: (email: text) -> ();
+  updatePost: (postId: PostId, newTitre: text, newContent: text) ->
+   (variant {
+      err: text;
+      ok;
+    });
+  updateUsername: (newUsername: text) -> ();
+  voteFairDeal: (postId: nat) -> ();
+  voteReclamationHelpful: (id: nat) -> (opt Reclamation);
+  voteScam: (postId: nat) -> ();
+}
