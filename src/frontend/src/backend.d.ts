@@ -20,13 +20,6 @@ export interface TransformationOutput {
     headers: Array<http_header>;
 }
 export type Time = bigint;
-export interface Comment {
-    id: bigint;
-    content: string;
-    author: Principal;
-    timestamp: bigint;
-    postId: bigint;
-}
 export type PostId = bigint;
 export interface Reclamation {
     id: bigint;
@@ -42,6 +35,21 @@ export interface ProductPriceRange {
     fes: RegionPrice;
     casablanca: RegionPrice;
     marrakech: RegionPrice;
+}
+export interface Merchant {
+    id: bigint;
+    photoBlob?: ExternalBlob;
+    plaqueLevel: PlaqueLevelType;
+    city: string;
+    code: string;
+    name: string;
+    mapsLink: string;
+    submittedBy: Principal;
+    positiveEvaluations: bigint;
+    timestamp: bigint;
+    category: string;
+    reclamationCount: bigint;
+    quartier: string;
 }
 export interface http_header {
     value: string;
@@ -118,7 +126,13 @@ export interface StripeConfiguration {
     allowedCountries: Array<string>;
     secretKey: string;
 }
-export type ProductId = bigint;
+export interface MerchantEvaluation {
+    id: bigint;
+    evaluator: Principal;
+    merchantId: bigint;
+    comment?: string;
+    timestamp: bigint;
+}
 export interface UserProfile {
     status: UserStatus;
     country: string;
@@ -132,14 +146,18 @@ export interface UserProfile {
     scamsReported: bigint;
     points: bigint;
 }
-export interface Product {
-    id: ProductId;
-    imageBlob?: ExternalBlob;
-    name: string;
-    description: string;
-    seller: Principal;
-    category: string;
-    price: bigint;
+export interface Comment {
+    id: bigint;
+    content: string;
+    author: Principal;
+    timestamp: bigint;
+    postId: bigint;
+}
+export enum PlaqueLevelType {
+    revoked = "revoked",
+    pending = "pending",
+    gold = "gold",
+    argent = "argent"
 }
 export enum UserRole {
     admin = "admin",
@@ -153,10 +171,23 @@ export enum UserStatus {
 export interface backendInterface {
     addComment(postId: bigint, content: string): Promise<bigint>;
     addPremiumProduct(product: PremiumProduct): Promise<void>;
+    adminUploadMerchantPhoto(merchantId: bigint, blob: ExternalBlob): Promise<{
+        __kind__: "ok";
+        ok: string;
+    } | {
+        __kind__: "err";
+        err: string;
+    }>;
+    adminValidateReclamation(merchantId: bigint): Promise<{
+        __kind__: "ok";
+        ok: string;
+    } | {
+        __kind__: "err";
+        err: string;
+    }>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     createCheckoutSession(items: Array<ShoppingItem>, successUrl: string, cancelUrl: string): Promise<string>;
     createPost(content: string, ville: string, titre: string, experience: string, categorie: string, imageBlob: ExternalBlob | null): Promise<PostId>;
-    createProduct(name: string, description: string, price: bigint, category: string, imageBlob: ExternalBlob | null): Promise<ProductId>;
     createReclamation(description: string, whatTheySell: string, city: string, location: string): Promise<Reclamation>;
     createTip(content: string): Promise<bigint>;
     deletePost(postId: PostId): Promise<{
@@ -166,10 +197,16 @@ export interface backendInterface {
         __kind__: "err";
         err: string;
     }>;
+    evaluateMerchant(merchantId: bigint, comment: string | null): Promise<{
+        __kind__: "ok";
+        ok: string;
+    } | {
+        __kind__: "err";
+        err: string;
+    }>;
     filterTraditionalProducts(category: string | null, minPrice: bigint | null, maxPrice: bigint | null, region: string | null): Promise<Array<TraditionalProduct>>;
     getAllPosts(): Promise<Array<Post>>;
     getAllPremiumProducts(): Promise<Array<PremiumProduct>>;
-    getAllProducts(): Promise<Array<Product>>;
     getAllReclamations(): Promise<Array<Reclamation>>;
     getAllTips(): Promise<Array<Tip>>;
     getAllTraditionalProducts(): Promise<Array<TraditionalProduct>>;
@@ -177,6 +214,9 @@ export interface backendInterface {
     getCallerUserRole(): Promise<UserRole>;
     getComments(postId: bigint): Promise<Array<Comment>>;
     getCountry(user: Principal): Promise<string>;
+    getMerchant(id: bigint): Promise<Merchant | null>;
+    getMerchantEvaluations(merchantId: bigint): Promise<Array<MerchantEvaluation>>;
+    getMerchants(): Promise<Array<Merchant>>;
     getPost(postId: PostId): Promise<Post | null>;
     getPremiumProduct(id: bigint): Promise<PremiumProduct | null>;
     getStripeSessionStatus(sessionId: string): Promise<StripeSessionStatus>;
@@ -189,7 +229,15 @@ export interface backendInterface {
     isCallerAdmin(): Promise<boolean>;
     isStripeConfigured(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    searchMerchantByCode(code: string): Promise<Merchant | null>;
     setStripeConfiguration(config: StripeConfiguration): Promise<void>;
+    submitMerchant(name: string, category: string, city: string, quartier: string, mapsLink: string): Promise<{
+        __kind__: "ok";
+        ok: Merchant;
+    } | {
+        __kind__: "err";
+        err: string;
+    }>;
     transform(input: TransformationInput): Promise<TransformationOutput>;
     updateCountry(newCountry: string): Promise<void>;
     updateEmail(email: string): Promise<void>;

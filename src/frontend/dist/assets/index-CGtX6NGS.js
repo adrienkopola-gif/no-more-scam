@@ -27565,7 +27565,7 @@ function batch(fn) {
 function isUpdaterFunction(updater) {
   return typeof updater === "function";
 }
-class Store {
+let Store$1 = class Store {
   constructor(initialState, options) {
     this.listeners = /* @__PURE__ */ new Set();
     this.subscribe = (listener) => {
@@ -27596,7 +27596,7 @@ class Store {
     (_c2 = (_b3 = this.options) == null ? void 0 : _b3.onUpdate) == null ? void 0 : _c2.call(_b3);
     __flush(this);
   }
-}
+};
 class Derived {
   constructor(options) {
     this.listeners = /* @__PURE__ */ new Set();
@@ -27675,7 +27675,7 @@ class Derived {
       if (dep instanceof Derived) {
         dep.registerOnGraph();
         this.registerOnGraph(dep.options.deps);
-      } else if (dep instanceof Store) {
+      } else if (dep instanceof Store$1) {
         let relatedLinkedDerivedVals = __storeToDerived.get(dep);
         if (!relatedLinkedDerivedVals) {
           relatedLinkedDerivedVals = /* @__PURE__ */ new Set();
@@ -27695,7 +27695,7 @@ class Derived {
     for (const dep of deps) {
       if (dep instanceof Derived) {
         this.unregisterFromGraph(dep.options.deps);
-      } else if (dep instanceof Store) {
+      } else if (dep instanceof Store$1) {
         const relatedLinkedDerivedVals = __storeToDerived.get(dep);
         if (relatedLinkedDerivedVals) {
           relatedLinkedDerivedVals.delete(this);
@@ -28106,11 +28106,11 @@ function createRandomKey() {
 function last(arr) {
   return arr[arr.length - 1];
 }
-function isFunction$1(d2) {
+function isFunction$2(d2) {
   return typeof d2 === "function";
 }
 function functionalUpdate(updater, previous) {
-  if (isFunction$1(updater)) {
+  if (isFunction$2(updater)) {
     return updater(previous);
   }
   return updater;
@@ -30009,7 +30009,7 @@ class RouterCore {
         this.buildRouteTree();
       }
       if (!this.__store) {
-        this.__store = new Store(getInitialRouterState(this.latestLocation), {
+        this.__store = new Store$1(getInitialRouterState(this.latestLocation), {
           onUpdate: () => {
             this.__store.state = {
               ...this.state,
@@ -32769,18 +32769,18 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$Z = [
+const __iconNode$11 = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$Z);
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$11);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$Y = [
+const __iconNode$10 = [
   [
     "path",
     {
@@ -32790,14 +32790,14 @@ const __iconNode$Y = [
   ],
   ["circle", { cx: "12", cy: "8", r: "6", key: "1vp47v" }]
 ];
-const Award = createLucideIcon("award", __iconNode$Y);
+const Award = createLucideIcon("award", __iconNode$10);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$X = [
+const __iconNode$$ = [
   ["path", { d: "M12 7v14", key: "1akyts" }],
   [
     "path",
@@ -32807,14 +32807,14 @@ const __iconNode$X = [
     }
   ]
 ];
-const BookOpen = createLucideIcon("book-open", __iconNode$X);
+const BookOpen = createLucideIcon("book-open", __iconNode$$);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$W = [
+const __iconNode$_ = [
   ["rect", { width: "16", height: "20", x: "4", y: "2", rx: "2", ry: "2", key: "76otgf" }],
   ["path", { d: "M9 22v-4h6v4", key: "r93iot" }],
   ["path", { d: "M8 6h.01", key: "1dz90k" }],
@@ -32827,14 +32827,14 @@ const __iconNode$W = [
   ["path", { d: "M8 10h.01", key: "19clt8" }],
   ["path", { d: "M8 14h.01", key: "6423bh" }]
 ];
-const Building = createLucideIcon("building", __iconNode$W);
+const Building = createLucideIcon("building", __iconNode$_);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$V = [
+const __iconNode$Z = [
   ["path", { d: "M8 6v6", key: "18i7km" }],
   ["path", { d: "M15 6v6", key: "1sg6z9" }],
   ["path", { d: "M2 12h19.6", key: "de5uta" }],
@@ -32849,14 +32849,31 @@ const __iconNode$V = [
   ["path", { d: "M9 18h5", key: "lrx6i" }],
   ["circle", { cx: "16", cy: "18", r: "2", key: "1v4tcr" }]
 ];
-const Bus = createLucideIcon("bus", __iconNode$V);
+const Bus = createLucideIcon("bus", __iconNode$Z);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$U = [
+const __iconNode$Y = [
+  [
+    "path",
+    {
+      d: "M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z",
+      key: "1tc9qg"
+    }
+  ],
+  ["circle", { cx: "12", cy: "13", r: "3", key: "1vg3eu" }]
+];
+const Camera = createLucideIcon("camera", __iconNode$Y);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$X = [
   [
     "path",
     {
@@ -32868,39 +32885,73 @@ const __iconNode$U = [
   ["path", { d: "M9 17h6", key: "r8uit2" }],
   ["circle", { cx: "17", cy: "17", r: "2", key: "axvx0g" }]
 ];
-const Car = createLucideIcon("car", __iconNode$U);
+const Car = createLucideIcon("car", __iconNode$X);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$T = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$T);
+const __iconNode$W = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$W);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$S = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$S);
+const __iconNode$V = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$V);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$R = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
-const ChevronRight = createLucideIcon("chevron-right", __iconNode$R);
+const __iconNode$U = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
+const ChevronRight = createLucideIcon("chevron-right", __iconNode$U);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$Q = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
-const ChevronUp = createLucideIcon("chevron-up", __iconNode$Q);
+const __iconNode$T = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
+const ChevronUp = createLucideIcon("chevron-up", __iconNode$T);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$S = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
+  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+];
+const CircleAlert = createLucideIcon("circle-alert", __iconNode$S);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$R = [
+  ["path", { d: "M21.801 10A10 10 0 1 1 17 3.335", key: "yps3ct" }],
+  ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
+];
+const CircleCheckBig = createLucideIcon("circle-check-big", __iconNode$R);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$Q = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+const CircleCheck = createLucideIcon("circle-check", __iconNode$Q);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -32909,10 +32960,10 @@ const ChevronUp = createLucideIcon("chevron-up", __iconNode$Q);
  */
 const __iconNode$P = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
-  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+  ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }],
+  ["path", { d: "M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662", key: "154egf" }]
 ];
-const CircleAlert = createLucideIcon("circle-alert", __iconNode$P);
+const CircleUser = createLucideIcon("circle-user", __iconNode$P);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -32920,10 +32971,11 @@ const CircleAlert = createLucideIcon("circle-alert", __iconNode$P);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$O = [
-  ["path", { d: "M21.801 10A10 10 0 1 1 17 3.335", key: "yps3ct" }],
-  ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m15 9-6 6", key: "1uzhvr" }],
+  ["path", { d: "m9 9 6 6", key: "z0biqf" }]
 ];
-const CircleCheckBig = createLucideIcon("circle-check-big", __iconNode$O);
+const CircleX = createLucideIcon("circle-x", __iconNode$O);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -32932,10 +32984,9 @@ const CircleCheckBig = createLucideIcon("circle-check-big", __iconNode$O);
  */
 const __iconNode$N = [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["path", { d: "M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3", key: "1u773s" }],
-  ["path", { d: "M12 17h.01", key: "p32p05" }]
+  ["polyline", { points: "12 6 12 12 16 14", key: "68esgv" }]
 ];
-const CircleHelp = createLucideIcon("circle-help", __iconNode$N);
+const Clock = createLucideIcon("clock", __iconNode$N);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -32943,11 +32994,10 @@ const CircleHelp = createLucideIcon("circle-help", __iconNode$N);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$M = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["circle", { cx: "12", cy: "10", r: "3", key: "ilqhr7" }],
-  ["path", { d: "M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662", key: "154egf" }]
+  ["rect", { width: "20", height: "14", x: "2", y: "5", rx: "2", key: "ynyp8z" }],
+  ["line", { x1: "2", x2: "22", y1: "10", y2: "10", key: "1b3vmo" }]
 ];
-const CircleUser = createLucideIcon("circle-user", __iconNode$M);
+const CreditCard = createLucideIcon("credit-card", __iconNode$M);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -32955,11 +33005,16 @@ const CircleUser = createLucideIcon("circle-user", __iconNode$M);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$L = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["path", { d: "m15 9-6 6", key: "1uzhvr" }],
-  ["path", { d: "m9 9 6 6", key: "z0biqf" }]
+  [
+    "path",
+    {
+      d: "M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z",
+      key: "1vdc57"
+    }
+  ],
+  ["path", { d: "M5 21h14", key: "11awu3" }]
 ];
-const CircleX = createLucideIcon("circle-x", __iconNode$L);
+const Crown = createLucideIcon("crown", __iconNode$L);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -32967,10 +33022,11 @@ const CircleX = createLucideIcon("circle-x", __iconNode$L);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$K = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["polyline", { points: "12 6 12 12 16 14", key: "68esgv" }]
+  ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
+  ["path", { d: "M10 14 21 3", key: "gplh6r" }],
+  ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
 ];
-const Clock = createLucideIcon("clock", __iconNode$K);
+const ExternalLink = createLucideIcon("external-link", __iconNode$K);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -32978,10 +33034,10 @@ const Clock = createLucideIcon("clock", __iconNode$K);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$J = [
-  ["rect", { width: "20", height: "14", x: "2", y: "5", rx: "2", key: "ynyp8z" }],
-  ["line", { x1: "2", x2: "22", y1: "10", y2: "10", key: "1b3vmo" }]
+  ["path", { d: "M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z", key: "i9b6wo" }],
+  ["line", { x1: "4", x2: "4", y1: "22", y2: "15", key: "1cm3nv" }]
 ];
-const CreditCard = createLucideIcon("credit-card", __iconNode$J);
+const Flag = createLucideIcon("flag", __iconNode$J);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -32992,13 +33048,12 @@ const __iconNode$I = [
   [
     "path",
     {
-      d: "M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z",
-      key: "1vdc57"
+      d: "M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z",
+      key: "sc7q7i"
     }
-  ],
-  ["path", { d: "M5 21h14", key: "11awu3" }]
+  ]
 ];
-const Crown = createLucideIcon("crown", __iconNode$I);
+const Funnel = createLucideIcon("funnel", __iconNode$I);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33006,10 +33061,11 @@ const Crown = createLucideIcon("crown", __iconNode$I);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$H = [
-  ["path", { d: "M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z", key: "i9b6wo" }],
-  ["line", { x1: "4", x2: "4", y1: "22", y2: "15", key: "1cm3nv" }]
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
+  ["path", { d: "M2 12h20", key: "9i4pu4" }]
 ];
-const Flag = createLucideIcon("flag", __iconNode$H);
+const Globe = createLucideIcon("globe", __iconNode$H);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33017,34 +33073,6 @@ const Flag = createLucideIcon("flag", __iconNode$H);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$G = [
-  [
-    "path",
-    {
-      d: "M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z",
-      key: "sc7q7i"
-    }
-  ]
-];
-const Funnel = createLucideIcon("funnel", __iconNode$G);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$F = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20", key: "13o1zl" }],
-  ["path", { d: "M2 12h20", key: "9i4pu4" }]
-];
-const Globe = createLucideIcon("globe", __iconNode$F);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$E = [
   ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
   [
     "path",
@@ -33054,7 +33082,42 @@ const __iconNode$E = [
     }
   ]
 ];
-const House = createLucideIcon("house", __iconNode$E);
+const House = createLucideIcon("house", __iconNode$G);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$F = [
+  ["line", { x1: "2", x2: "22", y1: "2", y2: "22", key: "a6p6uj" }],
+  ["path", { d: "M10.41 10.41a2 2 0 1 1-2.83-2.83", key: "1bzlo9" }],
+  ["line", { x1: "13.5", x2: "6", y1: "13.5", y2: "21", key: "1q0aeu" }],
+  ["line", { x1: "18", x2: "21", y1: "12", y2: "15", key: "5mozeu" }],
+  [
+    "path",
+    {
+      d: "M3.59 3.59A1.99 1.99 0 0 0 3 5v14a2 2 0 0 0 2 2h14c.55 0 1.052-.22 1.41-.59",
+      key: "mmje98"
+    }
+  ],
+  ["path", { d: "M21 15V5a2 2 0 0 0-2-2H9", key: "43el77" }]
+];
+const ImageOff = createLucideIcon("image-off", __iconNode$F);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$E = [
+  ["path", { d: "M16 5h6", key: "1vod17" }],
+  ["path", { d: "M19 2v6", key: "4bpg5p" }],
+  ["path", { d: "M21 11.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7.5", key: "1ue2ih" }],
+  ["path", { d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21", key: "1xmnt7" }],
+  ["circle", { cx: "9", cy: "9", r: "2", key: "af1f0g" }]
+];
+const ImagePlus = createLucideIcon("image-plus", __iconNode$E);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33323,10 +33386,13 @@ const RefreshCw = createLucideIcon("refresh-cw", __iconNode$m);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$l = [
-  ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
-  ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
+  ["path", { d: "m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z", key: "7g6ntu" }],
+  ["path", { d: "m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z", key: "ijws7r" }],
+  ["path", { d: "M7 21h10", key: "1b0cd5" }],
+  ["path", { d: "M12 3v18", key: "108xh3" }],
+  ["path", { d: "M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2", key: "3gwbw2" }]
 ];
-const RotateCcw = createLucideIcon("rotate-ccw", __iconNode$l);
+const Scale = createLucideIcon("scale", __iconNode$l);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33334,13 +33400,10 @@ const RotateCcw = createLucideIcon("rotate-ccw", __iconNode$l);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$k = [
-  ["path", { d: "m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z", key: "7g6ntu" }],
-  ["path", { d: "m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z", key: "ijws7r" }],
-  ["path", { d: "M7 21h10", key: "1b0cd5" }],
-  ["path", { d: "M12 3v18", key: "108xh3" }],
-  ["path", { d: "M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2", key: "3gwbw2" }]
+  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
+  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
 ];
-const Scale = createLucideIcon("scale", __iconNode$k);
+const Search = createLucideIcon("search", __iconNode$k);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33348,10 +33411,16 @@ const Scale = createLucideIcon("scale", __iconNode$k);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$j = [
-  ["path", { d: "m21 21-4.34-4.34", key: "14j7rj" }],
-  ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
+  [
+    "path",
+    {
+      d: "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z",
+      key: "1ffxy3"
+    }
+  ],
+  ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
 ];
-const Search = createLucideIcon("search", __iconNode$j);
+const Send = createLucideIcon("send", __iconNode$j);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33362,13 +33431,14 @@ const __iconNode$i = [
   [
     "path",
     {
-      d: "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z",
-      key: "1ffxy3"
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
     }
   ],
-  ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
+  ["path", { d: "M12 8v4", key: "1got3b" }],
+  ["path", { d: "M12 16h.01", key: "1drbdi" }]
 ];
-const Send = createLucideIcon("send", __iconNode$i);
+const ShieldAlert = createLucideIcon("shield-alert", __iconNode$i);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33383,10 +33453,9 @@ const __iconNode$h = [
       key: "oel41y"
     }
   ],
-  ["path", { d: "M12 8v4", key: "1got3b" }],
-  ["path", { d: "M12 16h.01", key: "1drbdi" }]
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
 ];
-const ShieldAlert = createLucideIcon("shield-alert", __iconNode$h);
+const ShieldCheck = createLucideIcon("shield-check", __iconNode$h);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33394,16 +33463,23 @@ const ShieldAlert = createLucideIcon("shield-alert", __iconNode$h);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$g = [
+  ["path", { d: "m2 2 20 20", key: "1ooewy" }],
   [
     "path",
     {
-      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
-      key: "oel41y"
+      d: "M5 5a1 1 0 0 0-1 1v7c0 5 3.5 7.5 7.67 8.94a1 1 0 0 0 .67.01c2.35-.82 4.48-1.97 5.9-3.71",
+      key: "1jlk70"
     }
   ],
-  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+  [
+    "path",
+    {
+      d: "M9.309 3.652A12.252 12.252 0 0 0 11.24 2.28a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1v7a9.784 9.784 0 0 1-.08 1.264",
+      key: "18rp1v"
+    }
+  ]
 ];
-const ShieldCheck = createLucideIcon("shield-check", __iconNode$g);
+const ShieldOff = createLucideIcon("shield-off", __iconNode$g);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33417,9 +33493,11 @@ const __iconNode$f = [
       d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
       key: "oel41y"
     }
-  ]
+  ],
+  ["path", { d: "m14.5 9.5-5 5", key: "17q4r4" }],
+  ["path", { d: "m9.5 9.5 5 5", key: "18nt4w" }]
 ];
-const Shield = createLucideIcon("shield", __iconNode$f);
+const ShieldX = createLucideIcon("shield-x", __iconNode$f);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33427,11 +33505,15 @@ const Shield = createLucideIcon("shield", __iconNode$f);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$e = [
-  ["path", { d: "M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z", key: "hou9p0" }],
-  ["path", { d: "M3 6h18", key: "d0wm0j" }],
-  ["path", { d: "M16 10a4 4 0 0 1-8 0", key: "1ltviw" }]
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ]
 ];
-const ShoppingBag = createLucideIcon("shopping-bag", __iconNode$e);
+const Shield = createLucideIcon("shield", __iconNode$e);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33455,6 +33537,26 @@ const Star = createLucideIcon("star", __iconNode$d);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$c = [
+  ["path", { d: "m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7", key: "ztvudi" }],
+  ["path", { d: "M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8", key: "1b2hhj" }],
+  ["path", { d: "M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4", key: "2ebpfo" }],
+  ["path", { d: "M2 7h20", key: "1fcdvo" }],
+  [
+    "path",
+    {
+      d: "M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7",
+      key: "6c3vgh"
+    }
+  ]
+];
+const Store2 = createLucideIcon("store", __iconNode$c);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$b = [
   [
     "path",
     {
@@ -33464,14 +33566,14 @@ const __iconNode$c = [
   ],
   ["circle", { cx: "7.5", cy: "7.5", r: ".5", fill: "currentColor", key: "kqv944" }]
 ];
-const Tag = createLucideIcon("tag", __iconNode$c);
+const Tag = createLucideIcon("tag", __iconNode$b);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$b = [
+const __iconNode$a = [
   ["path", { d: "M17 14V2", key: "8ymqnk" }],
   [
     "path",
@@ -33481,14 +33583,14 @@ const __iconNode$b = [
     }
   ]
 ];
-const ThumbsDown = createLucideIcon("thumbs-down", __iconNode$b);
+const ThumbsDown = createLucideIcon("thumbs-down", __iconNode$a);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$a = [
+const __iconNode$9 = [
   ["path", { d: "M7 10v12", key: "1qc93n" }],
   [
     "path",
@@ -33498,14 +33600,14 @@ const __iconNode$a = [
     }
   ]
 ];
-const ThumbsUp = createLucideIcon("thumbs-up", __iconNode$a);
+const ThumbsUp = createLucideIcon("thumbs-up", __iconNode$9);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$9 = [
+const __iconNode$8 = [
   ["rect", { width: "16", height: "16", x: "4", y: "3", rx: "2", key: "1wxw4b" }],
   ["path", { d: "M4 11h16", key: "mpoxn0" }],
   ["path", { d: "M12 3v8", key: "1h2ygw" }],
@@ -33514,21 +33616,7 @@ const __iconNode$9 = [
   ["path", { d: "M8 15h.01", key: "a7atzg" }],
   ["path", { d: "M16 15h.01", key: "rnfrdf" }]
 ];
-const TramFront = createLucideIcon("tram-front", __iconNode$9);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$8 = [
-  ["path", { d: "M3 6h18", key: "d0wm0j" }],
-  ["path", { d: "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6", key: "4alrt4" }],
-  ["path", { d: "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2", key: "v07s0e" }],
-  ["line", { x1: "10", x2: "10", y1: "11", y2: "17", key: "1uufr5" }],
-  ["line", { x1: "14", x2: "14", y1: "11", y2: "17", key: "xtxkd" }]
-];
-const Trash2 = createLucideIcon("trash-2", __iconNode$8);
+const TramFront = createLucideIcon("tram-front", __iconNode$8);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33536,10 +33624,13 @@ const Trash2 = createLucideIcon("trash-2", __iconNode$8);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$7 = [
-  ["path", { d: "M16 7h6v6", key: "box55l" }],
-  ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
+  ["path", { d: "M3 6h18", key: "d0wm0j" }],
+  ["path", { d: "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6", key: "4alrt4" }],
+  ["path", { d: "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2", key: "v07s0e" }],
+  ["line", { x1: "10", x2: "10", y1: "11", y2: "17", key: "1uufr5" }],
+  ["line", { x1: "14", x2: "14", y1: "11", y2: "17", key: "xtxkd" }]
 ];
-const TrendingUp = createLucideIcon("trending-up", __iconNode$7);
+const Trash2 = createLucideIcon("trash-2", __iconNode$7);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -33547,6 +33638,17 @@ const TrendingUp = createLucideIcon("trending-up", __iconNode$7);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$6 = [
+  ["path", { d: "M16 7h6v6", key: "box55l" }],
+  ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
+];
+const TrendingUp = createLucideIcon("trending-up", __iconNode$6);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$5 = [
   [
     "path",
     {
@@ -33557,22 +33659,7 @@ const __iconNode$6 = [
   ["path", { d: "M12 9v4", key: "juzpu7" }],
   ["path", { d: "M12 17h.01", key: "p32p05" }]
 ];
-const TriangleAlert = createLucideIcon("triangle-alert", __iconNode$6);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$5 = [
-  ["path", { d: "M6 9H4.5a2.5 2.5 0 0 1 0-5H6", key: "17hqa7" }],
-  ["path", { d: "M18 9h1.5a2.5 2.5 0 0 0 0-5H18", key: "lmptdp" }],
-  ["path", { d: "M4 22h16", key: "57wxv0" }],
-  ["path", { d: "M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22", key: "1nw9bq" }],
-  ["path", { d: "M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22", key: "1np0yb" }],
-  ["path", { d: "M18 2H6v7a6 6 0 0 0 12 0V2Z", key: "u46fv3" }]
-];
-const Trophy = createLucideIcon("trophy", __iconNode$5);
+const TriangleAlert = createLucideIcon("triangle-alert", __iconNode$5);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -37001,7 +37088,7 @@ function useControllableState({
     (nextValue) => {
       var _a3;
       if (isControlled) {
-        const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
+        const value2 = isFunction$1(nextValue) ? nextValue(prop) : nextValue;
         if (value2 !== prop) {
           (_a3 = onChangeRef.current) == null ? void 0 : _a3.call(onChangeRef, value2);
         }
@@ -37032,7 +37119,7 @@ function useUncontrolledState({
   }, [value, prevValueRef]);
   return [value, setValue, onChangeRef];
 }
-function isFunction(value) {
+function isFunction$1(value) {
   return typeof value === "function";
 }
 var DirectionContext = reactExports.createContext(void 0);
@@ -37449,11 +37536,11 @@ var TabsList$1 = reactExports.forwardRef(
   }
 );
 TabsList$1.displayName = TAB_LIST_NAME;
-var TRIGGER_NAME$2 = "TabsTrigger";
+var TRIGGER_NAME$3 = "TabsTrigger";
 var TabsTrigger$1 = reactExports.forwardRef(
   (props, forwardedRef) => {
     const { __scopeTabs, value, disabled = false, ...triggerProps } = props;
-    const context = useTabsContext(TRIGGER_NAME$2, __scopeTabs);
+    const context = useTabsContext(TRIGGER_NAME$3, __scopeTabs);
     const rovingFocusGroupScope = useRovingFocusGroupScope(__scopeTabs);
     const triggerId = makeTriggerId(context.baseId, value);
     const contentId = makeContentId(context.baseId, value);
@@ -37500,7 +37587,7 @@ var TabsTrigger$1 = reactExports.forwardRef(
     );
   }
 );
-TabsTrigger$1.displayName = TRIGGER_NAME$2;
+TabsTrigger$1.displayName = TRIGGER_NAME$3;
 var CONTENT_NAME$3 = "TabsContent";
 var TabsContent$1 = reactExports.forwardRef(
   (props, forwardedRef) => {
@@ -39417,11 +39504,11 @@ var Dialog$1 = (props) => {
   );
 };
 Dialog$1.displayName = DIALOG_NAME;
-var TRIGGER_NAME$1 = "DialogTrigger";
+var TRIGGER_NAME$2 = "DialogTrigger";
 var DialogTrigger$1 = reactExports.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDialog, ...triggerProps } = props;
-    const context = useDialogContext(TRIGGER_NAME$1, __scopeDialog);
+    const context = useDialogContext(TRIGGER_NAME$2, __scopeDialog);
     const composedTriggerRef = useComposedRefs(forwardedRef, context.triggerRef);
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
       Primitive$1.button,
@@ -39430,7 +39517,7 @@ var DialogTrigger$1 = reactExports.forwardRef(
         "aria-haspopup": "dialog",
         "aria-expanded": context.open,
         "aria-controls": context.contentId,
-        "data-state": getState(context.open),
+        "data-state": getState$1(context.open),
         ...triggerProps,
         ref: composedTriggerRef,
         onClick: composeEventHandlers(props.onClick, context.onOpenToggle)
@@ -39438,7 +39525,7 @@ var DialogTrigger$1 = reactExports.forwardRef(
     );
   }
 );
-DialogTrigger$1.displayName = TRIGGER_NAME$1;
+DialogTrigger$1.displayName = TRIGGER_NAME$2;
 var PORTAL_NAME$1 = "DialogPortal";
 var [PortalProvider, usePortalContext] = createDialogContext(PORTAL_NAME$1, {
   forceMount: void 0
@@ -39470,7 +39557,7 @@ var DialogOverlayImpl = reactExports.forwardRef(
       /* @__PURE__ */ jsxRuntimeExports.jsx(ReactRemoveScroll, { as: Slot$1, allowPinchZoom: true, shards: [context.contentRef], children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         Primitive$1.div,
         {
-          "data-state": getState(context.open),
+          "data-state": getState$1(context.open),
           ...overlayProps,
           ref: forwardedRef,
           style: { pointerEvents: "auto", ...overlayProps.style }
@@ -39589,7 +39676,7 @@ var DialogContentImpl = reactExports.forwardRef(
               id: context.contentId,
               "aria-describedby": context.descriptionId,
               "aria-labelledby": context.titleId,
-              "data-state": getState(context.open),
+              "data-state": getState$1(context.open),
               ...contentProps,
               ref: composedRefs,
               onDismiss: () => context.onOpenChange(false)
@@ -39639,7 +39726,7 @@ var DialogClose = reactExports.forwardRef(
   }
 );
 DialogClose.displayName = CLOSE_NAME;
-function getState(open) {
+function getState$1(open) {
   return open ? "open" : "closed";
 }
 var TITLE_WARNING_NAME = "DialogTitleWarning";
@@ -42255,12 +42342,12 @@ var Select$1 = (props) => {
   ) });
 };
 Select$1.displayName = SELECT_NAME;
-var TRIGGER_NAME = "SelectTrigger";
+var TRIGGER_NAME$1 = "SelectTrigger";
 var SelectTrigger$1 = reactExports.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, disabled = false, ...triggerProps } = props;
     const popperScope = usePopperScope(__scopeSelect);
-    const context = useSelectContext(TRIGGER_NAME, __scopeSelect);
+    const context = useSelectContext(TRIGGER_NAME$1, __scopeSelect);
     const isDisabled = context.disabled || disabled;
     const composedRefs = useComposedRefs(forwardedRef, context.onTriggerChange);
     const getItems = useCollection(__scopeSelect);
@@ -42332,7 +42419,7 @@ var SelectTrigger$1 = reactExports.forwardRef(
     ) });
   }
 );
-SelectTrigger$1.displayName = TRIGGER_NAME;
+SelectTrigger$1.displayName = TRIGGER_NAME$1;
 var VALUE_NAME = "SelectValue";
 var SelectValue$1 = reactExports.forwardRef(
   (props, forwardedRef) => {
@@ -43196,7 +43283,7 @@ var SelectArrow = reactExports.forwardRef(
   }
 );
 SelectArrow.displayName = ARROW_NAME;
-var BUBBLE_INPUT_NAME = "SelectBubbleInput";
+var BUBBLE_INPUT_NAME$1 = "SelectBubbleInput";
 var SelectBubbleInput = reactExports.forwardRef(
   ({ __scopeSelect, value, ...props }, forwardedRef) => {
     const ref = reactExports.useRef(null);
@@ -43228,7 +43315,7 @@ var SelectBubbleInput = reactExports.forwardRef(
     );
   }
 );
-SelectBubbleInput.displayName = BUBBLE_INPUT_NAME;
+SelectBubbleInput.displayName = BUBBLE_INPUT_NAME$1;
 function shouldShowPlaceholder(value) {
   return value === "" || value === void 0;
 }
@@ -43451,7 +43538,6 @@ const ShoppingItem = Record({
   "productDescription": Text
 });
 const PostId = Nat;
-const ProductId = Nat;
 const Reclamation = Record({
   "id": Nat,
   "city": Text,
@@ -43490,15 +43576,6 @@ const Post = Record({
   "fairDealVotes": Vec(Principal2),
   "timestamp": Time
 });
-const Product = Record({
-  "id": ProductId,
-  "imageBlob": Opt(ExternalBlob$1),
-  "name": Text,
-  "description": Text,
-  "seller": Principal2,
-  "category": Text,
-  "price": Nat
-});
 const Tip = Record({
   "id": Nat,
   "content": Text,
@@ -43529,6 +43606,34 @@ const Comment = Record({
   "author": Principal2,
   "timestamp": Int,
   "postId": Nat
+});
+const PlaqueLevelType$1 = Variant({
+  "revoked": Null,
+  "pending": Null,
+  "gold": Null,
+  "argent": Null
+});
+const Merchant = Record({
+  "id": Nat,
+  "photoBlob": Opt(ExternalBlob$1),
+  "plaqueLevel": PlaqueLevelType$1,
+  "city": Text,
+  "code": Text,
+  "name": Text,
+  "mapsLink": Text,
+  "submittedBy": Principal2,
+  "positiveEvaluations": Nat,
+  "timestamp": Int,
+  "category": Text,
+  "reclamationCount": Nat,
+  "quartier": Text
+});
+const MerchantEvaluation = Record({
+  "id": Nat,
+  "evaluator": Principal2,
+  "merchantId": Nat,
+  "comment": Opt(Text),
+  "timestamp": Int
 });
 const StripeSessionStatus = Variant({
   "completed": Record({
@@ -43589,6 +43694,16 @@ Service({
   "_initializeAccessControl": Func([], [], []),
   "addComment": Func([Nat, Text], [Nat], []),
   "addPremiumProduct": Func([PremiumProduct], [], []),
+  "adminUploadMerchantPhoto": Func(
+    [Nat, ExternalBlob$1],
+    [Variant({ "ok": Text, "err": Text })],
+    []
+  ),
+  "adminValidateReclamation": Func(
+    [Nat],
+    [Variant({ "ok": Text, "err": Text })],
+    []
+  ),
   "assignCallerUserRole": Func([Principal2, UserRole], [], []),
   "createCheckoutSession": Func(
     [Vec(ShoppingItem), Text, Text],
@@ -43600,11 +43715,6 @@ Service({
     [PostId],
     []
   ),
-  "createProduct": Func(
-    [Text, Text, Nat, Text, Opt(ExternalBlob$1)],
-    [ProductId],
-    []
-  ),
   "createReclamation": Func(
     [Text, Text, Text, Text],
     [Reclamation],
@@ -43614,6 +43724,11 @@ Service({
   "deletePost": Func(
     [PostId],
     [Variant({ "ok": Null, "err": Text })],
+    []
+  ),
+  "evaluateMerchant": Func(
+    [Nat, Opt(Text)],
+    [Variant({ "ok": Text, "err": Text })],
     []
   ),
   "filterTraditionalProducts": Func(
@@ -43628,7 +43743,6 @@ Service({
   ),
   "getAllPosts": Func([], [Vec(Post)], ["query"]),
   "getAllPremiumProducts": Func([], [Vec(PremiumProduct)], ["query"]),
-  "getAllProducts": Func([], [Vec(Product)], ["query"]),
   "getAllReclamations": Func([], [Vec(Reclamation)], ["query"]),
   "getAllTips": Func([], [Vec(Tip)], ["query"]),
   "getAllTraditionalProducts": Func(
@@ -43640,6 +43754,13 @@ Service({
   "getCallerUserRole": Func([], [UserRole], ["query"]),
   "getComments": Func([Nat], [Vec(Comment)], ["query"]),
   "getCountry": Func([Principal2], [Text], ["query"]),
+  "getMerchant": Func([Nat], [Opt(Merchant)], ["query"]),
+  "getMerchantEvaluations": Func(
+    [Nat],
+    [Vec(MerchantEvaluation)],
+    ["query"]
+  ),
+  "getMerchants": Func([], [Vec(Merchant)], ["query"]),
   "getPost": Func([PostId], [Opt(Post)], ["query"]),
   "getPremiumProduct": Func(
     [Nat],
@@ -43672,7 +43793,13 @@ Service({
   "isCallerAdmin": Func([], [Bool], ["query"]),
   "isStripeConfigured": Func([], [Bool], ["query"]),
   "saveCallerUserProfile": Func([UserProfile], [], []),
+  "searchMerchantByCode": Func([Text], [Opt(Merchant)], ["query"]),
   "setStripeConfiguration": Func([StripeConfiguration], [], []),
+  "submitMerchant": Func(
+    [Text, Text, Text, Text, Text],
+    [Variant({ "ok": Merchant, "err": Text })],
+    []
+  ),
   "transform": Func(
     [TransformationInput],
     [TransformationOutput],
@@ -43723,7 +43850,6 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "productDescription": IDL2.Text
   });
   const PostId2 = IDL2.Nat;
-  const ProductId2 = IDL2.Nat;
   const Reclamation2 = IDL2.Record({
     "id": IDL2.Nat,
     "city": IDL2.Text,
@@ -43762,15 +43888,6 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "fairDealVotes": IDL2.Vec(IDL2.Principal),
     "timestamp": Time2
   });
-  const Product2 = IDL2.Record({
-    "id": ProductId2,
-    "imageBlob": IDL2.Opt(ExternalBlob3),
-    "name": IDL2.Text,
-    "description": IDL2.Text,
-    "seller": IDL2.Principal,
-    "category": IDL2.Text,
-    "price": IDL2.Nat
-  });
   const Tip2 = IDL2.Record({
     "id": IDL2.Nat,
     "content": IDL2.Text,
@@ -43798,6 +43915,34 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "author": IDL2.Principal,
     "timestamp": IDL2.Int,
     "postId": IDL2.Nat
+  });
+  const PlaqueLevelType2 = IDL2.Variant({
+    "revoked": IDL2.Null,
+    "pending": IDL2.Null,
+    "gold": IDL2.Null,
+    "argent": IDL2.Null
+  });
+  const Merchant2 = IDL2.Record({
+    "id": IDL2.Nat,
+    "photoBlob": IDL2.Opt(ExternalBlob3),
+    "plaqueLevel": PlaqueLevelType2,
+    "city": IDL2.Text,
+    "code": IDL2.Text,
+    "name": IDL2.Text,
+    "mapsLink": IDL2.Text,
+    "submittedBy": IDL2.Principal,
+    "positiveEvaluations": IDL2.Nat,
+    "timestamp": IDL2.Int,
+    "category": IDL2.Text,
+    "reclamationCount": IDL2.Nat,
+    "quartier": IDL2.Text
+  });
+  const MerchantEvaluation2 = IDL2.Record({
+    "id": IDL2.Nat,
+    "evaluator": IDL2.Principal,
+    "merchantId": IDL2.Nat,
+    "comment": IDL2.Opt(IDL2.Text),
+    "timestamp": IDL2.Int
   });
   const StripeSessionStatus2 = IDL2.Variant({
     "completed": IDL2.Record({
@@ -43855,6 +44000,16 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "_initializeAccessControl": IDL2.Func([], [], []),
     "addComment": IDL2.Func([IDL2.Nat, IDL2.Text], [IDL2.Nat], []),
     "addPremiumProduct": IDL2.Func([PremiumProduct2], [], []),
+    "adminUploadMerchantPhoto": IDL2.Func(
+      [IDL2.Nat, ExternalBlob3],
+      [IDL2.Variant({ "ok": IDL2.Text, "err": IDL2.Text })],
+      []
+    ),
+    "adminValidateReclamation": IDL2.Func(
+      [IDL2.Nat],
+      [IDL2.Variant({ "ok": IDL2.Text, "err": IDL2.Text })],
+      []
+    ),
     "assignCallerUserRole": IDL2.Func([IDL2.Principal, UserRole2], [], []),
     "createCheckoutSession": IDL2.Func(
       [IDL2.Vec(ShoppingItem2), IDL2.Text, IDL2.Text],
@@ -43873,11 +44028,6 @@ const idlFactory = ({ IDL: IDL2 }) => {
       [PostId2],
       []
     ),
-    "createProduct": IDL2.Func(
-      [IDL2.Text, IDL2.Text, IDL2.Nat, IDL2.Text, IDL2.Opt(ExternalBlob3)],
-      [ProductId2],
-      []
-    ),
     "createReclamation": IDL2.Func(
       [IDL2.Text, IDL2.Text, IDL2.Text, IDL2.Text],
       [Reclamation2],
@@ -43887,6 +44037,11 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "deletePost": IDL2.Func(
       [PostId2],
       [IDL2.Variant({ "ok": IDL2.Null, "err": IDL2.Text })],
+      []
+    ),
+    "evaluateMerchant": IDL2.Func(
+      [IDL2.Nat, IDL2.Opt(IDL2.Text)],
+      [IDL2.Variant({ "ok": IDL2.Text, "err": IDL2.Text })],
       []
     ),
     "filterTraditionalProducts": IDL2.Func(
@@ -43905,7 +44060,6 @@ const idlFactory = ({ IDL: IDL2 }) => {
       [IDL2.Vec(PremiumProduct2)],
       ["query"]
     ),
-    "getAllProducts": IDL2.Func([], [IDL2.Vec(Product2)], ["query"]),
     "getAllReclamations": IDL2.Func([], [IDL2.Vec(Reclamation2)], ["query"]),
     "getAllTips": IDL2.Func([], [IDL2.Vec(Tip2)], ["query"]),
     "getAllTraditionalProducts": IDL2.Func(
@@ -43917,6 +44071,13 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "getCallerUserRole": IDL2.Func([], [UserRole2], ["query"]),
     "getComments": IDL2.Func([IDL2.Nat], [IDL2.Vec(Comment2)], ["query"]),
     "getCountry": IDL2.Func([IDL2.Principal], [IDL2.Text], ["query"]),
+    "getMerchant": IDL2.Func([IDL2.Nat], [IDL2.Opt(Merchant2)], ["query"]),
+    "getMerchantEvaluations": IDL2.Func(
+      [IDL2.Nat],
+      [IDL2.Vec(MerchantEvaluation2)],
+      ["query"]
+    ),
+    "getMerchants": IDL2.Func([], [IDL2.Vec(Merchant2)], ["query"]),
     "getPost": IDL2.Func([PostId2], [IDL2.Opt(Post2)], ["query"]),
     "getPremiumProduct": IDL2.Func(
       [IDL2.Nat],
@@ -43949,7 +44110,17 @@ const idlFactory = ({ IDL: IDL2 }) => {
     "isCallerAdmin": IDL2.Func([], [IDL2.Bool], ["query"]),
     "isStripeConfigured": IDL2.Func([], [IDL2.Bool], ["query"]),
     "saveCallerUserProfile": IDL2.Func([UserProfile2], [], []),
+    "searchMerchantByCode": IDL2.Func(
+      [IDL2.Text],
+      [IDL2.Opt(Merchant2)],
+      ["query"]
+    ),
     "setStripeConfiguration": IDL2.Func([StripeConfiguration2], [], []),
+    "submitMerchant": IDL2.Func(
+      [IDL2.Text, IDL2.Text, IDL2.Text, IDL2.Text, IDL2.Text],
+      [IDL2.Variant({ "ok": Merchant2, "err": IDL2.Text })],
+      []
+    ),
     "transform": IDL2.Func(
       [TransformationInput2],
       [TransformationOutput2],
@@ -44017,6 +44188,13 @@ class ExternalBlob2 {
     return this;
   }
 }
+var PlaqueLevelType = /* @__PURE__ */ ((PlaqueLevelType2) => {
+  PlaqueLevelType2["revoked"] = "revoked";
+  PlaqueLevelType2["pending"] = "pending";
+  PlaqueLevelType2["gold"] = "gold";
+  PlaqueLevelType2["argent"] = "argent";
+  return PlaqueLevelType2;
+})(PlaqueLevelType || {});
 class Backend {
   constructor(actor, _uploadFile, _downloadFile, processError2) {
     this.actor = actor;
@@ -44150,17 +44328,45 @@ class Backend {
       return result;
     }
   }
+  async adminUploadMerchantPhoto(arg0, arg1) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.adminUploadMerchantPhoto(arg0, await to_candid_ExternalBlob_n10(this._uploadFile, this._downloadFile, arg1));
+        return from_candid_variant_n11(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.adminUploadMerchantPhoto(arg0, await to_candid_ExternalBlob_n10(this._uploadFile, this._downloadFile, arg1));
+      return from_candid_variant_n11(this._uploadFile, this._downloadFile, result);
+    }
+  }
+  async adminValidateReclamation(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.adminValidateReclamation(arg0);
+        return from_candid_variant_n11(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.adminValidateReclamation(arg0);
+      return from_candid_variant_n11(this._uploadFile, this._downloadFile, result);
+    }
+  }
   async assignCallerUserRole(arg0, arg1) {
     if (this.processError) {
       try {
-        const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n11(this._uploadFile, this._downloadFile, arg1));
+        const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n12(this._uploadFile, this._downloadFile, arg1));
         return result;
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
-      const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n11(this._uploadFile, this._downloadFile, arg1));
+      const result = await this.actor.assignCallerUserRole(arg0, to_candid_UserRole_n12(this._uploadFile, this._downloadFile, arg1));
       return result;
     }
   }
@@ -44181,28 +44387,14 @@ class Backend {
   async createPost(arg0, arg1, arg2, arg3, arg4, arg5) {
     if (this.processError) {
       try {
-        const result = await this.actor.createPost(arg0, arg1, arg2, arg3, arg4, await to_candid_opt_n13(this._uploadFile, this._downloadFile, arg5));
+        const result = await this.actor.createPost(arg0, arg1, arg2, arg3, arg4, await to_candid_opt_n14(this._uploadFile, this._downloadFile, arg5));
         return result;
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
-      const result = await this.actor.createPost(arg0, arg1, arg2, arg3, arg4, await to_candid_opt_n13(this._uploadFile, this._downloadFile, arg5));
-      return result;
-    }
-  }
-  async createProduct(arg0, arg1, arg2, arg3, arg4) {
-    if (this.processError) {
-      try {
-        const result = await this.actor.createProduct(arg0, arg1, arg2, arg3, await to_candid_opt_n13(this._uploadFile, this._downloadFile, arg4));
-        return result;
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.createProduct(arg0, arg1, arg2, arg3, await to_candid_opt_n13(this._uploadFile, this._downloadFile, arg4));
+      const result = await this.actor.createPost(arg0, arg1, arg2, arg3, arg4, await to_candid_opt_n14(this._uploadFile, this._downloadFile, arg5));
       return result;
     }
   }
@@ -44238,27 +44430,41 @@ class Backend {
     if (this.processError) {
       try {
         const result = await this.actor.deletePost(arg0);
-        return from_candid_variant_n14(this._uploadFile, this._downloadFile, result);
+        return from_candid_variant_n15(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.deletePost(arg0);
-      return from_candid_variant_n14(this._uploadFile, this._downloadFile, result);
+      return from_candid_variant_n15(this._uploadFile, this._downloadFile, result);
+    }
+  }
+  async evaluateMerchant(arg0, arg1) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.evaluateMerchant(arg0, to_candid_opt_n16(this._uploadFile, this._downloadFile, arg1));
+        return from_candid_variant_n11(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.evaluateMerchant(arg0, to_candid_opt_n16(this._uploadFile, this._downloadFile, arg1));
+      return from_candid_variant_n11(this._uploadFile, this._downloadFile, result);
     }
   }
   async filterTraditionalProducts(arg0, arg1, arg2, arg3) {
     if (this.processError) {
       try {
-        const result = await this.actor.filterTraditionalProducts(to_candid_opt_n15(this._uploadFile, this._downloadFile, arg0), to_candid_opt_n16(this._uploadFile, this._downloadFile, arg1), to_candid_opt_n16(this._uploadFile, this._downloadFile, arg2), to_candid_opt_n15(this._uploadFile, this._downloadFile, arg3));
+        const result = await this.actor.filterTraditionalProducts(to_candid_opt_n16(this._uploadFile, this._downloadFile, arg0), to_candid_opt_n17(this._uploadFile, this._downloadFile, arg1), to_candid_opt_n17(this._uploadFile, this._downloadFile, arg2), to_candid_opt_n16(this._uploadFile, this._downloadFile, arg3));
         return result;
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
-      const result = await this.actor.filterTraditionalProducts(to_candid_opt_n15(this._uploadFile, this._downloadFile, arg0), to_candid_opt_n16(this._uploadFile, this._downloadFile, arg1), to_candid_opt_n16(this._uploadFile, this._downloadFile, arg2), to_candid_opt_n15(this._uploadFile, this._downloadFile, arg3));
+      const result = await this.actor.filterTraditionalProducts(to_candid_opt_n16(this._uploadFile, this._downloadFile, arg0), to_candid_opt_n17(this._uploadFile, this._downloadFile, arg1), to_candid_opt_n17(this._uploadFile, this._downloadFile, arg2), to_candid_opt_n16(this._uploadFile, this._downloadFile, arg3));
       return result;
     }
   }
@@ -44266,42 +44472,28 @@ class Backend {
     if (this.processError) {
       try {
         const result = await this.actor.getAllPosts();
-        return from_candid_vec_n17(this._uploadFile, this._downloadFile, result);
+        return from_candid_vec_n18(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getAllPosts();
-      return from_candid_vec_n17(this._uploadFile, this._downloadFile, result);
+      return from_candid_vec_n18(this._uploadFile, this._downloadFile, result);
     }
   }
   async getAllPremiumProducts() {
     if (this.processError) {
       try {
         const result = await this.actor.getAllPremiumProducts();
-        return from_candid_vec_n22(this._uploadFile, this._downloadFile, result);
+        return from_candid_vec_n23(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getAllPremiumProducts();
-      return from_candid_vec_n22(this._uploadFile, this._downloadFile, result);
-    }
-  }
-  async getAllProducts() {
-    if (this.processError) {
-      try {
-        const result = await this.actor.getAllProducts();
-        return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
-      } catch (e) {
-        this.processError(e);
-        throw new Error("unreachable");
-      }
-    } else {
-      const result = await this.actor.getAllProducts();
-      return from_candid_vec_n25(this._uploadFile, this._downloadFile, result);
+      return from_candid_vec_n23(this._uploadFile, this._downloadFile, result);
     }
   }
   async getAllReclamations() {
@@ -44350,28 +44542,28 @@ class Backend {
     if (this.processError) {
       try {
         const result = await this.actor.getCallerUserProfile();
-        return from_candid_opt_n28(this._uploadFile, this._downloadFile, result);
+        return from_candid_opt_n26(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getCallerUserProfile();
-      return from_candid_opt_n28(this._uploadFile, this._downloadFile, result);
+      return from_candid_opt_n26(this._uploadFile, this._downloadFile, result);
     }
   }
   async getCallerUserRole() {
     if (this.processError) {
       try {
         const result = await this.actor.getCallerUserRole();
-        return from_candid_UserRole_n34(this._uploadFile, this._downloadFile, result);
+        return from_candid_UserRole_n32(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getCallerUserRole();
-      return from_candid_UserRole_n34(this._uploadFile, this._downloadFile, result);
+      return from_candid_UserRole_n32(this._uploadFile, this._downloadFile, result);
     }
   }
   async getComments(arg0) {
@@ -44402,60 +44594,102 @@ class Backend {
       return result;
     }
   }
+  async getMerchant(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getMerchant(arg0);
+        return from_candid_opt_n34(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getMerchant(arg0);
+      return from_candid_opt_n34(this._uploadFile, this._downloadFile, result);
+    }
+  }
+  async getMerchantEvaluations(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getMerchantEvaluations(arg0);
+        return from_candid_vec_n39(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getMerchantEvaluations(arg0);
+      return from_candid_vec_n39(this._uploadFile, this._downloadFile, result);
+    }
+  }
+  async getMerchants() {
+    if (this.processError) {
+      try {
+        const result = await this.actor.getMerchants();
+        return from_candid_vec_n42(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.getMerchants();
+      return from_candid_vec_n42(this._uploadFile, this._downloadFile, result);
+    }
+  }
   async getPost(arg0) {
     if (this.processError) {
       try {
         const result = await this.actor.getPost(arg0);
-        return from_candid_opt_n36(this._uploadFile, this._downloadFile, result);
+        return from_candid_opt_n43(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getPost(arg0);
-      return from_candid_opt_n36(this._uploadFile, this._downloadFile, result);
+      return from_candid_opt_n43(this._uploadFile, this._downloadFile, result);
     }
   }
   async getPremiumProduct(arg0) {
     if (this.processError) {
       try {
         const result = await this.actor.getPremiumProduct(arg0);
-        return from_candid_opt_n37(this._uploadFile, this._downloadFile, result);
+        return from_candid_opt_n44(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getPremiumProduct(arg0);
-      return from_candid_opt_n37(this._uploadFile, this._downloadFile, result);
+      return from_candid_opt_n44(this._uploadFile, this._downloadFile, result);
     }
   }
   async getStripeSessionStatus(arg0) {
     if (this.processError) {
       try {
         const result = await this.actor.getStripeSessionStatus(arg0);
-        return from_candid_StripeSessionStatus_n38(this._uploadFile, this._downloadFile, result);
+        return from_candid_StripeSessionStatus_n45(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getStripeSessionStatus(arg0);
-      return from_candid_StripeSessionStatus_n38(this._uploadFile, this._downloadFile, result);
+      return from_candid_StripeSessionStatus_n45(this._uploadFile, this._downloadFile, result);
     }
   }
   async getTraditionalProductById(arg0) {
     if (this.processError) {
       try {
         const result = await this.actor.getTraditionalProductById(arg0);
-        return from_candid_opt_n41(this._uploadFile, this._downloadFile, result);
+        return from_candid_opt_n48(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getTraditionalProductById(arg0);
-      return from_candid_opt_n41(this._uploadFile, this._downloadFile, result);
+      return from_candid_opt_n48(this._uploadFile, this._downloadFile, result);
     }
   }
   async getTraditionalProductsByCategory(arg0) {
@@ -44490,14 +44724,14 @@ class Backend {
     if (this.processError) {
       try {
         const result = await this.actor.getUserProfile(arg0);
-        return from_candid_opt_n28(this._uploadFile, this._downloadFile, result);
+        return from_candid_opt_n26(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.getUserProfile(arg0);
-      return from_candid_opt_n28(this._uploadFile, this._downloadFile, result);
+      return from_candid_opt_n26(this._uploadFile, this._downloadFile, result);
     }
   }
   async getUsername(arg0) {
@@ -44559,15 +44793,29 @@ class Backend {
   async saveCallerUserProfile(arg0) {
     if (this.processError) {
       try {
-        const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n42(this._uploadFile, this._downloadFile, arg0));
+        const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n49(this._uploadFile, this._downloadFile, arg0));
         return result;
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
-      const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n42(this._uploadFile, this._downloadFile, arg0));
+      const result = await this.actor.saveCallerUserProfile(to_candid_UserProfile_n49(this._uploadFile, this._downloadFile, arg0));
       return result;
+    }
+  }
+  async searchMerchantByCode(arg0) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.searchMerchantByCode(arg0);
+        return from_candid_opt_n34(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.searchMerchantByCode(arg0);
+      return from_candid_opt_n34(this._uploadFile, this._downloadFile, result);
     }
   }
   async setStripeConfiguration(arg0) {
@@ -44582,6 +44830,20 @@ class Backend {
     } else {
       const result = await this.actor.setStripeConfiguration(arg0);
       return result;
+    }
+  }
+  async submitMerchant(arg0, arg1, arg2, arg3, arg4) {
+    if (this.processError) {
+      try {
+        const result = await this.actor.submitMerchant(arg0, arg1, arg2, arg3, arg4);
+        return from_candid_variant_n53(this._uploadFile, this._downloadFile, result);
+      } catch (e) {
+        this.processError(e);
+        throw new Error("unreachable");
+      }
+    } else {
+      const result = await this.actor.submitMerchant(arg0, arg1, arg2, arg3, arg4);
+      return from_candid_variant_n53(this._uploadFile, this._downloadFile, result);
     }
   }
   async transform(arg0) {
@@ -44630,14 +44892,14 @@ class Backend {
     if (this.processError) {
       try {
         const result = await this.actor.updatePost(arg0, arg1, arg2);
-        return from_candid_variant_n14(this._uploadFile, this._downloadFile, result);
+        return from_candid_variant_n15(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.updatePost(arg0, arg1, arg2);
-      return from_candid_variant_n14(this._uploadFile, this._downloadFile, result);
+      return from_candid_variant_n15(this._uploadFile, this._downloadFile, result);
     }
   }
   async updateUsername(arg0) {
@@ -44672,14 +44934,14 @@ class Backend {
     if (this.processError) {
       try {
         const result = await this.actor.voteReclamationHelpful(arg0);
-        return from_candid_opt_n46(this._uploadFile, this._downloadFile, result);
+        return from_candid_opt_n54(this._uploadFile, this._downloadFile, result);
       } catch (e) {
         this.processError(e);
         throw new Error("unreachable");
       }
     } else {
       const result = await this.actor.voteReclamationHelpful(arg0);
-      return from_candid_opt_n46(this._uploadFile, this._downloadFile, result);
+      return from_candid_opt_n54(this._uploadFile, this._downloadFile, result);
     }
   }
   async voteScam(arg0) {
@@ -44697,52 +44959,61 @@ class Backend {
     }
   }
 }
-async function from_candid_ExternalBlob_n21(_uploadFile, _downloadFile, value) {
+async function from_candid_ExternalBlob_n22(_uploadFile, _downloadFile, value) {
   return await _downloadFile(value);
 }
-async function from_candid_Post_n18(_uploadFile, _downloadFile, value) {
-  return await from_candid_record_n19(_uploadFile, _downloadFile, value);
+function from_candid_MerchantEvaluation_n40(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n41(_uploadFile, _downloadFile, value);
 }
-async function from_candid_PremiumProduct_n23(_uploadFile, _downloadFile, value) {
-  return await from_candid_record_n24(_uploadFile, _downloadFile, value);
+async function from_candid_Merchant_n35(_uploadFile, _downloadFile, value) {
+  return await from_candid_record_n36(_uploadFile, _downloadFile, value);
 }
-async function from_candid_Product_n26(_uploadFile, _downloadFile, value) {
-  return await from_candid_record_n27(_uploadFile, _downloadFile, value);
+function from_candid_PlaqueLevelType_n37(_uploadFile, _downloadFile, value) {
+  return from_candid_variant_n38(_uploadFile, _downloadFile, value);
 }
-function from_candid_StripeSessionStatus_n38(_uploadFile, _downloadFile, value) {
-  return from_candid_variant_n39(_uploadFile, _downloadFile, value);
+async function from_candid_Post_n19(_uploadFile, _downloadFile, value) {
+  return await from_candid_record_n20(_uploadFile, _downloadFile, value);
 }
-function from_candid_UserProfile_n29(_uploadFile, _downloadFile, value) {
-  return from_candid_record_n30(_uploadFile, _downloadFile, value);
+async function from_candid_PremiumProduct_n24(_uploadFile, _downloadFile, value) {
+  return await from_candid_record_n25(_uploadFile, _downloadFile, value);
 }
-function from_candid_UserRole_n34(_uploadFile, _downloadFile, value) {
-  return from_candid_variant_n35(_uploadFile, _downloadFile, value);
+function from_candid_StripeSessionStatus_n45(_uploadFile, _downloadFile, value) {
+  return from_candid_variant_n46(_uploadFile, _downloadFile, value);
 }
-function from_candid_UserStatus_n31(_uploadFile, _downloadFile, value) {
-  return from_candid_variant_n32(_uploadFile, _downloadFile, value);
+function from_candid_UserProfile_n27(_uploadFile, _downloadFile, value) {
+  return from_candid_record_n28(_uploadFile, _downloadFile, value);
+}
+function from_candid_UserRole_n32(_uploadFile, _downloadFile, value) {
+  return from_candid_variant_n33(_uploadFile, _downloadFile, value);
+}
+function from_candid_UserStatus_n29(_uploadFile, _downloadFile, value) {
+  return from_candid_variant_n30(_uploadFile, _downloadFile, value);
 }
 function from_candid__ImmutableObjectStorageRefillResult_n4(_uploadFile, _downloadFile, value) {
   return from_candid_record_n5(_uploadFile, _downloadFile, value);
 }
-async function from_candid_opt_n20(_uploadFile, _downloadFile, value) {
-  return value.length === 0 ? null : await from_candid_ExternalBlob_n21(_uploadFile, _downloadFile, value[0]);
+async function from_candid_opt_n21(_uploadFile, _downloadFile, value) {
+  return value.length === 0 ? null : await from_candid_ExternalBlob_n22(_uploadFile, _downloadFile, value[0]);
 }
-function from_candid_opt_n28(_uploadFile, _downloadFile, value) {
-  return value.length === 0 ? null : from_candid_UserProfile_n29(_uploadFile, _downloadFile, value[0]);
+function from_candid_opt_n26(_uploadFile, _downloadFile, value) {
+  return value.length === 0 ? null : from_candid_UserProfile_n27(_uploadFile, _downloadFile, value[0]);
 }
-function from_candid_opt_n33(_uploadFile, _downloadFile, value) {
+function from_candid_opt_n31(_uploadFile, _downloadFile, value) {
   return value.length === 0 ? null : value[0];
 }
-async function from_candid_opt_n36(_uploadFile, _downloadFile, value) {
-  return value.length === 0 ? null : await from_candid_Post_n18(_uploadFile, _downloadFile, value[0]);
+async function from_candid_opt_n34(_uploadFile, _downloadFile, value) {
+  return value.length === 0 ? null : await from_candid_Merchant_n35(_uploadFile, _downloadFile, value[0]);
 }
-async function from_candid_opt_n37(_uploadFile, _downloadFile, value) {
-  return value.length === 0 ? null : await from_candid_PremiumProduct_n23(_uploadFile, _downloadFile, value[0]);
+async function from_candid_opt_n43(_uploadFile, _downloadFile, value) {
+  return value.length === 0 ? null : await from_candid_Post_n19(_uploadFile, _downloadFile, value[0]);
 }
-function from_candid_opt_n41(_uploadFile, _downloadFile, value) {
+async function from_candid_opt_n44(_uploadFile, _downloadFile, value) {
+  return value.length === 0 ? null : await from_candid_PremiumProduct_n24(_uploadFile, _downloadFile, value[0]);
+}
+function from_candid_opt_n48(_uploadFile, _downloadFile, value) {
   return value.length === 0 ? null : value[0];
 }
-function from_candid_opt_n46(_uploadFile, _downloadFile, value) {
+function from_candid_opt_n54(_uploadFile, _downloadFile, value) {
   return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n6(_uploadFile, _downloadFile, value) {
@@ -44751,14 +45022,14 @@ function from_candid_opt_n6(_uploadFile, _downloadFile, value) {
 function from_candid_opt_n7(_uploadFile, _downloadFile, value) {
   return value.length === 0 ? null : value[0];
 }
-async function from_candid_record_n19(_uploadFile, _downloadFile, value) {
+async function from_candid_record_n20(_uploadFile, _downloadFile, value) {
   return {
     id: value.id,
     scamVotes: value.scamVotes,
     titre: value.titre,
     categorie: value.categorie,
     content: value.content,
-    imageBlob: record_opt_to_undefined(await from_candid_opt_n20(_uploadFile, _downloadFile, value.imageBlob)),
+    imageBlob: record_opt_to_undefined(await from_candid_opt_n21(_uploadFile, _downloadFile, value.imageBlob)),
     ville: value.ville,
     author: value.author,
     experience: value.experience,
@@ -44766,44 +45037,59 @@ async function from_candid_record_n19(_uploadFile, _downloadFile, value) {
     timestamp: value.timestamp
   };
 }
-async function from_candid_record_n24(_uploadFile, _downloadFile, value) {
+async function from_candid_record_n25(_uploadFile, _downloadFile, value) {
   return {
     id: value.id,
     title: value.title,
-    imageBlob: record_opt_to_undefined(await from_candid_opt_n20(_uploadFile, _downloadFile, value.imageBlob)),
+    imageBlob: record_opt_to_undefined(await from_candid_opt_n21(_uploadFile, _downloadFile, value.imageBlob)),
     description: value.description,
     priceTag: value.priceTag
   };
 }
-async function from_candid_record_n27(_uploadFile, _downloadFile, value) {
+function from_candid_record_n28(_uploadFile, _downloadFile, value) {
   return {
-    id: value.id,
-    imageBlob: record_opt_to_undefined(await from_candid_opt_n20(_uploadFile, _downloadFile, value.imageBlob)),
-    name: value.name,
-    description: value.description,
-    seller: value.seller,
-    category: value.category,
-    price: value.price
-  };
-}
-function from_candid_record_n30(_uploadFile, _downloadFile, value) {
-  return {
-    status: from_candid_UserStatus_n31(_uploadFile, _downloadFile, value.status),
+    status: from_candid_UserStatus_n29(_uploadFile, _downloadFile, value.status),
     country: value.country,
     username: value.username,
     quizScore: value.quizScore,
     name: value.name,
     earnedBadges: value.earnedBadges,
     tipsGiven: value.tipsGiven,
-    email: record_opt_to_undefined(from_candid_opt_n33(_uploadFile, _downloadFile, value.email)),
+    email: record_opt_to_undefined(from_candid_opt_n31(_uploadFile, _downloadFile, value.email)),
     firstPostCreated: value.firstPostCreated,
     scamsReported: value.scamsReported,
     points: value.points
   };
 }
-function from_candid_record_n40(_uploadFile, _downloadFile, value) {
+async function from_candid_record_n36(_uploadFile, _downloadFile, value) {
   return {
-    userPrincipal: record_opt_to_undefined(from_candid_opt_n33(_uploadFile, _downloadFile, value.userPrincipal)),
+    id: value.id,
+    photoBlob: record_opt_to_undefined(await from_candid_opt_n21(_uploadFile, _downloadFile, value.photoBlob)),
+    plaqueLevel: from_candid_PlaqueLevelType_n37(_uploadFile, _downloadFile, value.plaqueLevel),
+    city: value.city,
+    code: value.code,
+    name: value.name,
+    mapsLink: value.mapsLink,
+    submittedBy: value.submittedBy,
+    positiveEvaluations: value.positiveEvaluations,
+    timestamp: value.timestamp,
+    category: value.category,
+    reclamationCount: value.reclamationCount,
+    quartier: value.quartier
+  };
+}
+function from_candid_record_n41(_uploadFile, _downloadFile, value) {
+  return {
+    id: value.id,
+    evaluator: value.evaluator,
+    merchantId: value.merchantId,
+    comment: record_opt_to_undefined(from_candid_opt_n31(_uploadFile, _downloadFile, value.comment)),
+    timestamp: value.timestamp
+  };
+}
+function from_candid_record_n47(_uploadFile, _downloadFile, value) {
+  return {
+    userPrincipal: record_opt_to_undefined(from_candid_opt_n31(_uploadFile, _downloadFile, value.userPrincipal)),
     response: value.response
   };
 }
@@ -44813,7 +45099,7 @@ function from_candid_record_n5(_uploadFile, _downloadFile, value) {
     topped_up_amount: record_opt_to_undefined(from_candid_opt_n7(_uploadFile, _downloadFile, value.topped_up_amount))
   };
 }
-function from_candid_variant_n14(_uploadFile, _downloadFile, value) {
+function from_candid_variant_n11(_uploadFile, _downloadFile, value) {
   return "ok" in value ? {
     __kind__: "ok",
     ok: value.ok
@@ -44822,29 +45108,53 @@ function from_candid_variant_n14(_uploadFile, _downloadFile, value) {
     err: value.err
   } : value;
 }
-function from_candid_variant_n32(_uploadFile, _downloadFile, value) {
+function from_candid_variant_n15(_uploadFile, _downloadFile, value) {
+  return "ok" in value ? {
+    __kind__: "ok",
+    ok: value.ok
+  } : "err" in value ? {
+    __kind__: "err",
+    err: value.err
+  } : value;
+}
+function from_candid_variant_n30(_uploadFile, _downloadFile, value) {
   return "premium" in value ? "premium" : "free" in value ? "free" : value;
 }
-function from_candid_variant_n35(_uploadFile, _downloadFile, value) {
+function from_candid_variant_n33(_uploadFile, _downloadFile, value) {
   return "admin" in value ? "admin" : "user" in value ? "user" : "guest" in value ? "guest" : value;
 }
-function from_candid_variant_n39(_uploadFile, _downloadFile, value) {
+function from_candid_variant_n38(_uploadFile, _downloadFile, value) {
+  return "revoked" in value ? "revoked" : "pending" in value ? "pending" : "gold" in value ? "gold" : "argent" in value ? "argent" : value;
+}
+function from_candid_variant_n46(_uploadFile, _downloadFile, value) {
   return "completed" in value ? {
     __kind__: "completed",
-    completed: from_candid_record_n40(_uploadFile, _downloadFile, value.completed)
+    completed: from_candid_record_n47(_uploadFile, _downloadFile, value.completed)
   } : "failed" in value ? {
     __kind__: "failed",
     failed: value.failed
   } : value;
 }
-async function from_candid_vec_n17(_uploadFile, _downloadFile, value) {
-  return await Promise.all(value.map(async (x3) => await from_candid_Post_n18(_uploadFile, _downloadFile, x3)));
+async function from_candid_variant_n53(_uploadFile, _downloadFile, value) {
+  return "ok" in value ? {
+    __kind__: "ok",
+    ok: await from_candid_Merchant_n35(_uploadFile, _downloadFile, value.ok)
+  } : "err" in value ? {
+    __kind__: "err",
+    err: value.err
+  } : value;
 }
-async function from_candid_vec_n22(_uploadFile, _downloadFile, value) {
-  return await Promise.all(value.map(async (x3) => await from_candid_PremiumProduct_n23(_uploadFile, _downloadFile, x3)));
+async function from_candid_vec_n18(_uploadFile, _downloadFile, value) {
+  return await Promise.all(value.map(async (x3) => await from_candid_Post_n19(_uploadFile, _downloadFile, x3)));
 }
-async function from_candid_vec_n25(_uploadFile, _downloadFile, value) {
-  return await Promise.all(value.map(async (x3) => await from_candid_Product_n26(_uploadFile, _downloadFile, x3)));
+async function from_candid_vec_n23(_uploadFile, _downloadFile, value) {
+  return await Promise.all(value.map(async (x3) => await from_candid_PremiumProduct_n24(_uploadFile, _downloadFile, x3)));
+}
+function from_candid_vec_n39(_uploadFile, _downloadFile, value) {
+  return value.map((x3) => from_candid_MerchantEvaluation_n40(_uploadFile, _downloadFile, x3));
+}
+async function from_candid_vec_n42(_uploadFile, _downloadFile, value) {
+  return await Promise.all(value.map(async (x3) => await from_candid_Merchant_n35(_uploadFile, _downloadFile, x3)));
 }
 async function to_candid_ExternalBlob_n10(_uploadFile, _downloadFile, value) {
   return await _uploadFile(value);
@@ -44852,14 +45162,14 @@ async function to_candid_ExternalBlob_n10(_uploadFile, _downloadFile, value) {
 async function to_candid_PremiumProduct_n8(_uploadFile, _downloadFile, value) {
   return await to_candid_record_n9(_uploadFile, _downloadFile, value);
 }
-function to_candid_UserProfile_n42(_uploadFile, _downloadFile, value) {
-  return to_candid_record_n43(_uploadFile, _downloadFile, value);
+function to_candid_UserProfile_n49(_uploadFile, _downloadFile, value) {
+  return to_candid_record_n50(_uploadFile, _downloadFile, value);
 }
-function to_candid_UserRole_n11(_uploadFile, _downloadFile, value) {
-  return to_candid_variant_n12(_uploadFile, _downloadFile, value);
+function to_candid_UserRole_n12(_uploadFile, _downloadFile, value) {
+  return to_candid_variant_n13(_uploadFile, _downloadFile, value);
 }
-function to_candid_UserStatus_n44(_uploadFile, _downloadFile, value) {
-  return to_candid_variant_n45(_uploadFile, _downloadFile, value);
+function to_candid_UserStatus_n51(_uploadFile, _downloadFile, value) {
+  return to_candid_variant_n52(_uploadFile, _downloadFile, value);
 }
 function to_candid__ImmutableObjectStorageRefillInformation_n2(_uploadFile, _downloadFile, value) {
   return to_candid_record_n3(_uploadFile, _downloadFile, value);
@@ -44867,13 +45177,13 @@ function to_candid__ImmutableObjectStorageRefillInformation_n2(_uploadFile, _dow
 function to_candid_opt_n1(_uploadFile, _downloadFile, value) {
   return value === null ? candid_none() : candid_some(to_candid__ImmutableObjectStorageRefillInformation_n2(_uploadFile, _downloadFile, value));
 }
-async function to_candid_opt_n13(_uploadFile, _downloadFile, value) {
+async function to_candid_opt_n14(_uploadFile, _downloadFile, value) {
   return value === null ? candid_none() : candid_some(await to_candid_ExternalBlob_n10(_uploadFile, _downloadFile, value));
 }
-function to_candid_opt_n15(_uploadFile, _downloadFile, value) {
+function to_candid_opt_n16(_uploadFile, _downloadFile, value) {
   return value === null ? candid_none() : candid_some(value);
 }
-function to_candid_opt_n16(_uploadFile, _downloadFile, value) {
+function to_candid_opt_n17(_uploadFile, _downloadFile, value) {
   return value === null ? candid_none() : candid_some(value);
 }
 function to_candid_record_n3(_uploadFile, _downloadFile, value) {
@@ -44881,9 +45191,9 @@ function to_candid_record_n3(_uploadFile, _downloadFile, value) {
     proposed_top_up_amount: value.proposed_top_up_amount ? candid_some(value.proposed_top_up_amount) : candid_none()
   };
 }
-function to_candid_record_n43(_uploadFile, _downloadFile, value) {
+function to_candid_record_n50(_uploadFile, _downloadFile, value) {
   return {
-    status: to_candid_UserStatus_n44(_uploadFile, _downloadFile, value.status),
+    status: to_candid_UserStatus_n51(_uploadFile, _downloadFile, value.status),
     country: value.country,
     username: value.username,
     quizScore: value.quizScore,
@@ -44905,7 +45215,7 @@ async function to_candid_record_n9(_uploadFile, _downloadFile, value) {
     priceTag: value.priceTag
   };
 }
-function to_candid_variant_n12(_uploadFile, _downloadFile, value) {
+function to_candid_variant_n13(_uploadFile, _downloadFile, value) {
   return value == "admin" ? {
     admin: null
   } : value == "user" ? {
@@ -44914,7 +45224,7 @@ function to_candid_variant_n12(_uploadFile, _downloadFile, value) {
     guest: null
   } : value;
 }
-function to_candid_variant_n45(_uploadFile, _downloadFile, value) {
+function to_candid_variant_n52(_uploadFile, _downloadFile, value) {
   return value == "premium" ? {
     premium: null
   } : value == "free" ? {
@@ -45016,36 +45326,6 @@ function useCreateTip() {
     },
     onSuccess: () => {
       queryClient2.invalidateQueries({ queryKey: ["tips"] });
-    }
-  });
-}
-function useGetProducts() {
-  const { actor, isFetching } = useActor();
-  return useQuery({
-    queryKey: ["products"],
-    queryFn: async () => {
-      if (!actor) return [];
-      return actor.getAllProducts();
-    },
-    enabled: !!actor && !isFetching
-  });
-}
-function useCreateProduct() {
-  const { actor } = useActor();
-  const queryClient2 = useQueryClient();
-  return useMutation({
-    mutationFn: async (params) => {
-      if (!actor) throw new Error("Actor not available");
-      return actor.createProduct(
-        params.name,
-        params.description,
-        params.price,
-        params.category,
-        params.imageBlob
-      );
-    },
-    onSuccess: () => {
-      queryClient2.invalidateQueries({ queryKey: ["products"] });
     }
   });
 }
@@ -45201,6 +45481,86 @@ function useVoteReclamationHelpful() {
     }
   });
 }
+function useGetMerchants() {
+  const { actor, isFetching } = useActor();
+  return useQuery({
+    queryKey: ["merchants"],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getMerchants();
+    },
+    enabled: !!actor && !isFetching
+  });
+}
+function useSubmitMerchant() {
+  const { actor } = useActor();
+  const queryClient2 = useQueryClient();
+  return useMutation({
+    mutationFn: async (params) => {
+      if (!actor) throw new Error("Actor not available");
+      const result = await actor.submitMerchant(
+        params.name,
+        params.category,
+        params.city,
+        params.quartier,
+        params.mapsLink
+      );
+      if (result.__kind__ === "err") throw new Error(result.err);
+      return result.ok;
+    },
+    onSuccess: () => {
+      queryClient2.invalidateQueries({ queryKey: ["merchants"] });
+    }
+  });
+}
+function useEvaluateMerchant() {
+  const { actor } = useActor();
+  const queryClient2 = useQueryClient();
+  return useMutation({
+    mutationFn: async (params) => {
+      if (!actor) throw new Error("Actor not available");
+      const result = await actor.evaluateMerchant(params.merchantId, params.comment);
+      if (result.__kind__ === "err") throw new Error(result.err);
+      return result.ok;
+    },
+    onSuccess: (_data, variables) => {
+      queryClient2.invalidateQueries({ queryKey: ["merchants"] });
+      queryClient2.invalidateQueries({
+        queryKey: ["merchant-evaluations", variables.merchantId.toString()]
+      });
+    }
+  });
+}
+function useAdminUploadMerchantPhoto() {
+  const { actor } = useActor();
+  const queryClient2 = useQueryClient();
+  return useMutation({
+    mutationFn: async (params) => {
+      if (!actor) throw new Error("Actor not available");
+      const result = await actor.adminUploadMerchantPhoto(params.merchantId, params.blob);
+      if (result.__kind__ === "err") throw new Error(result.err);
+      return result.ok;
+    },
+    onSuccess: () => {
+      queryClient2.invalidateQueries({ queryKey: ["merchants"] });
+    }
+  });
+}
+function useAdminValidateReclamation() {
+  const { actor } = useActor();
+  const queryClient2 = useQueryClient();
+  return useMutation({
+    mutationFn: async (merchantId) => {
+      if (!actor) throw new Error("Actor not available");
+      const result = await actor.adminValidateReclamation(merchantId);
+      if (result.__kind__ === "err") throw new Error(result.err);
+      return result.ok;
+    },
+    onSuccess: () => {
+      queryClient2.invalidateQueries({ queryKey: ["merchants"] });
+    }
+  });
+}
 function createContextScope(scopeName, createContextScopeDeps = []) {
   let defaultContexts = [];
   function createContext3(rootComponentName, defaultContext) {
@@ -45301,11 +45661,11 @@ var Progress$1 = reactExports.forwardRef(
   }
 );
 Progress$1.displayName = PROGRESS_NAME;
-var INDICATOR_NAME = "ProgressIndicator";
+var INDICATOR_NAME$1 = "ProgressIndicator";
 var ProgressIndicator = reactExports.forwardRef(
   (props, forwardedRef) => {
     const { __scopeProgress, ...indicatorProps } = props;
-    const context = useProgressContext(INDICATOR_NAME, __scopeProgress);
+    const context = useProgressContext(INDICATOR_NAME$1, __scopeProgress);
     return /* @__PURE__ */ jsxRuntimeExports.jsx(
       Primitive.div,
       {
@@ -45318,7 +45678,7 @@ var ProgressIndicator = reactExports.forwardRef(
     );
   }
 );
-ProgressIndicator.displayName = INDICATOR_NAME;
+ProgressIndicator.displayName = INDICATOR_NAME$1;
 function defaultGetValueLabel(value, max2) {
   return `${Math.round(value / max2 * 100)}%`;
 }
@@ -49174,190 +49534,6 @@ function PremiumShopScreen() {
     )
   ] });
 }
-function ProductCard({ product }) {
-  const [imgError, setImgError] = reactExports.useState(false);
-  const imageUrl = product.imageBlob ? product.imageBlob.getDirectURL() : null;
-  const categoryEmojis = {
-    leather: "👜",
-    ceramics: "🏺",
-    textiles: "🧵",
-    spices: "🌶️",
-    jewelry: "💍",
-    other: "🛍️"
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Card, { className: "overflow-hidden", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-36 bg-muted flex items-center justify-center", children: imageUrl && !imgError ? /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "img",
-      {
-        src: imageUrl,
-        alt: product.name,
-        className: "w-full h-full object-cover",
-        onError: () => setImgError(true)
-      }
-    ) : /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-4xl", children: categoryEmojis[product.category] || "🛍️" }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "p-3 space-y-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start justify-between gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-semibold text-sm", children: product.name }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(Badge, { variant: "outline", className: "text-xs flex-shrink-0", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Tag, { className: "h-2 w-2 mr-1" }),
-          product.price.toString(),
-          " MAD"
-        ] })
-      ] }),
-      product.description && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: product.description }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Badge, { variant: "secondary", className: "text-xs", children: product.category })
-    ] })
-  ] });
-}
-function ProductsScreen() {
-  const { identity } = useInternetIdentity();
-  const { data: products = [], isLoading } = useGetProducts();
-  const createProduct = useCreateProduct();
-  const [open, setOpen] = reactExports.useState(false);
-  const [name, setName] = reactExports.useState("");
-  const [description, setDescription] = reactExports.useState("");
-  const [price, setPrice] = reactExports.useState("");
-  const [category, setCategory] = reactExports.useState("");
-  const [imageBlob, setImageBlob] = reactExports.useState(null);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!name || !price || !category) return;
-    try {
-      await createProduct.mutateAsync({
-        name,
-        description,
-        price: BigInt(Math.round(Number(price))),
-        category,
-        imageBlob
-      });
-      setOpen(false);
-      setName("");
-      setDescription("");
-      setPrice("");
-      setCategory("");
-      setImageBlob(null);
-    } catch {
-    }
-  };
-  const mappedProducts = products.map((p2) => ({
-    id: p2.id,
-    name: p2.name,
-    description: p2.description,
-    price: p2.price,
-    category: p2.category,
-    seller: p2.seller.toString(),
-    imageBlob: p2.imageBlob ?? void 0
-  }));
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-2xl mx-auto px-4 py-6 space-y-6", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(ShoppingBag, { className: "h-5 w-5 text-primary" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-xl font-bold", children: "Product Guide" })
-      ] }),
-      identity && /* @__PURE__ */ jsxRuntimeExports.jsxs(Dialog, { open, onOpenChange: setOpen, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(DialogTrigger, { asChild: true, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { size: "sm", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { className: "h-4 w-4 mr-1" }),
-          "Add Product"
-        ] }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogContent, { className: "sm:max-w-lg", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(DialogHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(DialogTitle, { children: "Share a Product Price" }) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { onSubmit: handleSubmit, className: "space-y-4", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "name", children: "Product Name" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                Input,
-                {
-                  id: "name",
-                  value: name,
-                  onChange: (e) => setName(e.target.value),
-                  placeholder: "e.g. Leather Bag",
-                  required: true
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "price", children: "Price (MAD)" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                Input,
-                {
-                  id: "price",
-                  type: "number",
-                  value: price,
-                  onChange: (e) => setPrice(e.target.value),
-                  placeholder: "e.g. 150",
-                  required: true
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "category", children: "Category" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: category, onValueChange: setCategory, required: true, children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(SelectTrigger, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Select category" }) }),
-                /* @__PURE__ */ jsxRuntimeExports.jsxs(SelectContent, { children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: "leather", children: "Leather" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: "ceramics", children: "Ceramics" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: "textiles", children: "Textiles" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: "spices", children: "Spices" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: "jewelry", children: "Jewelry" }),
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: "other", children: "Other" })
-                ] })
-              ] })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "description", children: "Description (optional)" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                Textarea,
-                {
-                  id: "description",
-                  value: description,
-                  onChange: (e) => setDescription(e.target.value),
-                  placeholder: "Describe the product...",
-                  rows: 3
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { children: "Photo (optional)" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                ImageUploader,
-                {
-                  onUploadComplete: (blob) => setImageBlob(blob),
-                  onClear: () => setImageBlob(null)
-                }
-              )
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 justify-end", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                Button,
-                {
-                  type: "button",
-                  variant: "outline",
-                  onClick: () => setOpen(false),
-                  children: "Cancel"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                Button,
-                {
-                  type: "submit",
-                  disabled: createProduct.isPending || !name || !price || !category,
-                  children: createProduct.isPending ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-                    /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "h-4 w-4 mr-2 animate-spin" }),
-                    "Adding..."
-                  ] }) : "Add Product"
-                }
-              )
-            ] })
-          ] })
-        ] })
-      ] })
-    ] }),
-    isLoading ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center justify-center py-12", children: /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "h-8 w-8 animate-spin text-primary" }) }) : mappedProducts.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center py-12 text-muted-foreground", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ShoppingBag, { className: "h-12 w-12 mx-auto mb-3 opacity-30" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "No products shared yet. Be the first to share a price!" })
-    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-4", children: mappedProducts.map((product) => /* @__PURE__ */ jsxRuntimeExports.jsx(ProductCard, { product }, product.id.toString())) })
-  ] });
-}
 function PremiumBadge({ className = "" }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
     "span",
@@ -50250,7 +50426,7 @@ function EditFieldRow({
   ] });
 }
 function ProfileScreen() {
-  var _a3, _b3, _c2, _d2;
+  var _a3, _b3, _c2;
   const { identity } = useInternetIdentity();
   const { data: profile, isLoading } = useGetCallerUserProfile();
   const updateUsername = useUpdateUsername();
@@ -50452,16 +50628,11 @@ function ProfileScreen() {
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs text-muted-foreground", children: "Points" })
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-muted rounded-lg p-3 text-center", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Award, { className: "h-4 w-4 mx-auto mb-1 text-primary" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-lg font-bold", children: ((_b3 = profile == null ? void 0 : profile.quizScore) == null ? void 0 : _b3.toString()) ?? "0" }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs text-muted-foreground", children: "Score Quiz" })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-muted rounded-lg p-3 text-center", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-lg font-bold", children: ((_c2 = profile == null ? void 0 : profile.tipsGiven) == null ? void 0 : _c2.toString()) ?? "0" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-lg font-bold", children: ((_b3 = profile == null ? void 0 : profile.tipsGiven) == null ? void 0 : _b3.toString()) ?? "0" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs text-muted-foreground", children: "Conseils donnés" })
             ] }),
             /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-muted rounded-lg p-3 text-center", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-lg font-bold", children: ((_d2 = profile == null ? void 0 : profile.scamsReported) == null ? void 0 : _d2.toString()) ?? "0" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-lg font-bold", children: ((_c2 = profile == null ? void 0 : profile.scamsReported) == null ? void 0 : _c2.toString()) ?? "0" }),
               /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-xs text-muted-foreground", children: "Arnaques signalées" })
             ] })
           ] }) })
@@ -50473,185 +50644,6 @@ function ProfileScreen() {
       ]
     }
   );
-}
-const quizQuestions = [
-  {
-    id: 1,
-    questionText: "A taxi driver in Marrakech refuses to use the meter and quotes you 200 MAD for a 5-minute ride. What should you do?",
-    scenarioImageUrl: "/assets/generated/quiz-taxi-scam.dim_600x400.png",
-    options: [
-      "Accept the price to avoid conflict",
-      "Negotiate firmly or find another taxi",
-      "Pay and report later",
-      "Walk instead"
-    ],
-    correctAnswerIndex: 1,
-    explanation: "Always insist on the meter or agree on a price before entering. Standard short rides in Marrakech cost 10-20 MAD."
-  },
-  {
-    id: 2,
-    questionText: 'A "student" approaches you offering to show you a carpet school for free. What is this likely?',
-    scenarioImageUrl: "/assets/generated/quiz-carpet-shop.dim_600x400.png",
-    options: [
-      "A genuine cultural experience",
-      "A common tourist trap leading to a high-pressure sales pitch",
-      "A legitimate school tour",
-      "A government tourism program"
-    ],
-    correctAnswerIndex: 1,
-    explanation: `This is a classic scam. The "free tour" leads to a carpet shop where you'll face intense pressure to buy overpriced items.`
-  },
-  {
-    id: 3,
-    questionText: "You're offered 1000 MAD for 100 euros. The official rate is about 10.8 MAD per euro. Should you accept?",
-    scenarioImageUrl: "/assets/generated/quiz-currency.dim_600x400.png",
-    options: [
-      "Yes, it's a great deal",
-      "No, it's below the official rate and likely a scam",
-      "It depends on the person",
-      "Only if they show ID"
-    ],
-    correctAnswerIndex: 1,
-    explanation: "100 euros at the official rate is about 1080 MAD. Accepting 1000 MAD means losing money, and street exchange is illegal."
-  },
-  {
-    id: 4,
-    questionText: 'A spice seller gives you a "free gift" of spices and then demands payment. What should you do?',
-    scenarioImageUrl: "/assets/generated/quiz-market-pricing.dim_600x400.png",
-    options: [
-      "Pay whatever they ask",
-      "Politely return the gift and walk away",
-      "Argue loudly",
-      "Call the police immediately"
-    ],
-    correctAnswerIndex: 1,
-    explanation: 'Unsolicited "gifts" are a common pressure tactic. You can politely return items and leave without obligation.'
-  },
-  {
-    id: 5,
-    questionText: 'Someone claims to be a "licensed guide" and offers to take you to the medina. How do you verify?',
-    scenarioImageUrl: "/assets/generated/quiz-fake-guide.dim_600x400.png",
-    options: [
-      "Trust them if they seem friendly",
-      "Ask to see their official guide badge/card",
-      "Follow them anyway",
-      "Ignore all guides"
-    ],
-    correctAnswerIndex: 1,
-    explanation: "Official guides carry a badge issued by the Ministry of Tourism. Always verify credentials before hiring."
-  }
-];
-function QuizScreen() {
-  const [currentQuestion, setCurrentQuestion] = reactExports.useState(0);
-  const [selectedAnswer, setSelectedAnswer] = reactExports.useState(null);
-  const [showExplanation, setShowExplanation] = reactExports.useState(false);
-  const [score, setScore] = reactExports.useState(0);
-  const [completed, setCompleted] = reactExports.useState(false);
-  const question = quizQuestions[currentQuestion];
-  const progress = currentQuestion / quizQuestions.length * 100;
-  const handleAnswer = (index2) => {
-    if (selectedAnswer !== null) return;
-    setSelectedAnswer(index2);
-    setShowExplanation(true);
-    if (index2 === question.correctAnswerIndex) {
-      setScore((s2) => s2 + 1);
-    }
-  };
-  const handleNext = () => {
-    if (currentQuestion + 1 >= quizQuestions.length) {
-      setCompleted(true);
-    } else {
-      setCurrentQuestion((q2) => q2 + 1);
-      setSelectedAnswer(null);
-      setShowExplanation(false);
-    }
-  };
-  const handleReset = () => {
-    setCurrentQuestion(0);
-    setSelectedAnswer(null);
-    setShowExplanation(false);
-    setScore(0);
-    setCompleted(false);
-  };
-  if (completed) {
-    const percentage = Math.round(score / quizQuestions.length * 100);
-    return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-lg mx-auto px-4 py-12 text-center space-y-6", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Trophy, { className: "h-16 w-16 mx-auto text-amber-500" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-2xl font-bold", children: "Quiz Complete!" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-muted-foreground", children: [
-        "You scored",
-        " ",
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "font-bold text-foreground", children: [
-          score,
-          "/",
-          quizQuestions.length
-        ] }),
-        " ",
-        "(",
-        percentage,
-        "%)"
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-muted rounded-xl p-4", children: percentage >= 80 ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-green-600 font-medium", children: "Excellent! You're well-prepared to travel safely in Morocco." }) : percentage >= 60 ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-amber-600 font-medium", children: "Good job! Review the explanations to improve your awareness." }) : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-destructive font-medium", children: "Keep learning! Read the tips and try again." }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { onClick: handleReset, className: "w-full", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(RotateCcw, { className: "h-4 w-4 mr-2" }),
-        "Try Again"
-      ] })
-    ] });
-  }
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "max-w-lg mx-auto px-4 py-6 space-y-6", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CircleHelp, { className: "h-5 w-5 text-primary" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-xl font-bold", children: "Scam Awareness Quiz" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(Badge, { variant: "outline", className: "ml-auto text-xs", children: [
-        currentQuestion + 1,
-        "/",
-        quizQuestions.length
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Progress, { value: progress, className: "h-2" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "img",
-        {
-          src: question.scenarioImageUrl,
-          alt: "Scenario",
-          className: "w-full h-40 object-cover rounded-xl"
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-base font-semibold", children: question.questionText }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-2", children: question.options.map((option, index2) => {
-        let variant = "outline";
-        if (selectedAnswer !== null) {
-          if (index2 === question.correctAnswerIndex) variant = "default";
-          else if (index2 === selectedAnswer) variant = "destructive";
-        }
-        return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          Button,
-          {
-            variant,
-            className: "w-full text-left justify-start h-auto py-3 px-4 text-sm",
-            onClick: () => handleAnswer(index2),
-            disabled: selectedAnswer !== null,
-            children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "mr-2 font-bold", children: [
-                String.fromCharCode(65 + index2),
-                "."
-              ] }),
-              option,
-              selectedAnswer !== null && index2 === question.correctAnswerIndex && /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheckBig, { className: "h-4 w-4 ml-auto text-green-500" }),
-              selectedAnswer === index2 && index2 !== question.correctAnswerIndex && /* @__PURE__ */ jsxRuntimeExports.jsx(CircleX, { className: "h-4 w-4 ml-auto text-destructive" })
-            ]
-          },
-          option
-        );
-      }) }),
-      showExplanation && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-blue-50 dark:bg-blue-950/20 rounded-xl p-4 space-y-2", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-medium text-blue-700 dark:text-blue-300", children: "Explanation:" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-blue-600 dark:text-blue-400", children: question.explanation })
-      ] }),
-      selectedAnswer !== null && /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { onClick: handleNext, className: "w-full", children: currentQuestion + 1 >= quizQuestions.length ? "See Results" : "Next Question" })
-    ] })
-  ] });
 }
 var jt = (n) => {
   switch (n) {
@@ -52982,7 +52974,7 @@ const moroccoRegions = [
     description: "Région ensoleillée du Sud marocain avec Agadir comme capitale balnéaire, les Anti-Atlas berbères, les arganiers et des réserves naturelles exceptionnelles.",
     color: "#bbf7d0",
     hoverColor: "#22c55e",
-    cities: ["Agadir", "Tiznit", "Taroudant", "Inezgane", "Asni"],
+    cities: ["Agadir", "Tiznit", "Taroudant", "Inezgane", "Asni", "Taghazout"],
     sites: [
       {
         id: "agadir-plage",
@@ -53061,6 +53053,21 @@ const moroccoRegions = [
           "Accessible en taxi ou à pied depuis le centre — entrée libre."
         ],
         tags: ["patrimoine", "paysage"]
+      },
+      {
+        id: "taghazout",
+        name: "Taghazout",
+        city: "Taghazout",
+        icon: "🏄",
+        mapUrl: "https://www.google.com/maps/search/Taghazout+Maroc",
+        description: "Village côtier emblématique des surfeurs, niché sur les falaises ocre de la côte atlantique à 19 km au nord d'Agadir. Taghazout est reconnue comme l'une des meilleures destinations de surf en Afrique, avec ses vagues légendaires (Anchor Point, Panoramas, La Source) et sa communauté internationale de surfeurs. Le village conserve son charme de village de pêcheurs berbères malgré son rayonnement mondial.",
+        tips: [
+          "Locations de planches : négociez le prix avant — comptez 100-150 DH/jour, méfiez-vous des tarifs gonflés pour les touristes.",
+          "Cours de surf : vérifiez que l'école est agréée et que les instructeurs sont certifiés — evitez les cours proposés sur la plage sans structure officielle.",
+          "Hébergements : les riad et surf camps affichent des prix très variables — comparez sur plusieurs plateformes avant de réserver.",
+          "Plats locaux : les petits cafés du village proposent des tajines et poisson frais à prix raisonnables — évitez les restaurants au bord de plage qui majorent pour les étrangers."
+        ],
+        tags: ["surf", "plage", "nature", "paysage"]
       }
     ]
   },
@@ -53894,6 +53901,1678 @@ const Toaster = ({ ...props }) => {
     }
   );
 };
+function useImageUpload() {
+  const [state, setState] = reactExports.useState({
+    isUploading: false,
+    progress: 0,
+    error: null,
+    uploadedBlob: null
+  });
+  const upload = async (file) => {
+    setState({
+      isUploading: true,
+      progress: 0,
+      error: null,
+      uploadedBlob: null
+    });
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const bytes = new Uint8Array(arrayBuffer);
+      const blob = ExternalBlob2.fromBytes(bytes).withUploadProgress(
+        (percentage) => {
+          setState((prev) => ({ ...prev, progress: percentage }));
+        }
+      );
+      setState({
+        isUploading: false,
+        progress: 100,
+        error: null,
+        uploadedBlob: blob
+      });
+      return blob;
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "Upload failed";
+      setState({
+        isUploading: false,
+        progress: 0,
+        error: errorMessage,
+        uploadedBlob: null
+      });
+      return null;
+    }
+  };
+  const reset = () => {
+    setState({
+      isUploading: false,
+      progress: 0,
+      error: null,
+      uploadedBlob: null
+    });
+  };
+  return { ...state, upload, reset };
+}
+({
+  [PlaqueLevelType.pending]: "En attente",
+  [PlaqueLevelType.argent]: "Argent",
+  [PlaqueLevelType.gold]: "Or",
+  [PlaqueLevelType.revoked]: "Révoquée"
+});
+function PlaqueBadge$1({ level }) {
+  if (level === PlaqueLevelType.argent)
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(Badge, { className: "bg-muted text-muted-foreground border-border font-semibold gap-1", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, { className: "h-3 w-3" }),
+      " Argent"
+    ] });
+  if (level === PlaqueLevelType.gold)
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(Badge, { className: "bg-amber-500/20 text-amber-700 border-amber-400 font-semibold gap-1", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, { className: "h-3 w-3" }),
+      " Or"
+    ] });
+  if (level === PlaqueLevelType.revoked)
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(Badge, { variant: "destructive", className: "gap-1", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldOff, { className: "h-3 w-3" }),
+      " Révoquée"
+    ] });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Badge, { variant: "outline", className: "gap-1 text-muted-foreground", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldAlert, { className: "h-3 w-3" }),
+    " En attente"
+  ] });
+}
+function ReclamationBadge({ count: count2 }) {
+  const n = Number(count2);
+  if (n === 0)
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-1 text-sm text-muted-foreground", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, { className: "h-3.5 w-3.5 text-green-500" }),
+      " 0 réclamation"
+    ] });
+  if (n < 3)
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      Badge,
+      {
+        variant: "outline",
+        className: "gap-1 text-orange-600 border-orange-400",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(TriangleAlert, { className: "h-3 w-3" }),
+          " ",
+          n,
+          " réclamation",
+          n > 1 ? "s" : ""
+        ]
+      }
+    );
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Badge, { variant: "destructive", className: "gap-1 animate-pulse", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(TriangleAlert, { className: "h-3 w-3" }),
+    " ",
+    n,
+    "/5 — CRITIQUE"
+  ] });
+}
+function PhotoUploadButton({ merchant }) {
+  const fileRef = reactExports.useRef(null);
+  const imageUpload = useImageUpload();
+  const uploadPhoto = useAdminUploadMerchantPhoto();
+  const handleFile = async (e) => {
+    var _a3;
+    const file = (_a3 = e.target.files) == null ? void 0 : _a3[0];
+    if (!file) return;
+    const blob = await imageUpload.upload(file);
+    if (!blob) {
+      ue.error("Impossible de charger l'image");
+      return;
+    }
+    try {
+      await uploadPhoto.mutateAsync({ merchantId: merchant.id, blob });
+      ue.success("Photo ajoutée avec succès");
+    } catch (err) {
+      ue.error(err instanceof Error ? err.message : "Erreur d'upload");
+    }
+    if (fileRef.current) fileRef.current.value = "";
+  };
+  const busy = imageUpload.isUploading || uploadPhoto.isPending;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "input",
+      {
+        ref: fileRef,
+        type: "file",
+        accept: "image/*",
+        className: "hidden",
+        onChange: handleFile,
+        "data-ocid": `admin.merchant.photo_input.${merchant.id}`
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      Button,
+      {
+        type: "button",
+        size: "sm",
+        variant: "outline",
+        className: "gap-1.5",
+        disabled: busy,
+        onClick: () => {
+          var _a3;
+          return (_a3 = fileRef.current) == null ? void 0 : _a3.click();
+        },
+        "data-ocid": `admin.merchant.photo_button.${merchant.id}`,
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ImagePlus, { className: "h-3.5 w-3.5" }),
+          busy ? imageUpload.isUploading ? `${imageUpload.progress}%` : "Envoi..." : merchant.photoBlob ? "Changer la photo" : "Ajouter une photo"
+        ]
+      }
+    )
+  ] });
+}
+function MerchantRow({ merchant }) {
+  const validateReclamation = useAdminValidateReclamation();
+  const [confirmOpen, setConfirmOpen] = reactExports.useState(false);
+  const handleValidate = async () => {
+    setConfirmOpen(false);
+    try {
+      await validateReclamation.mutateAsync(merchant.id);
+      ue.success(`Réclamation validée contre ${merchant.name}`);
+    } catch (err) {
+      ue.error(err instanceof Error ? err.message : "Erreur");
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    Card,
+    {
+      className: "overflow-hidden",
+      "data-ocid": `admin.merchant.card.${merchant.id}`,
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHeader, { className: "p-4 pb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap items-start gap-2 justify-between", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 min-w-0", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-12 w-12 rounded-md shrink-0 bg-muted flex items-center justify-center overflow-hidden border", children: merchant.photoBlob ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "img",
+              {
+                src: merchant.photoBlob.getDirectURL(),
+                alt: merchant.name,
+                className: "h-full w-full object-cover"
+              }
+            ) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+              ImageOff,
+              {
+                className: "h-5 w-5 text-muted-foreground",
+                "aria-label": "Pas de photo"
+              }
+            ) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-w-0", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold text-foreground truncate", children: merchant.name }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: merchant.code })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(PlaqueBadge$1, { level: merchant.plaqueLevel })
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(CardContent, { className: "px-4 pb-4 flex flex-col gap-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(MapPin, { className: "h-3.5 w-3.5" }),
+              merchant.city,
+              merchant.quartier ? `, ${merchant.quartier}` : ""
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-1", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Store2, { className: "h-3.5 w-3.5" }),
+              merchant.category
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+              Number(merchant.positiveEvaluations),
+              " évaluation",
+              Number(merchant.positiveEvaluations) !== 1 ? "s" : "",
+              " positives"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ReclamationBadge, { count: merchant.reclamationCount }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-2 pt-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(PhotoUploadButton, { merchant }),
+            !confirmOpen ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              Button,
+              {
+                type: "button",
+                size: "sm",
+                variant: "outline",
+                className: "gap-1.5 border-destructive/40 text-destructive hover:bg-destructive/10",
+                onClick: () => setConfirmOpen(true),
+                "data-ocid": `admin.merchant.validate_reclamation_button.${merchant.id}`,
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(TriangleAlert, { className: "h-3.5 w-3.5" }),
+                  "Valider réclamation (+1)"
+                ]
+              }
+            ) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-muted-foreground", children: "Confirmer ?" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Button,
+                {
+                  type: "button",
+                  size: "sm",
+                  variant: "destructive",
+                  disabled: validateReclamation.isPending,
+                  onClick: handleValidate,
+                  "data-ocid": `admin.merchant.confirm_reclamation_button.${merchant.id}`,
+                  children: validateReclamation.isPending ? "..." : "Confirmer"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Button,
+                {
+                  type: "button",
+                  size: "sm",
+                  variant: "ghost",
+                  onClick: () => setConfirmOpen(false),
+                  "data-ocid": `admin.merchant.cancel_reclamation_button.${merchant.id}`,
+                  children: "Annuler"
+                }
+              )
+            ] })
+          ] })
+        ] })
+      ]
+    }
+  );
+}
+function AdminMerchantPanel() {
+  const { data: merchants, isLoading, isError } = useGetMerchants();
+  const [filter, setFilter] = reactExports.useState(
+    "all"
+  );
+  const filtered = (merchants ?? []).filter((m2) => {
+    if (filter === "no_photo") return !m2.photoBlob;
+    if (filter === "reclamations") return Number(m2.reclamationCount) > 0;
+    return true;
+  });
+  if (isLoading)
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        className: "grid gap-4 md:grid-cols-2",
+        "data-ocid": "admin.merchant.loading_state",
+        children: ["sk0", "sk1", "sk2", "sk3"].map((k2) => /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-48 rounded-xl" }, k2))
+      }
+    );
+  if (isError)
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        className: "text-center py-12 text-destructive",
+        "data-ocid": "admin.merchant.error_state",
+        children: "Impossible de charger les commerçants."
+      }
+    );
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-5", "data-ocid": "admin.merchant.panel", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-4 text-sm", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-muted-foreground", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { className: "text-foreground", children: (merchants == null ? void 0 : merchants.length) ?? 0 }),
+        " ",
+        "commerçant",
+        ((merchants == null ? void 0 : merchants.length) ?? 0) !== 1 ? "s" : "",
+        " au total"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-muted-foreground", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { className: "text-foreground", children: (merchants == null ? void 0 : merchants.filter((m2) => !m2.photoBlob).length) ?? 0 }),
+        " ",
+        "sans photo"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-muted-foreground", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { className: "text-destructive", children: (merchants == null ? void 0 : merchants.filter((m2) => Number(m2.reclamationCount) > 0).length) ?? 0 }),
+        " ",
+        "avec réclamations"
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "fieldset",
+      {
+        className: "flex gap-2 flex-wrap border-0 p-0 m-0",
+        "aria-label": "Filtrer les commerçants",
+        children: [
+          ["all", "Tous"],
+          ["no_photo", "Sans photo"],
+          ["reclamations", "Avec réclamations"]
+        ].map(([val, label]) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            type: "button",
+            onClick: () => setFilter(val),
+            "data-ocid": `admin.merchant.filter.${val}`,
+            className: `px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${filter === val ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-accent hover:text-foreground"}`,
+            children: label
+          },
+          val
+        ))
+      }
+    ),
+    filtered.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        className: "text-center py-12 text-muted-foreground",
+        "data-ocid": "admin.merchant.empty_state",
+        children: "Aucun commerçant dans cette catégorie."
+      }
+    ) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid gap-4 md:grid-cols-2", children: filtered.map((merchant) => /* @__PURE__ */ jsxRuntimeExports.jsx(MerchantRow, { merchant }, merchant.id.toString())) })
+  ] });
+}
+function AdminScreen() {
+  const { actor, isFetching } = useActor();
+  const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = reactExports.useState(null);
+  const [activeTab, setActiveTab] = reactExports.useState("merchants");
+  reactExports.useEffect(() => {
+    if (!actor || isFetching) return;
+    (async () => {
+      try {
+        const result = await actor.isCallerAdmin();
+        setIsAdmin(result);
+      } catch {
+        setIsAdmin(false);
+      }
+    })();
+  }, [actor, isFetching]);
+  if (isAdmin === null) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        className: "flex items-center justify-center min-h-[60vh] text-muted-foreground",
+        "data-ocid": "admin.loading_state",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col items-center gap-3", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm", children: "Vérification des droits…" })
+        ] })
+      }
+    );
+  }
+  if (!isAdmin) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        className: "flex items-center justify-center min-h-[60vh]",
+        "data-ocid": "admin.access_denied",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center space-y-4 max-w-sm", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldX, { className: "h-16 w-16 mx-auto text-destructive/60" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-foreground", children: "Accès refusé" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground", children: "Vous n'avez pas les droits d'accès à cette section." }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              type: "button",
+              onClick: () => navigate({ to: "/" }),
+              className: "mt-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors",
+              "data-ocid": "admin.go_home_button",
+              children: "Retour à l'accueil"
+            }
+          )
+        ] })
+      }
+    );
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container py-8 space-y-6", "data-ocid": "admin.page", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-2xl font-bold text-foreground", children: "Administration" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-sm", children: "Panneau d'administration No More Scam" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        className: "flex gap-1 border-b",
+        role: "tablist",
+        "aria-label": "Sections admin",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            type: "button",
+            role: "tab",
+            "aria-selected": activeTab === "merchants",
+            onClick: () => setActiveTab("merchants"),
+            "data-ocid": "admin.tab.merchants",
+            className: `px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${activeTab === "merchants" ? "border-primary text-primary" : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"}`,
+            children: "Commerçants certifiés"
+          }
+        )
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { role: "tabpanel", children: activeTab === "merchants" && /* @__PURE__ */ jsxRuntimeExports.jsx(AdminMerchantPanel, {}) })
+  ] });
+}
+var CHECKBOX_NAME = "Checkbox";
+var [createCheckboxContext] = createContextScope$1(CHECKBOX_NAME);
+var [CheckboxProviderImpl, useCheckboxContext] = createCheckboxContext(CHECKBOX_NAME);
+function CheckboxProvider(props) {
+  const {
+    __scopeCheckbox,
+    checked: checkedProp,
+    children,
+    defaultChecked,
+    disabled,
+    form,
+    name,
+    onCheckedChange,
+    required,
+    value = "on",
+    // @ts-expect-error
+    internal_do_not_use_render
+  } = props;
+  const [checked, setChecked] = useControllableState({
+    prop: checkedProp,
+    defaultProp: defaultChecked ?? false,
+    onChange: onCheckedChange,
+    caller: CHECKBOX_NAME
+  });
+  const [control, setControl] = reactExports.useState(null);
+  const [bubbleInput, setBubbleInput] = reactExports.useState(null);
+  const hasConsumerStoppedPropagationRef = reactExports.useRef(false);
+  const isFormControl = control ? !!form || !!control.closest("form") : (
+    // We set this to true by default so that events bubble to forms without JS (SSR)
+    true
+  );
+  const context = {
+    checked,
+    disabled,
+    setChecked,
+    control,
+    setControl,
+    name,
+    form,
+    value,
+    hasConsumerStoppedPropagationRef,
+    required,
+    defaultChecked: isIndeterminate(defaultChecked) ? false : defaultChecked,
+    isFormControl,
+    bubbleInput,
+    setBubbleInput
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    CheckboxProviderImpl,
+    {
+      scope: __scopeCheckbox,
+      ...context,
+      children: isFunction(internal_do_not_use_render) ? internal_do_not_use_render(context) : children
+    }
+  );
+}
+var TRIGGER_NAME = "CheckboxTrigger";
+var CheckboxTrigger = reactExports.forwardRef(
+  ({ __scopeCheckbox, onKeyDown, onClick, ...checkboxProps }, forwardedRef) => {
+    const {
+      control,
+      value,
+      disabled,
+      checked,
+      required,
+      setControl,
+      setChecked,
+      hasConsumerStoppedPropagationRef,
+      isFormControl,
+      bubbleInput
+    } = useCheckboxContext(TRIGGER_NAME, __scopeCheckbox);
+    const composedRefs = useComposedRefs(forwardedRef, setControl);
+    const initialCheckedStateRef = reactExports.useRef(checked);
+    reactExports.useEffect(() => {
+      const form = control == null ? void 0 : control.form;
+      if (form) {
+        const reset = () => setChecked(initialCheckedStateRef.current);
+        form.addEventListener("reset", reset);
+        return () => form.removeEventListener("reset", reset);
+      }
+    }, [control, setChecked]);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Primitive$1.button,
+      {
+        type: "button",
+        role: "checkbox",
+        "aria-checked": isIndeterminate(checked) ? "mixed" : checked,
+        "aria-required": required,
+        "data-state": getState(checked),
+        "data-disabled": disabled ? "" : void 0,
+        disabled,
+        value,
+        ...checkboxProps,
+        ref: composedRefs,
+        onKeyDown: composeEventHandlers(onKeyDown, (event) => {
+          if (event.key === "Enter") event.preventDefault();
+        }),
+        onClick: composeEventHandlers(onClick, (event) => {
+          setChecked((prevChecked) => isIndeterminate(prevChecked) ? true : !prevChecked);
+          if (bubbleInput && isFormControl) {
+            hasConsumerStoppedPropagationRef.current = event.isPropagationStopped();
+            if (!hasConsumerStoppedPropagationRef.current) event.stopPropagation();
+          }
+        })
+      }
+    );
+  }
+);
+CheckboxTrigger.displayName = TRIGGER_NAME;
+var Checkbox$1 = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const {
+      __scopeCheckbox,
+      name,
+      checked,
+      defaultChecked,
+      required,
+      disabled,
+      value,
+      onCheckedChange,
+      form,
+      ...checkboxProps
+    } = props;
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CheckboxProvider,
+      {
+        __scopeCheckbox,
+        checked,
+        defaultChecked,
+        disabled,
+        required,
+        onCheckedChange,
+        name,
+        form,
+        value,
+        internal_do_not_use_render: ({ isFormControl }) => /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CheckboxTrigger,
+            {
+              ...checkboxProps,
+              ref: forwardedRef,
+              __scopeCheckbox
+            }
+          ),
+          isFormControl && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            CheckboxBubbleInput,
+            {
+              __scopeCheckbox
+            }
+          )
+        ] })
+      }
+    );
+  }
+);
+Checkbox$1.displayName = CHECKBOX_NAME;
+var INDICATOR_NAME = "CheckboxIndicator";
+var CheckboxIndicator = reactExports.forwardRef(
+  (props, forwardedRef) => {
+    const { __scopeCheckbox, forceMount, ...indicatorProps } = props;
+    const context = useCheckboxContext(INDICATOR_NAME, __scopeCheckbox);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Presence,
+      {
+        present: forceMount || isIndeterminate(context.checked) || context.checked === true,
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Primitive$1.span,
+          {
+            "data-state": getState(context.checked),
+            "data-disabled": context.disabled ? "" : void 0,
+            ...indicatorProps,
+            ref: forwardedRef,
+            style: { pointerEvents: "none", ...props.style }
+          }
+        )
+      }
+    );
+  }
+);
+CheckboxIndicator.displayName = INDICATOR_NAME;
+var BUBBLE_INPUT_NAME = "CheckboxBubbleInput";
+var CheckboxBubbleInput = reactExports.forwardRef(
+  ({ __scopeCheckbox, ...props }, forwardedRef) => {
+    const {
+      control,
+      hasConsumerStoppedPropagationRef,
+      checked,
+      defaultChecked,
+      required,
+      disabled,
+      name,
+      value,
+      form,
+      bubbleInput,
+      setBubbleInput
+    } = useCheckboxContext(BUBBLE_INPUT_NAME, __scopeCheckbox);
+    const composedRefs = useComposedRefs(forwardedRef, setBubbleInput);
+    const prevChecked = usePrevious(checked);
+    const controlSize = useSize(control);
+    reactExports.useEffect(() => {
+      const input = bubbleInput;
+      if (!input) return;
+      const inputProto = window.HTMLInputElement.prototype;
+      const descriptor = Object.getOwnPropertyDescriptor(
+        inputProto,
+        "checked"
+      );
+      const setChecked = descriptor.set;
+      const bubbles = !hasConsumerStoppedPropagationRef.current;
+      if (prevChecked !== checked && setChecked) {
+        const event = new Event("click", { bubbles });
+        input.indeterminate = isIndeterminate(checked);
+        setChecked.call(input, isIndeterminate(checked) ? false : checked);
+        input.dispatchEvent(event);
+      }
+    }, [bubbleInput, prevChecked, checked, hasConsumerStoppedPropagationRef]);
+    const defaultCheckedRef = reactExports.useRef(isIndeterminate(checked) ? false : checked);
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Primitive$1.input,
+      {
+        type: "checkbox",
+        "aria-hidden": true,
+        defaultChecked: defaultChecked ?? defaultCheckedRef.current,
+        required,
+        disabled,
+        name,
+        value,
+        form,
+        ...props,
+        tabIndex: -1,
+        ref: composedRefs,
+        style: {
+          ...props.style,
+          ...controlSize,
+          position: "absolute",
+          pointerEvents: "none",
+          opacity: 0,
+          margin: 0,
+          // We transform because the input is absolutely positioned but we have
+          // rendered it **after** the button. This pulls it back to sit on top
+          // of the button.
+          transform: "translateX(-100%)"
+        }
+      }
+    );
+  }
+);
+CheckboxBubbleInput.displayName = BUBBLE_INPUT_NAME;
+function isFunction(value) {
+  return typeof value === "function";
+}
+function isIndeterminate(checked) {
+  return checked === "indeterminate";
+}
+function getState(checked) {
+  return isIndeterminate(checked) ? "indeterminate" : checked ? "checked" : "unchecked";
+}
+function Checkbox({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    Checkbox$1,
+    {
+      "data-slot": "checkbox",
+      className: cn(
+        "peer border-input dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      ),
+      ...props,
+      children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        CheckboxIndicator,
+        {
+          "data-slot": "checkbox-indicator",
+          className: "flex items-center justify-center text-current transition-none",
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(Check, { className: "size-3.5" })
+        }
+      )
+    }
+  );
+}
+function MerchantEvaluationDialog({
+  merchant,
+  open,
+  onOpenChange
+}) {
+  const evaluateMerchant = useEvaluateMerchant();
+  const [honest, setHonest] = reactExports.useState(false);
+  const [comment, setComment] = reactExports.useState("");
+  const [alreadyEvaluated, setAlreadyEvaluated] = reactExports.useState(false);
+  const handleClose = () => {
+    onOpenChange(false);
+    setTimeout(() => {
+      setHonest(false);
+      setComment("");
+      setAlreadyEvaluated(false);
+    }, 300);
+  };
+  const handleSubmit = async () => {
+    if (!honest) return;
+    try {
+      await evaluateMerchant.mutateAsync({
+        merchantId: merchant.id,
+        comment: comment.trim() || null
+      });
+      ue.success("Merci pour votre évaluation !");
+      handleClose();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "";
+      if (msg.toLowerCase().includes("already") || msg.toLowerCase().includes("déjà")) {
+        setAlreadyEvaluated(true);
+      } else {
+        ue.error("Erreur lors de l'évaluation.");
+      }
+    }
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Dialog, { open, onOpenChange: handleClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogContent, { className: "sm:max-w-md", "data-ocid": "evaluation.dialog", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(DialogHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogTitle, { className: "flex items-center gap-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Star, { className: "h-5 w-5 text-[oklch(0.74_0.12_55)]" }),
+      "Évaluer ",
+      merchant.name
+    ] }) }),
+    alreadyEvaluated ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "py-6 text-center space-y-3", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-4xl", children: "🔒" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold", children: "Vous avez déjà évalué ce commerçant" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground", children: "Chaque utilisateur ne peut évaluer un commerçant qu'une seule fois." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Button,
+        {
+          onClick: handleClose,
+          variant: "outline",
+          className: "w-full",
+          "data-ocid": "evaluation.close_button",
+          children: "Fermer"
+        }
+      )
+    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-5", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "p-4 rounded-lg bg-[oklch(0.65_0.18_150/0.1)] border border-[oklch(0.65_0.18_150/0.25)]", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "label",
+        {
+          htmlFor: "eval-honest",
+          className: "flex items-start gap-3 cursor-pointer",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Checkbox,
+              {
+                id: "eval-honest",
+                checked: honest,
+                onCheckedChange: (v2) => setHonest(!!v2),
+                className: "mt-0.5",
+                "data-ocid": "evaluation.honest_checkbox"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-sm leading-relaxed", children: [
+              "✅ ",
+              /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Les prix étaient honnêtes" }),
+              " — j'ai acheté chez ce commerçant et il pratique des prix justes."
+            ] })
+          ]
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "eval-comment", children: "Commentaire (optionnel)" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Textarea,
+          {
+            id: "eval-comment",
+            value: comment,
+            onChange: (e) => setComment(e.target.value),
+            placeholder: "Ex: Excellent accueil, tapis de qualité à prix raisonnable, très honnête sur la provenance...",
+            rows: 3,
+            "data-ocid": "evaluation.comment_textarea"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Button,
+          {
+            type: "button",
+            variant: "outline",
+            onClick: handleClose,
+            className: "flex-1",
+            "data-ocid": "evaluation.cancel_button",
+            children: "Annuler"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Button,
+          {
+            type: "button",
+            disabled: !honest || evaluateMerchant.isPending,
+            onClick: handleSubmit,
+            className: "flex-1",
+            "data-ocid": "evaluation.submit_button",
+            children: evaluateMerchant.isPending ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "h-4 w-4 mr-2 animate-spin" }),
+              "Envoi..."
+            ] }) : "Soumettre mon évaluation"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground text-center", children: "Une seule évaluation par commerçant — votre témoignage aide les autres voyageurs." })
+    ] })
+  ] }) });
+}
+function PlaqueBadge({
+  plaqueLevel,
+  size: size2 = "md"
+}) {
+  if (plaqueLevel === "gold") {
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "div",
+      {
+        className: `inline-flex items-center gap-2 rounded-md font-bold tracking-wide border-2 shadow-lg ${size2 === "sm" ? "px-3 py-1.5 text-xs" : size2 === "lg" ? "px-5 py-3 text-base" : "px-4 py-2 text-sm"}`,
+        style: {
+          background: "linear-gradient(135deg, #b8860b 0%, #ffd700 30%, #fffacd 50%, #ffd700 70%, #b8860b 100%)",
+          borderColor: "#b8860b",
+          color: "#3a2200",
+          textShadow: "0 1px 2px rgba(255,255,255,0.4)",
+          boxShadow: "0 2px 12px rgba(255,215,0,0.35), inset 0 1px 0 rgba(255,255,255,0.3)"
+        },
+        "data-ocid": "merchant.plaque_badge",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "span",
+            {
+              className: size2 === "sm" ? "text-base" : size2 === "lg" ? "text-2xl" : "text-xl",
+              children: "🏆"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex flex-col leading-tight", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "span",
+              {
+                className: "uppercase tracking-widest",
+                style: { fontSize: size2 === "sm" ? "0.6rem" : "0.65rem" },
+                children: "Commerçant"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Certifié ⭐ Or" })
+          ] })
+        ]
+      }
+    );
+  }
+  if (plaqueLevel === "argent") {
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "div",
+      {
+        className: `inline-flex items-center gap-2 rounded-md font-bold tracking-wide border-2 shadow-md ${size2 === "sm" ? "px-3 py-1.5 text-xs" : size2 === "lg" ? "px-5 py-3 text-base" : "px-4 py-2 text-sm"}`,
+        style: {
+          background: "linear-gradient(135deg, #708090 0%, #c0c0c0 30%, #f0f0f0 50%, #c0c0c0 70%, #708090 100%)",
+          borderColor: "#9aa0a6",
+          color: "#1a1a2e",
+          textShadow: "0 1px 1px rgba(255,255,255,0.3)",
+          boxShadow: "0 2px 10px rgba(192,192,192,0.3), inset 0 1px 0 rgba(255,255,255,0.3)"
+        },
+        "data-ocid": "merchant.plaque_badge",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "span",
+            {
+              className: size2 === "sm" ? "text-base" : size2 === "lg" ? "text-2xl" : "text-xl",
+              children: "🥈"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex flex-col leading-tight", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "span",
+              {
+                className: "uppercase tracking-widest",
+                style: { fontSize: size2 === "sm" ? "0.6rem" : "0.65rem" },
+                children: "Commerçant"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Certifié ⭐ Argent" })
+          ] })
+        ]
+      }
+    );
+  }
+  if (plaqueLevel === "revoked") {
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "div",
+      {
+        className: `inline-flex items-center gap-2 rounded-md font-semibold border ${size2 === "sm" ? "px-2 py-1 text-xs" : "px-3 py-1.5 text-sm"} bg-destructive/10 border-destructive/40 text-destructive`,
+        "data-ocid": "merchant.plaque_badge",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "⚠️" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Plaque retirée" })
+        ]
+      }
+    );
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+    "div",
+    {
+      className: `inline-flex items-center gap-2 rounded-md font-medium border ${size2 === "sm" ? "px-2 py-1 text-xs" : "px-3 py-1.5 text-sm"} bg-muted/50 border-border text-muted-foreground`,
+      "data-ocid": "merchant.plaque_badge",
+      children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "⏳" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "En attente de certification" })
+      ]
+    }
+  );
+}
+function MerchantCard({
+  merchant,
+  index: index2,
+  isAuthenticated
+}) {
+  const [detailOpen, setDetailOpen] = reactExports.useState(false);
+  const [evaluateOpen, setEvaluateOpen] = reactExports.useState(false);
+  const hasReclamations = merchant.reclamationCount > 0n;
+  const isRevoked = merchant.plaqueLevel === "revoked";
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "button",
+      {
+        type: "button",
+        className: "merchant-card cursor-pointer flex flex-col group text-left w-full",
+        onClick: () => setDetailOpen(true),
+        "data-ocid": `certified_merchants.item.${index2}`,
+        children: [
+          hasReclamations && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 px-4 py-2 bg-[oklch(0.75_0.15_85/0.15)] border-b border-[oklch(0.75_0.15_85/0.3)] text-[oklch(0.65_0.15_55)] text-xs font-medium", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(TriangleAlert, { className: "h-3.5 w-3.5 shrink-0" }),
+            merchant.reclamationCount.toString(),
+            " réclamation",
+            merchant.reclamationCount > 1n ? "s" : "",
+            " signalée",
+            merchant.reclamationCount > 1n ? "s" : ""
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4 flex flex-col gap-3 flex-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(PlaqueBadge, { plaqueLevel: merchant.plaqueLevel, size: "sm" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-foreground text-base leading-tight group-hover:text-primary transition-colors", children: merchant.name }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-muted-foreground mt-0.5", children: merchant.category })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-1.5 text-sm text-muted-foreground", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(MapPin, { className: "h-3.5 w-3.5 shrink-0" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+                merchant.city,
+                ", ",
+                merchant.quartier
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "font-mono text-xs text-primary/80 bg-primary/10 px-2 py-1 rounded w-fit", children: merchant.code }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 text-sm flex-wrap", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-1 text-[oklch(0.65_0.18_150)]", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Star, { className: "h-3.5 w-3.5 fill-current" }),
+                merchant.positiveEvaluations.toString(),
+                " évaluations"
+              ] }),
+              isRevoked ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-destructive font-medium text-xs", children: "❌ Plaque retirée" }) : hasReclamations ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-[oklch(0.65_0.15_55)] font-medium text-xs", children: [
+                "⚠️ ",
+                merchant.reclamationCount.toString(),
+                " réclamation",
+                merchant.reclamationCount > 1n ? "s" : ""
+              ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[oklch(0.65_0.18_150)] text-xs", children: "✅ Zéro réclamation" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Button,
+              {
+                variant: "outline",
+                size: "sm",
+                className: "mt-auto w-full",
+                asChild: true,
+                onClick: (e) => e.stopPropagation(),
+                "data-ocid": `certified_merchants.map_button.${index2}`,
+                children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  "a",
+                  {
+                    href: merchant.mapsLink,
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(ExternalLink, { className: "h-3.5 w-3.5 mr-1.5" }),
+                      "Voir sur la carte"
+                    ]
+                  }
+                )
+              }
+            )
+          ] })
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Dialog, { open: detailOpen, onOpenChange: setDetailOpen, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      DialogContent,
+      {
+        className: "sm:max-w-md",
+        "data-ocid": "certified_merchants.dialog",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(DialogHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(DialogTitle, { className: "flex items-center gap-2 flex-wrap", children: merchant.name }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(PlaqueBadge, { plaqueLevel: merchant.plaqueLevel, size: "md" }),
+            hasReclamations && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 p-3 rounded-lg bg-[oklch(0.75_0.15_85/0.12)] border border-[oklch(0.75_0.15_85/0.3)] text-sm text-[oklch(0.55_0.15_55)]", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(TriangleAlert, { className: "h-4 w-4 shrink-0" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+                "Ce commerçant a ",
+                merchant.reclamationCount.toString(),
+                " ",
+                "réclamation",
+                merchant.reclamationCount > 1n ? "s" : "",
+                " déposée",
+                merchant.reclamationCount > 1n ? "s" : "",
+                "."
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3 text-sm", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-xs uppercase tracking-wide mb-1", children: "Catégorie" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-medium", children: merchant.category })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-xs uppercase tracking-wide mb-1", children: "Ville" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-medium", children: merchant.city })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-xs uppercase tracking-wide mb-1", children: "Quartier" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-medium", children: merchant.quartier })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-xs uppercase tracking-wide mb-1", children: "Code" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-mono text-primary font-semibold", children: merchant.code })
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4 p-3 bg-muted/30 rounded-lg text-sm", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-[oklch(0.65_0.18_150)] font-semibold", children: [
+                "✅ ",
+                merchant.positiveEvaluations.toString(),
+                " évaluations positives"
+              ] }),
+              !hasReclamations && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-[oklch(0.65_0.18_150)] text-xs", children: "Zéro réclamation" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Button,
+                {
+                  variant: "outline",
+                  className: "flex-1",
+                  asChild: true,
+                  "data-ocid": "certified_merchants.map_link",
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                    "a",
+                    {
+                      href: merchant.mapsLink,
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                      children: [
+                        /* @__PURE__ */ jsxRuntimeExports.jsx(ExternalLink, { className: "h-4 w-4 mr-2" }),
+                        "Voir sur Google Maps"
+                      ]
+                    }
+                  )
+                }
+              ),
+              isAuthenticated && merchant.plaqueLevel !== "revoked" && /* @__PURE__ */ jsxRuntimeExports.jsx(
+                Button,
+                {
+                  className: "flex-1",
+                  onClick: () => {
+                    setDetailOpen(false);
+                    setEvaluateOpen(true);
+                  },
+                  "data-ocid": "certified_merchants.evaluate_button",
+                  children: "⭐ Évaluer"
+                }
+              )
+            ] })
+          ] })
+        ]
+      }
+    ) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      MerchantEvaluationDialog,
+      {
+        merchant,
+        open: evaluateOpen,
+        onOpenChange: setEvaluateOpen
+      }
+    )
+  ] });
+}
+const MERCHANT_CATEGORIES = [
+  "Artisanat & Décoration",
+  "Tapis & Tissus",
+  "Épices & Herbes",
+  "Cuir & Maroquinerie",
+  "Céramique & Poterie",
+  "Bijoux & Accessoires",
+  "Vêtements & Mode",
+  "Alimentation & Cuisine",
+  "Huiles & Cosmétiques",
+  "Bois & Sculpture",
+  "Musique & Instruments",
+  "Autre"
+];
+function MerchantSubmissionForm({ open, onOpenChange }) {
+  const submitMerchant = useSubmitMerchant();
+  const [name, setName] = reactExports.useState("");
+  const [category, setCategory] = reactExports.useState("");
+  const [city, setCity] = reactExports.useState("");
+  const [quartier, setQuartier] = reactExports.useState("");
+  const [mapsLink, setMapsLink] = reactExports.useState("");
+  const [submittedCode, setSubmittedCode] = reactExports.useState(null);
+  const isValidUrl = (url) => {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+  const canSubmit = name.trim() && category && city.trim() && quartier.trim() && mapsLink.trim() && isValidUrl(mapsLink);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!canSubmit) return;
+    try {
+      const merchant = await submitMerchant.mutateAsync({
+        name: name.trim(),
+        category,
+        city: city.trim(),
+        quartier: quartier.trim(),
+        mapsLink: mapsLink.trim()
+      });
+      setSubmittedCode(merchant.code);
+    } catch (err) {
+      ue.error(
+        err instanceof Error ? err.message : "Erreur lors de la soumission."
+      );
+    }
+  };
+  const handleClose = () => {
+    onOpenChange(false);
+    setTimeout(() => {
+      setName("");
+      setCategory("");
+      setCity("");
+      setQuartier("");
+      setMapsLink("");
+      setSubmittedCode(null);
+    }, 300);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(Dialog, { open, onOpenChange: handleClose, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogContent, { className: "sm:max-w-lg", "data-ocid": "submit_merchant.dialog", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(DialogHeader, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(DialogTitle, { className: "flex items-center gap-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Store2, { className: "h-5 w-5 text-primary" }),
+      "Soumettre une boutique"
+    ] }) }),
+    submittedCode ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "py-6 text-center space-y-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 rounded-full bg-[oklch(0.65_0.18_150/0.15)] flex items-center justify-center mx-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-3xl", children: "✅" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "font-bold text-lg", children: "Boutique soumise !" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-sm", children: "Votre boutique a été soumise avec succès. Code attribué :" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "font-mono font-bold text-xl text-primary bg-primary/10 rounded-lg px-4 py-2 inline-block", children: submittedCode }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground mt-2", children: "Conservez ce code — les touristes pourront l'utiliser pour retrouver votre boutique." })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Button,
+        {
+          onClick: handleClose,
+          className: "w-full",
+          "data-ocid": "submit_merchant.close_button",
+          children: "Fermer"
+        }
+      )
+    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { onSubmit: handleSubmit, className: "space-y-4", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "sm-name", children: "Nom de la boutique *" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Input,
+          {
+            id: "sm-name",
+            value: name,
+            onChange: (e) => setName(e.target.value),
+            placeholder: "Ex: Maison des Épices El Koutoubia",
+            required: true,
+            "data-ocid": "submit_merchant.name_input"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "sm-category", children: "Catégorie *" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(Select, { value: category, onValueChange: setCategory, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            SelectTrigger,
+            {
+              id: "sm-category",
+              "data-ocid": "submit_merchant.category_select",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Choisir une catégorie" })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: MERCHANT_CATEGORIES.map((cat) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: cat, children: cat }, cat)) })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "sm-city", children: "Ville *" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              id: "sm-city",
+              value: city,
+              onChange: (e) => setCity(e.target.value),
+              placeholder: "Ex: Marrakech",
+              required: true,
+              "data-ocid": "submit_merchant.city_input"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "sm-quartier", children: "Quartier *" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              id: "sm-quartier",
+              value: quartier,
+              onChange: (e) => setQuartier(e.target.value),
+              placeholder: "Ex: Médina",
+              required: true,
+              "data-ocid": "submit_merchant.quartier_input"
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { htmlFor: "sm-maps", children: "Lien Google Maps *" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Input,
+          {
+            id: "sm-maps",
+            type: "url",
+            value: mapsLink,
+            onChange: (e) => setMapsLink(e.target.value),
+            placeholder: "https://maps.google.com/...",
+            required: true,
+            "data-ocid": "submit_merchant.maps_input"
+          }
+        ),
+        mapsLink && !isValidUrl(mapsLink) && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "p",
+          {
+            className: "text-xs text-destructive",
+            "data-ocid": "submit_merchant.maps_field_error",
+            children: "URL invalide. Copiez le lien directement depuis Google Maps."
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-start gap-2 p-3 bg-muted/40 rounded-lg text-xs text-muted-foreground", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Camera, { className: "h-4 w-4 shrink-0 mt-0.5" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Les photos de la devanture seront ajoutées par notre équipe lors de la distribution des affiches." })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 justify-end pt-1", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Button,
+          {
+            type: "button",
+            variant: "outline",
+            onClick: handleClose,
+            "data-ocid": "submit_merchant.cancel_button",
+            children: "Annuler"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Button,
+          {
+            type: "submit",
+            disabled: !canSubmit || submitMerchant.isPending,
+            "data-ocid": "submit_merchant.submit_button",
+            children: submitMerchant.isPending ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "h-4 w-4 mr-2 animate-spin" }),
+              "Soumission..."
+            ] }) : "Soumettre la boutique"
+          }
+        )
+      ] })
+    ] })
+  ] }) });
+}
+const MOROCCAN_CITIES = [
+  "Marrakech",
+  "Fès",
+  "Casablanca",
+  "Agadir",
+  "Rabat",
+  "Tanger",
+  "Meknès",
+  "Oujda",
+  "Tétouan",
+  "Chefchaouen",
+  "Essaouira",
+  "Safi",
+  "El Jadida",
+  "Béni Mellal",
+  "Khénifra",
+  "Errachidia",
+  "Ouarzazate",
+  "Zagora",
+  "Taroudant",
+  "Tiznit",
+  "Dakhla",
+  "Laâyoune"
+];
+const LEVEL_ORDER = {
+  [PlaqueLevelType.gold]: 0,
+  [PlaqueLevelType.argent]: 1,
+  [PlaqueLevelType.pending]: 2,
+  [PlaqueLevelType.revoked]: 3
+};
+function sortMerchants(merchants) {
+  return [...merchants].sort(
+    (a2, b2) => LEVEL_ORDER[a2.plaqueLevel] - LEVEL_ORDER[b2.plaqueLevel]
+  );
+}
+function StatsBar({ merchants }) {
+  const goldCount = merchants.filter(
+    (m2) => m2.plaqueLevel === PlaqueLevelType.gold
+  ).length;
+  const argentCount = merchants.filter(
+    (m2) => m2.plaqueLevel === PlaqueLevelType.argent
+  ).length;
+  const pendingCount = merchants.filter(
+    (m2) => m2.plaqueLevel === PlaqueLevelType.pending
+  ).length;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap gap-3 text-sm", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-1.5 px-3 py-1 rounded-full bg-[oklch(0.74_0.12_55/0.15)] border border-[oklch(0.74_0.12_55/0.3)] text-[oklch(0.55_0.12_55)]", children: [
+      "🏆 ",
+      /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: goldCount }),
+      " Or"
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-1.5 px-3 py-1 rounded-full bg-[oklch(0.78_0.05_260/0.15)] border border-[oklch(0.78_0.05_260/0.3)] text-muted-foreground", children: [
+      "🥈 ",
+      /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: argentCount }),
+      " Argent"
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "flex items-center gap-1.5 px-3 py-1 rounded-full bg-muted/50 border border-border text-muted-foreground", children: [
+      "⏳ ",
+      /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: pendingCount }),
+      " En attente"
+    ] })
+  ] });
+}
+const SAMPLE_MERCHANTS = [
+  {
+    id: 1n,
+    name: "Maison des Épices El Bahja",
+    category: "Épices & Herbes",
+    city: "Marrakech",
+    quartier: "Médina",
+    code: "NMS-MAR-0001",
+    mapsLink: "https://maps.google.com/maps?q=Jemaa+el-Fna+Marrakech",
+    positiveEvaluations: 52n,
+    reclamationCount: 0n,
+    plaqueLevel: PlaqueLevelType.gold,
+    submittedBy: {
+      toText: () => "",
+      compareTo: () => 0,
+      isAnonymous: () => false
+    },
+    timestamp: BigInt(Date.now()) * 1000000n,
+    photoBlob: void 0
+  },
+  {
+    id: 2n,
+    name: "Tapis Artisanat Berbère",
+    category: "Tapis & Tissus",
+    city: "Fès",
+    quartier: "Médina",
+    code: "NMS-FES-0042",
+    mapsLink: "https://maps.google.com/maps?q=Medina+Fes",
+    positiveEvaluations: 31n,
+    reclamationCount: 0n,
+    plaqueLevel: PlaqueLevelType.argent,
+    submittedBy: {
+      toText: () => "",
+      compareTo: () => 0,
+      isAnonymous: () => false
+    },
+    timestamp: BigInt(Date.now()) * 1000000n,
+    photoBlob: void 0
+  },
+  {
+    id: 3n,
+    name: "Cuir Artisanal de la Médina",
+    category: "Cuir & Maroquinerie",
+    city: "Fès",
+    quartier: "Souk Seffarine",
+    code: "NMS-FES-0017",
+    mapsLink: "https://maps.google.com/maps?q=Souk+Seffarine+Fes",
+    positiveEvaluations: 18n,
+    reclamationCount: 1n,
+    plaqueLevel: PlaqueLevelType.argent,
+    submittedBy: {
+      toText: () => "",
+      compareTo: () => 0,
+      isAnonymous: () => false
+    },
+    timestamp: BigInt(Date.now()) * 1000000n,
+    photoBlob: void 0
+  },
+  {
+    id: 4n,
+    name: "Céramique Traditionnelle Safi",
+    category: "Céramique & Poterie",
+    city: "Safi",
+    quartier: "Medina",
+    code: "NMS-SAF-0003",
+    mapsLink: "https://maps.google.com/maps?q=Medina+Safi",
+    positiveEvaluations: 9n,
+    reclamationCount: 0n,
+    plaqueLevel: PlaqueLevelType.pending,
+    submittedBy: {
+      toText: () => "",
+      compareTo: () => 0,
+      isAnonymous: () => false
+    },
+    timestamp: BigInt(Date.now()) * 1000000n,
+    photoBlob: void 0
+  },
+  {
+    id: 5n,
+    name: "Argan Bio Souss",
+    category: "Huiles & Cosmétiques",
+    city: "Agadir",
+    quartier: "Centre-Ville",
+    code: "NMS-AGA-0008",
+    mapsLink: "https://maps.google.com/maps?q=Agadir+Centre",
+    positiveEvaluations: 67n,
+    reclamationCount: 0n,
+    plaqueLevel: PlaqueLevelType.gold,
+    submittedBy: {
+      toText: () => "",
+      compareTo: () => 0,
+      isAnonymous: () => false
+    },
+    timestamp: BigInt(Date.now()) * 1000000n,
+    photoBlob: void 0
+  },
+  {
+    id: 6n,
+    name: "Bijoux Amazigh Tafraoute",
+    category: "Bijoux & Accessoires",
+    city: "Taroudant",
+    quartier: "Médina",
+    code: "NMS-TAR-0005",
+    mapsLink: "https://maps.google.com/maps?q=Taroudant+Medina",
+    positiveEvaluations: 26n,
+    reclamationCount: 0n,
+    plaqueLevel: PlaqueLevelType.argent,
+    submittedBy: {
+      toText: () => "",
+      compareTo: () => 0,
+      isAnonymous: () => false
+    },
+    timestamp: BigInt(Date.now()) * 1000000n,
+    photoBlob: void 0
+  }
+];
+function CertifiedMerchantsScreen() {
+  const { identity } = useInternetIdentity();
+  const { data: allMerchants = [], isLoading } = useGetMerchants();
+  const [search, setSearch] = reactExports.useState("");
+  const [filterCity, setFilterCity] = reactExports.useState("");
+  const [filterCategory, setFilterCategory] = reactExports.useState("");
+  const [submitOpen, setSubmitOpen] = reactExports.useState(false);
+  const filteredMerchants = reactExports.useMemo(() => {
+    const q2 = search.toLowerCase().trim();
+    let result = allMerchants;
+    if (q2) {
+      result = result.filter(
+        (m2) => m2.name.toLowerCase().includes(q2) || m2.code.toLowerCase().includes(q2) || m2.city.toLowerCase().includes(q2)
+      );
+    }
+    if (filterCity)
+      result = result.filter(
+        (m2) => m2.city.toLowerCase() === filterCity.toLowerCase()
+      );
+    if (filterCategory)
+      result = result.filter((m2) => m2.category === filterCategory);
+    return sortMerchants(result);
+  }, [allMerchants, search, filterCity, filterCategory]);
+  const displayMerchants = allMerchants.length > 0 ? filteredMerchants : sortMerchants(SAMPLE_MERCHANTS);
+  const isUsingFallback = allMerchants.length === 0 && !isLoading;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-card border-b", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container py-10 text-center space-y-3", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-center gap-3 mb-2", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Award, { className: "h-8 w-8 text-[oklch(0.74_0.12_55)]" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "text-3xl md:text-4xl font-bold", children: "Commerçants Certifiés" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Award, { className: "h-8 w-8 text-[oklch(0.74_0.12_55)]" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-lg max-w-xl mx-auto", children: "Notre engagement pour l'excellence." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-sm max-w-2xl mx-auto", children: "Critères : Transparence, Prix honnêtes, Validés par la Communauté." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-wrap justify-center gap-4 pt-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 px-4 py-2 rounded-lg bg-[oklch(0.74_0.12_55/0.1)] border border-[oklch(0.74_0.12_55/0.3)] text-sm", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, { className: "h-4 w-4 text-[oklch(0.65_0.12_55)]" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Argent" }),
+            " : 25 évaluations positives"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 px-4 py-2 rounded-lg bg-[oklch(0.74_0.12_55/0.15)] border border-[oklch(0.74_0.12_55/0.4)] text-sm", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Shield, { className: "h-4 w-4 text-[oklch(0.55_0.12_55)]" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Or" }),
+            " : 50 évaluations + zéro réclamation"
+          ] })
+        ] })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "container py-6 space-y-6", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col sm:flex-row gap-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative flex-1", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { className: "absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            Input,
+            {
+              value: search,
+              onChange: (e) => setSearch(e.target.value),
+              placeholder: "Rechercher par nom ou code (NMS-FES-0042)…",
+              className: "pl-9",
+              "data-ocid": "certified_merchants.search_input"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          Select,
+          {
+            value: filterCity || "__all__",
+            onValueChange: (v2) => setFilterCity(v2 === "__all__" ? "" : v2),
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                SelectTrigger,
+                {
+                  className: "w-full sm:w-48",
+                  "data-ocid": "certified_merchants.city_select",
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Filtrer par ville" })
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(SelectContent, { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: "__all__", children: "Toutes les villes" }),
+                MOROCCAN_CITIES.map((c2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: c2, children: c2 }, c2))
+              ] })
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          Select,
+          {
+            value: filterCategory || "__all__",
+            onValueChange: (v2) => setFilterCategory(v2 === "__all__" ? "" : v2),
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                SelectTrigger,
+                {
+                  className: "w-full sm:w-52",
+                  "data-ocid": "certified_merchants.category_select",
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(SelectValue, { placeholder: "Catégorie" })
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(SelectContent, { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: "__all__", children: "Toutes catégories" }),
+                MERCHANT_CATEGORIES.map((c2) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: c2, children: c2 }, c2))
+              ] })
+            ]
+          }
+        ),
+        identity && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          Button,
+          {
+            onClick: () => setSubmitOpen(true),
+            className: "shrink-0",
+            "data-ocid": "certified_merchants.submit_open_modal_button",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { className: "h-4 w-4 mr-2" }),
+              "Soumettre une boutique"
+            ]
+          }
+        )
+      ] }),
+      !isLoading && allMerchants.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx(StatsBar, { merchants: allMerchants }),
+      isUsingFallback && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 p-3 bg-muted/30 border border-border rounded-lg text-sm text-muted-foreground", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(LoaderCircle, { className: "h-4 w-4 animate-spin" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Connexion au backend… Exemples affichés en attendant." })
+      ] }),
+      isLoading ? /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "div",
+        {
+          className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4",
+          "data-ocid": "certified_merchants.loading_state",
+          children: ["sk0", "sk1", "sk2", "sk3", "sk4", "sk5"].map((k2) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "div",
+            {
+              className: "rounded-lg border border-border p-4 space-y-3",
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-8 w-2/3" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-5 w-full" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-4 w-1/2" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Skeleton, { className: "h-8 w-full" })
+              ]
+            },
+            k2
+          ))
+        }
+      ) : displayMerchants.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "div",
+        {
+          className: "text-center py-16 space-y-4 text-muted-foreground",
+          "data-ocid": "certified_merchants.empty_state",
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Award, { className: "h-16 w-16 mx-auto opacity-25" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold text-lg", children: "Aucun commerçant trouvé" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm mt-1", children: search || filterCity || filterCategory ? "Essayez d'autres filtres." : "Soyez le premier à soumettre une boutique de confiance !" })
+            ] }),
+            identity && !search && !filterCity && !filterCategory && /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              Button,
+              {
+                onClick: () => setSubmitOpen(true),
+                "data-ocid": "certified_merchants.empty_submit_button",
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, { className: "h-4 w-4 mr-2" }),
+                  "Soumettre une boutique"
+                ]
+              }
+            )
+          ]
+        }
+      ) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4", children: displayMerchants.map((merchant, idx) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        MerchantCard,
+        {
+          merchant,
+          index: idx + 1,
+          isAuthenticated: !!identity
+        },
+        merchant.id.toString()
+      )) }),
+      !identity && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-center py-4 text-sm text-muted-foreground border-t border-border pt-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Connectez-vous pour soumettre une boutique ou évaluer un commerçant." }) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(MerchantSubmissionForm, { open: submitOpen, onOpenChange: setSubmitOpen })
+  ] });
+}
 function Layout() {
   const { identity, login, clear, loginStatus } = useInternetIdentity();
   const queryClient2 = useQueryClient();
@@ -53922,8 +55601,6 @@ function Layout() {
   };
   const topNavItems = [
     { label: "Feed", path: "/feed", icon: Newspaper },
-    { label: "Produits", path: "/products", icon: ShoppingBag },
-    { label: "Quiz", path: "/quiz", icon: CircleHelp },
     { label: "Sites", path: "/tourist-sites", icon: MapPin },
     { label: "Apprendre l'arabe", path: "/arabic-lessons", icon: Languages },
     {
@@ -53936,6 +55613,11 @@ function Layout() {
       label: "Assistance Juridique",
       path: "/assistance-juridique",
       icon: Scale
+    },
+    {
+      label: "Commerçants Certifiés",
+      path: "/certified-merchants",
+      icon: Award
     }
   ];
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen flex flex-col bg-background", children: [
@@ -54081,16 +55763,6 @@ const feedRoute = createRoute({
   path: "/feed",
   component: FeedScreen
 });
-const productsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/products",
-  component: ProductsScreen
-});
-const quizRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/quiz",
-  component: QuizScreen
-});
 const tipsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/tips",
@@ -54151,11 +55823,19 @@ const legalAssistanceRoute = createRoute({
   path: "/assistance-juridique",
   component: LegalAssistanceScreen
 });
+const certifiedMerchantsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/certified-merchants",
+  component: CertifiedMerchantsScreen
+});
+const adminRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/admin",
+  component: AdminScreen
+});
 const routeTree = rootRoute.addChildren([
   indexRoute,
   feedRoute,
-  productsRoute,
-  quizRoute,
   tipsRoute,
   arabicLessonsRoute,
   touristSitesRoute,
@@ -54167,7 +55847,9 @@ const routeTree = rootRoute.addChildren([
   paymentSuccessRoute,
   paymentFailureRoute,
   reclamationsRoute,
-  legalAssistanceRoute
+  legalAssistanceRoute,
+  certifiedMerchantsRoute,
+  adminRoute
 ]);
 const router = createRouter({ routeTree });
 function App() {

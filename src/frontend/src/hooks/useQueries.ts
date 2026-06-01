@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import type { Merchant, MerchantEvaluation } from "../backend";
 import type { ExternalBlob } from "../backend";
 import { useActor } from "./useActor";
 
@@ -23,16 +24,6 @@ export interface Reclamation {
   timestamp: bigint;
   author: { toString(): string };
   helpfulCount: bigint;
-}
-
-export interface Product {
-  id: bigint;
-  name: string;
-  description: string;
-  price: bigint;
-  category: string;
-  seller: { toString(): string };
-  imageBlob?: ExternalBlob;
 }
 
 export interface Post {
@@ -198,44 +189,6 @@ export function useCreateTip() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tips"] });
-    },
-  });
-}
-
-export function useGetProducts() {
-  const { actor, isFetching } = useActor();
-  return useQuery<Product[]>({
-    queryKey: ["products"],
-    queryFn: async () => {
-      if (!actor) return [];
-      return (actor as any).getAllProducts();
-    },
-    enabled: !!actor && !isFetching,
-  });
-}
-
-export function useCreateProduct() {
-  const { actor } = useActor();
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (params: {
-      name: string;
-      description: string;
-      price: bigint;
-      category: string;
-      imageBlob: ExternalBlob | null;
-    }) => {
-      if (!actor) throw new Error("Actor not available");
-      return (actor as any).createProduct(
-        params.name,
-        params.description,
-        params.price,
-        params.category,
-        params.imageBlob,
-      );
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
     },
   });
 }
@@ -449,6 +402,196 @@ export function useVoteReclamationHelpful() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["reclamations"] });
+    },
+  });
+}
+
+// ── Merchant / Certified Merchants hooks ──────────────────────────────────────
+
+export function useGetMerchants() {
+  const { actor, isFetching } = useActor();
+  return useQuery<Merchant[]>({
+    queryKey: ["merchants"],
+    queryFn: async () => {
+      if (!actor) return [];
+      return (
+        actor as unknown as { getMerchants(): Promise<Merchant[]> }
+      ).getMerchants();
+    },
+    enabled: !!actor && !isFetching,
+  });
+}
+
+export function useGetMerchant(id: bigint | null) {
+  const { actor, isFetching } = useActor();
+  return useQuery<Merchant | null>({
+    queryKey: ["merchant", id?.toString()],
+    queryFn: async () => {
+      if (!actor || id === null) return null;
+      return (
+        actor as unknown as {
+          getMerchant(id: bigint): Promise<Merchant | null>;
+        }
+      ).getMerchant(id);
+    },
+    enabled: !!actor && !isFetching && id !== null,
+  });
+}
+
+export function useSearchMerchantByCode(code: string) {
+  const { actor, isFetching } = useActor();
+  return useQuery<Merchant | null>({
+    queryKey: ["merchant", "code", code],
+    queryFn: async () => {
+      if (!actor || !code.trim()) return null;
+      return (
+        actor as unknown as {
+          searchMerchantByCode(code: string): Promise<Merchant | null>;
+        }
+      ).searchMerchantByCode(code);
+    },
+    enabled: !!actor && !isFetching && code.trim().length > 0,
+  });
+}
+
+export function useGetMerchantEvaluations(merchantId: bigint | null) {
+  const { actor, isFetching } = useActor();
+  return useQuery<MerchantEvaluation[]>({
+    queryKey: ["merchant-evaluations", merchantId?.toString()],
+    queryFn: async () => {
+      if (!actor || merchantId === null) return [];
+      return (
+        actor as unknown as {
+          getMerchantEvaluations(
+            merchantId: bigint,
+          ): Promise<MerchantEvaluation[]>;
+        }
+      ).getMerchantEvaluations(merchantId);
+    },
+    enabled: !!actor && !isFetching && merchantId !== null,
+  });
+}
+
+export function useSubmitMerchant() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (params: {
+      name: string;
+      category: string;
+      city: string;
+      quartier: string;
+      mapsLink: string;
+    }) => {
+      if (!actor) throw new Error("Actor not available");
+      const result = await (
+        actor as unknown as {
+          submitMerchant(
+            name: string,
+            category: string,
+            city: string,
+            quartier: string,
+            mapsLink: string,
+          ): Promise<
+            { __kind__: "ok"; ok: Merchant } | { __kind__: "err"; err: string }
+          >;
+        }
+      ).submitMerchant(
+        params.name,
+        params.category,
+        params.city,
+        params.quartier,
+        params.mapsLink,
+      );
+      if (result.__kind__ === "err") throw new Error(result.err);
+      return result.ok;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["merchants"] });
+    },
+  });
+}
+
+export function useEvaluateMerchant() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (params: {
+      merchantId: bigint;
+      comment: string | null;
+    }) => {
+      if (!actor) throw new Error("Actor not available");
+      const result = await (
+        actor as unknown as {
+          evaluateMerchant(
+            merchantId: bigint,
+            comment: string | null,
+          ): Promise<
+            { __kind__: "ok"; ok: string } | { __kind__: "err"; err: string }
+          >;
+        }
+      ).evaluateMerchant(params.merchantId, params.comment);
+      if (result.__kind__ === "err") throw new Error(result.err);
+      return result.ok;
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["merchants"] });
+      queryClient.invalidateQueries({
+        queryKey: ["merchant-evaluations", variables.merchantId.toString()],
+      });
+    },
+  });
+}
+// ── Admin merchant mutations ──────────────────────────────────────────────────
+
+export function useAdminUploadMerchantPhoto() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (params: {
+      merchantId: bigint;
+      blob: import("../backend").ExternalBlob;
+    }) => {
+      if (!actor) throw new Error("Actor not available");
+      const result = await (
+        actor as unknown as {
+          adminUploadMerchantPhoto(
+            merchantId: bigint,
+            blob: import("../backend").ExternalBlob,
+          ): Promise<
+            { __kind__: "ok"; ok: string } | { __kind__: "err"; err: string }
+          >;
+        }
+      ).adminUploadMerchantPhoto(params.merchantId, params.blob);
+      if (result.__kind__ === "err") throw new Error(result.err);
+      return result.ok;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["merchants"] });
+    },
+  });
+}
+
+export function useAdminValidateReclamation() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (merchantId: bigint) => {
+      if (!actor) throw new Error("Actor not available");
+      const result = await (
+        actor as unknown as {
+          adminValidateReclamation(
+            merchantId: bigint,
+          ): Promise<
+            { __kind__: "ok"; ok: string } | { __kind__: "err"; err: string }
+          >;
+        }
+      ).adminValidateReclamation(merchantId);
+      if (result.__kind__ === "err") throw new Error(result.err);
+      return result.ok;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["merchants"] });
     },
   });
 }

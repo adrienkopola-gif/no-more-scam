@@ -5,7 +5,6 @@ export type TranslationKey =
   | "nav.feed"
   | "nav.products"
   | "nav.tips"
-  | "nav.quiz"
   | "nav.sites"
   | "nav.badges"
   | "nav.scams"
@@ -21,7 +20,6 @@ export type TranslationKey =
   | "profile.stats"
   | "profile.badges"
   | "profile.points"
-  | "profile.quizScore"
   | "profile.tipsGiven"
   | "profile.scamsReported"
   | "profile.notLoggedIn"
@@ -66,7 +64,6 @@ export const translations: Translations = {
     "nav.feed": "Feed",
     "nav.products": "Produits",
     "nav.tips": "Conseils",
-    "nav.quiz": "Quiz",
     "nav.sites": "Sites",
     "nav.badges": "Badges",
     "nav.scams": "Arnaques",
@@ -82,7 +79,6 @@ export const translations: Translations = {
     "profile.stats": "Statistiques & Progression",
     "profile.badges": "Badges obtenus",
     "profile.points": "Points",
-    "profile.quizScore": "Score Quiz",
     "profile.tipsGiven": "Conseils donnés",
     "profile.scamsReported": "Arnaques signalées",
     "profile.notLoggedIn": "Veuillez vous connecter pour voir votre profil.",
@@ -126,7 +122,6 @@ export const translations: Translations = {
     "nav.feed": "Inicio",
     "nav.products": "Productos",
     "nav.tips": "Consejos",
-    "nav.quiz": "Quiz",
     "nav.sites": "Sitios",
     "nav.badges": "Insignias",
     "nav.scams": "Estafas",
@@ -142,7 +137,6 @@ export const translations: Translations = {
     "profile.stats": "Estadísticas y Progreso",
     "profile.badges": "Insignias obtenidas",
     "profile.points": "Puntos",
-    "profile.quizScore": "Puntuación Quiz",
     "profile.tipsGiven": "Consejos dados",
     "profile.scamsReported": "Estafas reportadas",
     "profile.notLoggedIn": "Inicia sesión para ver tu perfil.",
@@ -186,7 +180,6 @@ export const translations: Translations = {
     "nav.feed": "الرئيسية",
     "nav.products": "المنتجات",
     "nav.tips": "النصائح",
-    "nav.quiz": "اختبار",
     "nav.sites": "المواقع",
     "nav.badges": "الشارات",
     "nav.scams": "عمليات النصب",
@@ -202,7 +195,6 @@ export const translations: Translations = {
     "profile.stats": "الإحصائيات والتقدم",
     "profile.badges": "الشارات المكتسبة",
     "profile.points": "النقاط",
-    "profile.quizScore": "نتيجة الاختبار",
     "profile.tipsGiven": "النصائح المقدمة",
     "profile.scamsReported": "عمليات النصب المبلغ عنها",
     "profile.notLoggedIn": "يرجى تسجيل الدخول لعرض ملفك الشخصي.",

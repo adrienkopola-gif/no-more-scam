@@ -40,7 +40,6 @@ export const ShoppingItem = IDL.Record({
   'productDescription' : IDL.Text,
 });
 export const PostId = IDL.Nat;
-export const ProductId = IDL.Nat;
 export const Reclamation = IDL.Record({
   'id' : IDL.Nat,
   'city' : IDL.Text,
@@ -79,15 +78,6 @@ export const Post = IDL.Record({
   'fairDealVotes' : IDL.Vec(IDL.Principal),
   'timestamp' : Time,
 });
-export const Product = IDL.Record({
-  'id' : ProductId,
-  'imageBlob' : IDL.Opt(ExternalBlob),
-  'name' : IDL.Text,
-  'description' : IDL.Text,
-  'seller' : IDL.Principal,
-  'category' : IDL.Text,
-  'price' : IDL.Nat,
-});
 export const Tip = IDL.Record({
   'id' : IDL.Nat,
   'content' : IDL.Text,
@@ -118,6 +108,34 @@ export const Comment = IDL.Record({
   'author' : IDL.Principal,
   'timestamp' : IDL.Int,
   'postId' : IDL.Nat,
+});
+export const PlaqueLevelType = IDL.Variant({
+  'revoked' : IDL.Null,
+  'pending' : IDL.Null,
+  'gold' : IDL.Null,
+  'argent' : IDL.Null,
+});
+export const Merchant = IDL.Record({
+  'id' : IDL.Nat,
+  'photoBlob' : IDL.Opt(ExternalBlob),
+  'plaqueLevel' : PlaqueLevelType,
+  'city' : IDL.Text,
+  'code' : IDL.Text,
+  'name' : IDL.Text,
+  'mapsLink' : IDL.Text,
+  'submittedBy' : IDL.Principal,
+  'positiveEvaluations' : IDL.Nat,
+  'timestamp' : IDL.Int,
+  'category' : IDL.Text,
+  'reclamationCount' : IDL.Nat,
+  'quartier' : IDL.Text,
+});
+export const MerchantEvaluation = IDL.Record({
+  'id' : IDL.Nat,
+  'evaluator' : IDL.Principal,
+  'merchantId' : IDL.Nat,
+  'comment' : IDL.Opt(IDL.Text),
+  'timestamp' : IDL.Int,
 });
 export const StripeSessionStatus = IDL.Variant({
   'completed' : IDL.Record({
@@ -179,6 +197,16 @@ export const idlService = IDL.Service({
   '_initializeAccessControl' : IDL.Func([], [], []),
   'addComment' : IDL.Func([IDL.Nat, IDL.Text], [IDL.Nat], []),
   'addPremiumProduct' : IDL.Func([PremiumProduct], [], []),
+  'adminUploadMerchantPhoto' : IDL.Func(
+      [IDL.Nat, ExternalBlob],
+      [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
+      [],
+    ),
+  'adminValidateReclamation' : IDL.Func(
+      [IDL.Nat],
+      [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
+      [],
+    ),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
   'createCheckoutSession' : IDL.Func(
       [IDL.Vec(ShoppingItem), IDL.Text, IDL.Text],
@@ -190,11 +218,6 @@ export const idlService = IDL.Service({
       [PostId],
       [],
     ),
-  'createProduct' : IDL.Func(
-      [IDL.Text, IDL.Text, IDL.Nat, IDL.Text, IDL.Opt(ExternalBlob)],
-      [ProductId],
-      [],
-    ),
   'createReclamation' : IDL.Func(
       [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
       [Reclamation],
@@ -204,6 +227,11 @@ export const idlService = IDL.Service({
   'deletePost' : IDL.Func(
       [PostId],
       [IDL.Variant({ 'ok' : IDL.Null, 'err' : IDL.Text })],
+      [],
+    ),
+  'evaluateMerchant' : IDL.Func(
+      [IDL.Nat, IDL.Opt(IDL.Text)],
+      [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
       [],
     ),
   'filterTraditionalProducts' : IDL.Func(
@@ -218,7 +246,6 @@ export const idlService = IDL.Service({
     ),
   'getAllPosts' : IDL.Func([], [IDL.Vec(Post)], ['query']),
   'getAllPremiumProducts' : IDL.Func([], [IDL.Vec(PremiumProduct)], ['query']),
-  'getAllProducts' : IDL.Func([], [IDL.Vec(Product)], ['query']),
   'getAllReclamations' : IDL.Func([], [IDL.Vec(Reclamation)], ['query']),
   'getAllTips' : IDL.Func([], [IDL.Vec(Tip)], ['query']),
   'getAllTraditionalProducts' : IDL.Func(
@@ -230,6 +257,13 @@ export const idlService = IDL.Service({
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getComments' : IDL.Func([IDL.Nat], [IDL.Vec(Comment)], ['query']),
   'getCountry' : IDL.Func([IDL.Principal], [IDL.Text], ['query']),
+  'getMerchant' : IDL.Func([IDL.Nat], [IDL.Opt(Merchant)], ['query']),
+  'getMerchantEvaluations' : IDL.Func(
+      [IDL.Nat],
+      [IDL.Vec(MerchantEvaluation)],
+      ['query'],
+    ),
+  'getMerchants' : IDL.Func([], [IDL.Vec(Merchant)], ['query']),
   'getPost' : IDL.Func([PostId], [IDL.Opt(Post)], ['query']),
   'getPremiumProduct' : IDL.Func(
       [IDL.Nat],
@@ -262,7 +296,13 @@ export const idlService = IDL.Service({
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'isStripeConfigured' : IDL.Func([], [IDL.Bool], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'searchMerchantByCode' : IDL.Func([IDL.Text], [IDL.Opt(Merchant)], ['query']),
   'setStripeConfiguration' : IDL.Func([StripeConfiguration], [], []),
+  'submitMerchant' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+      [IDL.Variant({ 'ok' : Merchant, 'err' : IDL.Text })],
+      [],
+    ),
   'transform' : IDL.Func(
       [TransformationInput],
       [TransformationOutput],
@@ -316,7 +356,6 @@ export const idlFactory = ({ IDL }) => {
     'productDescription' : IDL.Text,
   });
   const PostId = IDL.Nat;
-  const ProductId = IDL.Nat;
   const Reclamation = IDL.Record({
     'id' : IDL.Nat,
     'city' : IDL.Text,
@@ -355,15 +394,6 @@ export const idlFactory = ({ IDL }) => {
     'fairDealVotes' : IDL.Vec(IDL.Principal),
     'timestamp' : Time,
   });
-  const Product = IDL.Record({
-    'id' : ProductId,
-    'imageBlob' : IDL.Opt(ExternalBlob),
-    'name' : IDL.Text,
-    'description' : IDL.Text,
-    'seller' : IDL.Principal,
-    'category' : IDL.Text,
-    'price' : IDL.Nat,
-  });
   const Tip = IDL.Record({
     'id' : IDL.Nat,
     'content' : IDL.Text,
@@ -391,6 +421,34 @@ export const idlFactory = ({ IDL }) => {
     'author' : IDL.Principal,
     'timestamp' : IDL.Int,
     'postId' : IDL.Nat,
+  });
+  const PlaqueLevelType = IDL.Variant({
+    'revoked' : IDL.Null,
+    'pending' : IDL.Null,
+    'gold' : IDL.Null,
+    'argent' : IDL.Null,
+  });
+  const Merchant = IDL.Record({
+    'id' : IDL.Nat,
+    'photoBlob' : IDL.Opt(ExternalBlob),
+    'plaqueLevel' : PlaqueLevelType,
+    'city' : IDL.Text,
+    'code' : IDL.Text,
+    'name' : IDL.Text,
+    'mapsLink' : IDL.Text,
+    'submittedBy' : IDL.Principal,
+    'positiveEvaluations' : IDL.Nat,
+    'timestamp' : IDL.Int,
+    'category' : IDL.Text,
+    'reclamationCount' : IDL.Nat,
+    'quartier' : IDL.Text,
+  });
+  const MerchantEvaluation = IDL.Record({
+    'id' : IDL.Nat,
+    'evaluator' : IDL.Principal,
+    'merchantId' : IDL.Nat,
+    'comment' : IDL.Opt(IDL.Text),
+    'timestamp' : IDL.Int,
   });
   const StripeSessionStatus = IDL.Variant({
     'completed' : IDL.Record({
@@ -449,6 +507,16 @@ export const idlFactory = ({ IDL }) => {
     '_initializeAccessControl' : IDL.Func([], [], []),
     'addComment' : IDL.Func([IDL.Nat, IDL.Text], [IDL.Nat], []),
     'addPremiumProduct' : IDL.Func([PremiumProduct], [], []),
+    'adminUploadMerchantPhoto' : IDL.Func(
+        [IDL.Nat, ExternalBlob],
+        [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
+        [],
+      ),
+    'adminValidateReclamation' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
+        [],
+      ),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
     'createCheckoutSession' : IDL.Func(
         [IDL.Vec(ShoppingItem), IDL.Text, IDL.Text],
@@ -467,11 +535,6 @@ export const idlFactory = ({ IDL }) => {
         [PostId],
         [],
       ),
-    'createProduct' : IDL.Func(
-        [IDL.Text, IDL.Text, IDL.Nat, IDL.Text, IDL.Opt(ExternalBlob)],
-        [ProductId],
-        [],
-      ),
     'createReclamation' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
         [Reclamation],
@@ -481,6 +544,11 @@ export const idlFactory = ({ IDL }) => {
     'deletePost' : IDL.Func(
         [PostId],
         [IDL.Variant({ 'ok' : IDL.Null, 'err' : IDL.Text })],
+        [],
+      ),
+    'evaluateMerchant' : IDL.Func(
+        [IDL.Nat, IDL.Opt(IDL.Text)],
+        [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
         [],
       ),
     'filterTraditionalProducts' : IDL.Func(
@@ -499,7 +567,6 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(PremiumProduct)],
         ['query'],
       ),
-    'getAllProducts' : IDL.Func([], [IDL.Vec(Product)], ['query']),
     'getAllReclamations' : IDL.Func([], [IDL.Vec(Reclamation)], ['query']),
     'getAllTips' : IDL.Func([], [IDL.Vec(Tip)], ['query']),
     'getAllTraditionalProducts' : IDL.Func(
@@ -511,6 +578,13 @@ export const idlFactory = ({ IDL }) => {
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getComments' : IDL.Func([IDL.Nat], [IDL.Vec(Comment)], ['query']),
     'getCountry' : IDL.Func([IDL.Principal], [IDL.Text], ['query']),
+    'getMerchant' : IDL.Func([IDL.Nat], [IDL.Opt(Merchant)], ['query']),
+    'getMerchantEvaluations' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Vec(MerchantEvaluation)],
+        ['query'],
+      ),
+    'getMerchants' : IDL.Func([], [IDL.Vec(Merchant)], ['query']),
     'getPost' : IDL.Func([PostId], [IDL.Opt(Post)], ['query']),
     'getPremiumProduct' : IDL.Func(
         [IDL.Nat],
@@ -543,7 +617,17 @@ export const idlFactory = ({ IDL }) => {
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'isStripeConfigured' : IDL.Func([], [IDL.Bool], ['query']),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'searchMerchantByCode' : IDL.Func(
+        [IDL.Text],
+        [IDL.Opt(Merchant)],
+        ['query'],
+      ),
     'setStripeConfiguration' : IDL.Func([StripeConfiguration], [], []),
+    'submitMerchant' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [IDL.Variant({ 'ok' : Merchant, 'err' : IDL.Text })],
+        [],
+      ),
     'transform' : IDL.Func(
         [TransformationInput],
         [TransformationOutput],

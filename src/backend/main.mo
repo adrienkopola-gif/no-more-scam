@@ -15,6 +15,9 @@ import Runtime "mo:core/Runtime";
 import Nat "mo:core/Nat";
 import List "mo:core/List";
 import VarArray "mo:core/VarArray";
+import Debug "mo:core/Debug";
+import Nat32 "mo:core/Nat32";
+import Char "mo:core/Char";
 
 
 
@@ -22,7 +25,7 @@ import VarArray "mo:core/VarArray";
 
 actor {
   type PostId = Nat;
-  type ProductId = Nat;
+
   type TransportRouteId = Nat;
 
   public type UserStatus = {
@@ -108,16 +111,6 @@ actor {
     fairDealVotes : [Principal];
   };
 
-  public type Product = {
-    id : ProductId;
-    imageBlob : ?Storage.ExternalBlob;
-    name : Text;
-    description : Text;
-    price : Nat;
-    category : Text;
-    seller : Principal;
-  };
-
   public type TransportRoute = {
     id : TransportRouteId;
     origin : Text;
@@ -170,9 +163,23 @@ actor {
   include MixinAuthorization(accessControlState);
   include MixinObjectStorage();
 
+  // Tombstone stable variables retained for upgrade compatibility (Produits section removed)
+  type _LegacyProductId = Nat;
+  type _LegacyProduct = {
+    id : _LegacyProductId;
+    imageBlob : ?Storage.ExternalBlob;
+    name : Text;
+    description : Text;
+    category : Text;
+    price : Nat;
+    seller : Principal;
+  };
+  var nextProductId : _LegacyProductId = 1;
+  let products = Map.empty<_LegacyProductId, _LegacyProduct>();
+
   var nextPostId : Nat = 1;
   var nextTipId : Nat = 1;
-  var nextProductId : Nat = 1;
+
   var nextPremiumContentId : Nat = 1;
   var nextTransportRouteId : Nat = 1;
   var nextTransactionId : Nat = 1;
@@ -180,7 +187,7 @@ actor {
 
   let users = Map.empty<Principal, UserProfile>();
   let posts = Map.empty<PostId, Post>();
-  let products = Map.empty<ProductId, Product>();
+
   let premiumProducts = Map.empty<Nat, PremiumProduct>();
   let transportRoutes = Map.empty<TransportRouteId, TransportRoute>();
   let tips = Map.empty<Nat, Tip>();
@@ -204,6 +211,200 @@ actor {
 
   let reclamations = Map.empty<Nat, Reclamation>();
   var nextReclamationId : Nat = 1;
+
+  // ── Merchants domain ───────────────────────────────────────────────────────
+
+  public type PlaqueLevelType = {
+    #pending;
+    #argent;
+    #gold;
+    #revoked;
+  };
+
+  public type Merchant = {
+    id : Nat;
+    name : Text;
+    category : Text;
+    city : Text;
+    quartier : Text;
+    code : Text;
+    photoBlob : ?Storage.ExternalBlob;
+    mapsLink : Text;
+    positiveEvaluations : Nat;
+    reclamationCount : Nat;
+    plaqueLevel : PlaqueLevelType;
+    submittedBy : Principal;
+    timestamp : Int;
+  };
+
+  public type MerchantEvaluation = {
+    id : Nat;
+    merchantId : Nat;
+    evaluator : Principal;
+    comment : ?Text;
+    timestamp : Int;
+  };
+
+  let merchants = Map.empty<Nat, Merchant>();
+  let merchantEvaluations = Map.empty<Nat, MerchantEvaluation>();
+  let merchantEvaluatorIndex = Map.empty<Nat, List.List<Principal>>();
+  var nextMerchantId : Nat = 1;
+  var nextMerchantEvaluationId : Nat = 1;
+
+  // ── Merchant public query functions ─────────────────────────────────────
+
+  public query func getMerchants() : async [Merchant] {
+    merchants.values().toArray();
+  };
+
+  public query func getMerchant(id : Nat) : async ?Merchant {
+    merchants.get(id);
+  };
+
+  public query func searchMerchantByCode(code : Text) : async ?Merchant {
+    merchants.values().toArray().find(func(m) { m.code == code });
+  };
+
+  public query func getMerchantEvaluations(merchantId : Nat) : async [MerchantEvaluation] {
+    merchantEvaluations.values().toArray().filter(func(e) { e.merchantId == merchantId });
+  };
+
+  // ── Merchant update functions ────────────────────────────────────────────
+
+  public shared ({ caller }) func submitMerchant(
+    name : Text,
+    category : Text,
+    city : Text,
+    quartier : Text,
+    mapsLink : Text,
+  ) : async { #ok : Merchant; #err : Text } {
+    if (caller.isAnonymous()) {
+      return #err("Unauthorized: You must be logged in to submit a merchant");
+    };
+    // Prevent duplicate submission: same submitter + same city + same name
+    let duplicate = merchants.values().toArray().find(
+      func(m) {
+        m.submittedBy == caller and m.city == city and m.name == name
+      }
+    );
+    if (duplicate != null) {
+      return #err("You have already submitted a merchant with this name in this city");
+    };
+    // Generate city code: first 3 letters of city, uppercased
+    let cityCode = Text.fromArray(city.toArray().filter(func(c) { c != ' ' }).sliceToArray(0, 3)).map(func(c) : Char {
+      let n = c.toNat32().toNat();
+      if (n >= 97 and n <= 122) { Char.fromNat32(Nat32.fromNat(n - 32)) } else { c }
+    });
+    let paddedId = if (nextMerchantId < 10) { "000" # nextMerchantId.toText() }
+      else if (nextMerchantId < 100) { "00" # nextMerchantId.toText() }
+      else if (nextMerchantId < 1000) { "0" # nextMerchantId.toText() }
+      else { nextMerchantId.toText() };
+    let code = "NMS-" # cityCode # "-" # paddedId;
+    let merchant : Merchant = {
+      id = nextMerchantId;
+      name;
+      category;
+      city;
+      quartier;
+      code;
+      photoBlob = null;
+      mapsLink;
+      positiveEvaluations = 0;
+      reclamationCount = 0;
+      plaqueLevel = #pending;
+      submittedBy = caller;
+      timestamp = Time.now();
+    };
+    merchants.add(nextMerchantId, merchant);
+    nextMerchantId += 1;
+    #ok(merchant);
+  };
+
+  public shared ({ caller }) func evaluateMerchant(
+    merchantId : Nat,
+    comment : ?Text,
+  ) : async { #ok : Text; #err : Text } {
+    if (caller.isAnonymous()) {
+      return #err("Unauthorized: You must be logged in to evaluate a merchant");
+    };
+    switch (merchants.get(merchantId)) {
+      case (null) { return #err("Merchant not found") };
+      case (?merchant) {
+        // Check if caller already evaluated this merchant
+        let existingEvaluators = switch (merchantEvaluatorIndex.get(merchantId)) {
+          case (null) { List.empty<Principal>() };
+          case (?lst) { lst };
+        };
+        if (existingEvaluators.find(func(p) { p == caller }) != null) {
+          return #err("You have already evaluated this merchant");
+        };
+        // Record evaluation
+        let evaluation : MerchantEvaluation = {
+          id = nextMerchantEvaluationId;
+          merchantId;
+          evaluator = caller;
+          comment;
+          timestamp = Time.now();
+        };
+        merchantEvaluations.add(nextMerchantEvaluationId, evaluation);
+        nextMerchantEvaluationId += 1;
+        // Record evaluator in index
+        existingEvaluators.add(caller);
+        merchantEvaluatorIndex.add(merchantId, existingEvaluators);
+        // Update positive evaluations and plaque level
+        let newPositive = merchant.positiveEvaluations + 1;
+        let newLevel : PlaqueLevelType = if (newPositive >= 50 and merchant.reclamationCount == 0) {
+          #gold
+        } else if (newPositive >= 25) {
+          #argent
+        } else {
+          merchant.plaqueLevel
+        };
+        let updated = { merchant with positiveEvaluations = newPositive; plaqueLevel = newLevel };
+        merchants.add(merchantId, updated);
+        #ok("Evaluation submitted successfully");
+      };
+    };
+  };
+
+  public shared ({ caller }) func adminUploadMerchantPhoto(
+    merchantId : Nat,
+    blob : Storage.ExternalBlob,
+  ) : async { #ok : Text; #err : Text } {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      return #err("Unauthorized: Only admins can upload merchant photos");
+    };
+    switch (merchants.get(merchantId)) {
+      case (null) { #err("Merchant not found") };
+      case (?merchant) {
+        let updated = { merchant with photoBlob = ?blob };
+        merchants.add(merchantId, updated);
+        #ok("Photo uploaded successfully");
+      };
+    };
+  };
+
+  public shared ({ caller }) func adminValidateReclamation(
+    merchantId : Nat,
+  ) : async { #ok : Text; #err : Text } {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      return #err("Unauthorized: Only admins can validate reclamations");
+    };
+    switch (merchants.get(merchantId)) {
+      case (null) { #err("Merchant not found") };
+      case (?merchant) {
+        let newReclamationCount = merchant.reclamationCount + 1;
+        let newLevel : PlaqueLevelType = if (newReclamationCount >= 5) {
+          #revoked
+        } else {
+          merchant.plaqueLevel
+        };
+        let updated = { merchant with reclamationCount = newReclamationCount; plaqueLevel = newLevel };
+        merchants.add(merchantId, updated);
+        #ok("Reclamation validated. Merchant reclamation count: " # newReclamationCount.toText());
+      };
+    };
+  };
 
   var stripeConfiguration : ?Stripe.StripeConfiguration = null;
 
@@ -736,31 +937,6 @@ actor {
   public query ({ caller }) func getAllTips() : async [Tip] {
     tips.values().toArray();
   };
-
-  // User-created Products
-  public shared ({ caller }) func createProduct(name : Text, description : Text, price : Nat, category : Text, imageBlob : ?Storage.ExternalBlob) : async ProductId {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can create products");
-    };
-
-    let product : Product = {
-      id = nextProductId;
-      name;
-      description;
-      price;
-      category;
-      imageBlob;
-      seller = caller;
-    };
-    products.add(nextProductId, product);
-    nextProductId += 1;
-    product.id;
-  };
-
-  public query ({ caller }) func getAllProducts() : async [Product] {
-    products.values().toArray();
-  };
-
   public query ({ caller }) func getPost(postId : PostId) : async ?Post {
     posts.get(postId);
   };
@@ -776,7 +952,7 @@ actor {
         if (post.author != caller) {
           return #err("Unauthorized: You can only delete your own posts");
         };
-        ignore posts.remove(postId);
+        posts.remove(postId);
         #ok;
       };
     };

@@ -30,10 +30,35 @@ type Map__158565046<K, V> = Map__297112838<K, V>;
 type Map__297112838<K, V> =
   {var root : Node__46230540<K, V>; var size : Nat__490723111};
 type Map__605269027<K, V> = Map__158565046<K, V>;
+type MerchantEvaluation__593077835 =
+  {
+    comment : ?Text;
+    evaluator : Principal;
+    id : Nat;
+    merchantId : Nat;
+    timestamp : Int
+  };
+type Merchant__422827746 =
+  {
+    category : Text;
+    city : Text;
+    code : Text;
+    id : Nat;
+    mapsLink : Text;
+    name : Text;
+    photoBlob : ?ExternalBlob__671167343;
+    plaqueLevel : PlaqueLevelType__989626965;
+    positiveEvaluations : Nat;
+    quartier : Text;
+    reclamationCount : Nat;
+    submittedBy : Principal;
+    timestamp : Int
+  };
 type Nat__490723111 = Nat__920180692;
 type Nat__920180692 = Nat;
 type Node__46230540<K, V> =
   {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type PlaqueLevelType__989626965 = {#argent; #gold; #pending; #revoked};
 type PointsTransaction__457876861 =
   {
     amount : Nat;
@@ -65,22 +90,11 @@ type PremiumProduct__134096221 =
     priceTag : Text;
     title : Text
   };
-type ProductId__779996770 = Nat;
 type ProductPriceRange__478819254 =
   {
     casablanca : RegionPrice__176645429;
     fes : RegionPrice__176645429;
     marrakech : RegionPrice__176645429
-  };
-type Product__853085059 =
-  {
-    category : Text;
-    description : Text;
-    id : ProductId__779996770;
-    imageBlob : ?ExternalBlob__671167343;
-    name : Text;
-    price : Nat;
-    seller : Principal
   };
 type QuizQuestion__253667764 =
   {
@@ -170,6 +184,17 @@ type UserProfile__491224006 =
   };
 type UserRole__1073662873 = {#admin; #guest; #user};
 type UserStatus__600168017 = {#free; #premium};
+type _LegacyProductId__177997754 = Nat;
+type _LegacyProduct__196913757 =
+  {
+    category : Text;
+    description : Text;
+    id : _LegacyProductId__177997754;
+    imageBlob : ?ExternalBlob__671167343;
+    name : Text;
+    price : Nat;
+    seller : Principal
+  };
 actor {
   stable accessControlState :
     {
@@ -187,7 +212,24 @@ actor {
       var size : Nat__490723111
     };
   stable var initializationState : ?InitializationState__17409520;
+  stable merchantEvaluations :
+    {
+      var root : Node__46230540<Nat, MerchantEvaluation__593077835>;
+      var size : Nat__490723111
+    };
+  stable merchantEvaluatorIndex :
+    {
+      var root : Node__46230540<Nat, List__415060402<Principal>>;
+      var size : Nat__490723111
+    };
+  stable merchants :
+    {
+      var root : Node__46230540<Nat, Merchant__422827746>;
+      var size : Nat__490723111
+    };
   stable var nextCommentId : Nat;
+  stable var nextMerchantEvaluationId : Nat;
+  stable var nextMerchantId : Nat;
   stable var nextPostId : Nat;
   stable var nextPremiumContentId : Nat;
   stable var nextProductId : Nat;
@@ -207,7 +249,8 @@ actor {
     };
   stable products :
     {
-      var root : Node__46230540<ProductId__779996770, Product__853085059>;
+      var root :
+        Node__46230540<_LegacyProductId__177997754, _LegacyProduct__196913757>;
       var size : Nat__490723111
     };
   stable quizQuestions :

@@ -838,7 +838,7 @@ export const moroccoRegions: MoroccoRegion[] = [
       "Région ensoleillée du Sud marocain avec Agadir comme capitale balnéaire, les Anti-Atlas berbères, les arganiers et des réserves naturelles exceptionnelles.",
     color: "#bbf7d0",
     hoverColor: "#22c55e",
-    cities: ["Agadir", "Tiznit", "Taroudant", "Inezgane", "Asni"],
+    cities: ["Agadir", "Tiznit", "Taroudant", "Inezgane", "Asni", "Taghazout"],
     sites: [
       {
         id: "agadir-plage",
@@ -929,6 +929,22 @@ export const moroccoRegions: MoroccoRegion[] = [
           "Accessible en taxi ou à pied depuis le centre — entrée libre.",
         ],
         tags: ["patrimoine", "paysage"],
+      },
+      {
+        id: "taghazout",
+        name: "Taghazout",
+        city: "Taghazout",
+        icon: "🏄",
+        mapUrl: "https://www.google.com/maps/search/Taghazout+Maroc",
+        description:
+          "Village côtier emblématique des surfeurs, niché sur les falaises ocre de la côte atlantique à 19 km au nord d'Agadir. Taghazout est reconnue comme l'une des meilleures destinations de surf en Afrique, avec ses vagues légendaires (Anchor Point, Panoramas, La Source) et sa communauté internationale de surfeurs. Le village conserve son charme de village de pêcheurs berbères malgré son rayonnement mondial.",
+        tips: [
+          "Locations de planches : négociez le prix avant — comptez 100-150 DH/jour, méfiez-vous des tarifs gonflés pour les touristes.",
+          "Cours de surf : vérifiez que l'école est agréée et que les instructeurs sont certifiés — evitez les cours proposés sur la plage sans structure officielle.",
+          "Hébergements : les riad et surf camps affichent des prix très variables — comparez sur plusieurs plateformes avant de réserver.",
+          "Plats locaux : les petits cafés du village proposent des tajines et poisson frais à prix raisonnables — évitez les restaurants au bord de plage qui majorent pour les étrangers.",
+        ],
+        tags: ["surf", "plage", "nature", "paysage"],
       },
     ],
   },

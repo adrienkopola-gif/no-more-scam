@@ -119,17 +119,6 @@ type ProductPriceRange =
    fes: RegionPrice;
    marrakech: RegionPrice;
  };
-type ProductId = nat;
-type Product = 
- record {
-   category: text;
-   description: text;
-   id: ProductId;
-   imageBlob: opt ExternalBlob;
-   name: text;
-   price: nat;
-   seller: principal;
- };
 type PremiumProduct = 
  record {
    description: text;
@@ -153,6 +142,37 @@ type Post =
    titre: text;
    ville: text;
  };
+type PlaqueLevelType = 
+ variant {
+   argent;
+   gold;
+   pending;
+   revoked;
+ };
+type MerchantEvaluation = 
+ record {
+   comment: opt text;
+   evaluator: principal;
+   id: nat;
+   merchantId: nat;
+   timestamp: int;
+ };
+type Merchant = 
+ record {
+   category: text;
+   city: text;
+   code: text;
+   id: nat;
+   mapsLink: text;
+   name: text;
+   photoBlob: opt ExternalBlob;
+   plaqueLevel: PlaqueLevelType;
+   positiveEvaluations: nat;
+   quartier: text;
+   reclamationCount: nat;
+   submittedBy: principal;
+   timestamp: int;
+ };
 type ExternalBlob = blob;
 type Comment = 
  record {
@@ -175,13 +195,21 @@ service : {
   _initializeAccessControl: () -> ();
   addComment: (postId: nat, content: text) -> (nat);
   addPremiumProduct: (product: PremiumProduct) -> ();
+  adminUploadMerchantPhoto: (merchantId: nat, "blob": ExternalBlob) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
+  adminValidateReclamation: (merchantId: nat) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
   assignCallerUserRole: (user: principal, role: UserRole) -> ();
   createCheckoutSession: (items: vec ShoppingItem, successUrl: text,
    cancelUrl: text) -> (text);
   createPost: (content: text, ville: text, titre: text, experience: text,
    categorie: text, imageBlob: opt ExternalBlob) -> (PostId);
-  createProduct: (name: text, description: text, price: nat, category: 
-   text, imageBlob: opt ExternalBlob) -> (ProductId);
   createReclamation: (description: text, whatTheySell: text, city: text,
    location: text) -> (Reclamation);
   createTip: (content: text) -> (nat);
@@ -189,11 +217,15 @@ service : {
                                      err: text;
                                      ok;
                                    });
+  evaluateMerchant: (merchantId: nat, comment: opt text) ->
+   (variant {
+      err: text;
+      ok: text;
+    });
   filterTraditionalProducts: (category: opt text, minPrice: opt nat,
    maxPrice: opt nat, region: opt text) -> (vec TraditionalProduct) query;
   getAllPosts: () -> (vec Post) query;
   getAllPremiumProducts: () -> (vec PremiumProduct) query;
-  getAllProducts: () -> (vec Product) query;
   getAllReclamations: () -> (vec Reclamation) query;
   getAllTips: () -> (vec Tip) query;
   getAllTraditionalProducts: () -> (vec TraditionalProduct) query;
@@ -201,6 +233,9 @@ service : {
   getCallerUserRole: () -> (UserRole) query;
   getComments: (postId: nat) -> (vec Comment) query;
   getCountry: (user: principal) -> (text) query;
+  getMerchant: (id: nat) -> (opt Merchant) query;
+  getMerchantEvaluations: (merchantId: nat) -> (vec MerchantEvaluation) query;
+  getMerchants: () -> (vec Merchant) query;
   getPost: (postId: PostId) -> (opt Post) query;
   getPremiumProduct: (id: nat) -> (opt PremiumProduct) query;
   getStripeSessionStatus: (sessionId: text) -> (StripeSessionStatus);
@@ -215,7 +250,13 @@ service : {
   isCallerAdmin: () -> (bool) query;
   isStripeConfigured: () -> (bool) query;
   saveCallerUserProfile: (profile: UserProfile) -> ();
+  searchMerchantByCode: (code: text) -> (opt Merchant) query;
   setStripeConfiguration: (config: StripeConfiguration) -> ();
+  submitMerchant: (name: text, category: text, city: text, quartier: 
+   text, mapsLink: text) -> (variant {
+                               err: text;
+                               ok: Merchant;
+                             });
   transform: (input: TransformationInput) -> (TransformationOutput) query;
   updateCountry: (newCountry: text) -> ();
   updateEmail: (email: text) -> ();

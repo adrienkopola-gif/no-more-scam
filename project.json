@@ -1,0 +1,21 @@
+{
+  "overview": "No More Scam est une app pour aider les touristes à éviter les arnaques au Maroc — guides de prix, conseils, témoignages et une section de commerçants certifiés par la communauté.",
+  "features": [
+    "Section Commerçants Certifiés avec plaques Argent et Or",
+    "Soumission de boutiques par les touristes avec code unique NMS",
+    "Évaluations communautaires anti-manipulation",
+    "Interface admin pour photos et validation des réclamations",
+    "Intégration avec la section Réclamations existante",
+    "Filtres par région, ville et catégorie"
+  ],
+  "category": "travel-safety",
+  "tags": [
+    "morocco",
+    "travel",
+    "anti-scam",
+    "community",
+    "tourism",
+    "certified-merchants"
+  ],
+  "last_updated": "2026-05-26T15:20:31.534Z"
+}

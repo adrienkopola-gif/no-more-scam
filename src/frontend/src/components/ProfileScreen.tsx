@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
-  Award,
   Check,
   Edit2,
   Globe,
@@ -498,13 +497,6 @@ export default function ProfileScreen() {
                 {profile?.points?.toString() ?? "0"}
               </div>
               <div className="text-xs text-muted-foreground">Points</div>
-            </div>
-            <div className="bg-muted rounded-lg p-3 text-center">
-              <Award className="h-4 w-4 mx-auto mb-1 text-primary" />
-              <div className="text-lg font-bold">
-                {profile?.quizScore?.toString() ?? "0"}
-              </div>
-              <div className="text-xs text-muted-foreground">Score Quiz</div>
             </div>
             <div className="bg-muted rounded-lg p-3 text-center">
               <div className="text-lg font-bold">

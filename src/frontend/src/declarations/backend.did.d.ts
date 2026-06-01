@@ -18,6 +18,32 @@ export interface Comment {
   'postId' : bigint,
 }
 export type ExternalBlob = Uint8Array;
+export interface Merchant {
+  'id' : bigint,
+  'photoBlob' : [] | [ExternalBlob],
+  'plaqueLevel' : PlaqueLevelType,
+  'city' : string,
+  'code' : string,
+  'name' : string,
+  'mapsLink' : string,
+  'submittedBy' : Principal,
+  'positiveEvaluations' : bigint,
+  'timestamp' : bigint,
+  'category' : string,
+  'reclamationCount' : bigint,
+  'quartier' : string,
+}
+export interface MerchantEvaluation {
+  'id' : bigint,
+  'evaluator' : Principal,
+  'merchantId' : bigint,
+  'comment' : [] | [string],
+  'timestamp' : bigint,
+}
+export type PlaqueLevelType = { 'revoked' : null } |
+  { 'pending' : null } |
+  { 'gold' : null } |
+  { 'argent' : null };
 export interface Post {
   'id' : PostId,
   'scamVotes' : Array<Principal>,
@@ -39,16 +65,6 @@ export interface PremiumProduct {
   'description' : string,
   'priceTag' : string,
 }
-export interface Product {
-  'id' : ProductId,
-  'imageBlob' : [] | [ExternalBlob],
-  'name' : string,
-  'description' : string,
-  'seller' : Principal,
-  'category' : string,
-  'price' : bigint,
-}
-export type ProductId = bigint;
 export interface ProductPriceRange {
   'fes' : RegionPrice,
   'casablanca' : RegionPrice,
@@ -162,6 +178,16 @@ export interface _SERVICE {
   '_initializeAccessControl' : ActorMethod<[], undefined>,
   'addComment' : ActorMethod<[bigint, string], bigint>,
   'addPremiumProduct' : ActorMethod<[PremiumProduct], undefined>,
+  'adminUploadMerchantPhoto' : ActorMethod<
+    [bigint, ExternalBlob],
+    { 'ok' : string } |
+      { 'err' : string }
+  >,
+  'adminValidateReclamation' : ActorMethod<
+    [bigint],
+    { 'ok' : string } |
+      { 'err' : string }
+  >,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'createCheckoutSession' : ActorMethod<
     [Array<ShoppingItem>, string, string],
@@ -171,23 +197,23 @@ export interface _SERVICE {
     [string, string, string, string, string, [] | [ExternalBlob]],
     PostId
   >,
-  'createProduct' : ActorMethod<
-    [string, string, bigint, string, [] | [ExternalBlob]],
-    ProductId
-  >,
   'createReclamation' : ActorMethod<
     [string, string, string, string],
     Reclamation
   >,
   'createTip' : ActorMethod<[string], bigint>,
   'deletePost' : ActorMethod<[PostId], { 'ok' : null } | { 'err' : string }>,
+  'evaluateMerchant' : ActorMethod<
+    [bigint, [] | [string]],
+    { 'ok' : string } |
+      { 'err' : string }
+  >,
   'filterTraditionalProducts' : ActorMethod<
     [[] | [string], [] | [bigint], [] | [bigint], [] | [string]],
     Array<TraditionalProduct>
   >,
   'getAllPosts' : ActorMethod<[], Array<Post>>,
   'getAllPremiumProducts' : ActorMethod<[], Array<PremiumProduct>>,
-  'getAllProducts' : ActorMethod<[], Array<Product>>,
   'getAllReclamations' : ActorMethod<[], Array<Reclamation>>,
   'getAllTips' : ActorMethod<[], Array<Tip>>,
   'getAllTraditionalProducts' : ActorMethod<[], Array<TraditionalProduct>>,
@@ -195,6 +221,9 @@ export interface _SERVICE {
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getComments' : ActorMethod<[bigint], Array<Comment>>,
   'getCountry' : ActorMethod<[Principal], string>,
+  'getMerchant' : ActorMethod<[bigint], [] | [Merchant]>,
+  'getMerchantEvaluations' : ActorMethod<[bigint], Array<MerchantEvaluation>>,
+  'getMerchants' : ActorMethod<[], Array<Merchant>>,
   'getPost' : ActorMethod<[PostId], [] | [Post]>,
   'getPremiumProduct' : ActorMethod<[bigint], [] | [PremiumProduct]>,
   'getStripeSessionStatus' : ActorMethod<[string], StripeSessionStatus>,
@@ -216,7 +245,13 @@ export interface _SERVICE {
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'isStripeConfigured' : ActorMethod<[], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'searchMerchantByCode' : ActorMethod<[string], [] | [Merchant]>,
   'setStripeConfiguration' : ActorMethod<[StripeConfiguration], undefined>,
+  'submitMerchant' : ActorMethod<
+    [string, string, string, string, string],
+    { 'ok' : Merchant } |
+      { 'err' : string }
+  >,
   'transform' : ActorMethod<[TransformationInput], TransformationOutput>,
   'updateCountry' : ActorMethod<[string], undefined>,
   'updateEmail' : ActorMethod<[string], undefined>,

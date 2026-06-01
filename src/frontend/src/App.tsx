@@ -10,13 +10,12 @@ import {
 } from "@tanstack/react-router";
 import {
   AlertTriangle,
+  Award,
   Flag,
-  HelpCircle,
   Languages,
   MapPin,
   Newspaper,
   Scale,
-  ShoppingBag,
   UserCircle,
 } from "lucide-react";
 import React, { useState } from "react";
@@ -29,10 +28,8 @@ import PaymentFailure from "./components/PaymentFailure";
 import PaymentSuccess from "./components/PaymentSuccess";
 import PremiumProductsScreen from "./components/PremiumProductsScreen";
 import PremiumShopScreen from "./components/PremiumShopScreen";
-import ProductsScreen from "./components/ProductsScreen";
 import ProfileDrawer from "./components/ProfileDrawer";
 import ProfileScreen from "./components/ProfileScreen";
-import QuizScreen from "./components/QuizScreen";
 import ReclamationsScreen from "./components/ReclamationsScreen";
 import ScamStoriesScreen from "./components/ScamStoriesScreen";
 import TipsScreen from "./components/TipsScreen";
@@ -41,6 +38,8 @@ import TransportScreen from "./components/TransportScreen";
 import { Button } from "./components/ui/button";
 import { Toaster } from "./components/ui/sonner";
 import { useInternetIdentity } from "./hooks/useInternetIdentity";
+import AdminScreen from "./screens/AdminScreen";
+import CertifiedMerchantsScreen from "./screens/CertifiedMerchantsScreen";
 
 function Layout() {
   const { identity, login, clear, loginStatus } = useInternetIdentity();
@@ -77,8 +76,6 @@ function Layout() {
   // 7 nav items in the top bar (Conseils merged into Arnaques & Conseils)
   const topNavItems = [
     { label: "Feed", path: "/feed", icon: Newspaper },
-    { label: "Produits", path: "/products", icon: ShoppingBag },
-    { label: "Quiz", path: "/quiz", icon: HelpCircle },
     { label: "Sites", path: "/tourist-sites", icon: MapPin },
     { label: "Apprendre l'arabe", path: "/arabic-lessons", icon: Languages },
     {
@@ -91,6 +88,11 @@ function Layout() {
       label: "Assistance Juridique",
       path: "/assistance-juridique",
       icon: Scale,
+    },
+    {
+      label: "Commerçants Certifiés",
+      path: "/certified-merchants",
+      icon: Award,
     },
   ];
 
@@ -258,18 +260,6 @@ const feedRoute = createRoute({
   component: FeedScreen,
 });
 
-const productsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/products",
-  component: ProductsScreen,
-});
-
-const quizRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/quiz",
-  component: QuizScreen,
-});
-
 const tipsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/tips",
@@ -342,11 +332,20 @@ const legalAssistanceRoute = createRoute({
   component: LegalAssistanceScreen,
 });
 
+const certifiedMerchantsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/certified-merchants",
+  component: CertifiedMerchantsScreen,
+});
+const adminRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/admin",
+  component: AdminScreen,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   feedRoute,
-  productsRoute,
-  quizRoute,
   tipsRoute,
   arabicLessonsRoute,
   touristSitesRoute,
@@ -359,6 +358,8 @@ const routeTree = rootRoute.addChildren([
   paymentFailureRoute,
   reclamationsRoute,
   legalAssistanceRoute,
+  certifiedMerchantsRoute,
+  adminRoute,
 ]);
 
 const router = createRouter({ routeTree });
